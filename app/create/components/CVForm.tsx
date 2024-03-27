@@ -1,4 +1,4 @@
-import { FileText } from "lucide-react"
+import { FileText, Plus } from "lucide-react"
 
 export const CVFormComponent = () => {
     return (
@@ -30,7 +30,31 @@ export const CVFormComponent = () => {
                             <label htmlFor="" className="font-semibold text-mystic-700">Habla acerca de ti</label>
                             <textarea placeholder="Experimentado diseñador gráfico con más de 4 años de experiencia..." className="p-2 bg-mystic-100 rounded-lg h-36 resize-none"/>
                         </div>
-                    </div>             
+                    </div>
+                    <div className="space-y-2">
+                        <h3 className="text-2xl font-semibold text-mystic-950">Educación</h3>
+                        <div className="flex flex-col gap-y-2">
+                            <label htmlFor="" className="font-semibold text-mystic-700">Lugar de Estudios</label>
+                            <input type="text" placeholder="Ciudad Del Este" className="p-2 bg-mystic-100 rounded-lg"/>
+                            <label htmlFor="" className="font-semibold text-mystic-700">Desde</label>
+                            <input type="date" className="p-2 bg-mystic-100 rounded-lg" />
+                            <label htmlFor="" className="font-semibold text-mystic-700">Hasta</label>
+                            <input type="date" className="p-2 bg-mystic-100 rounded-lg" />
+                        </div>
+                        <button className="bg-mystic-600 hover:bg-mystic-500 text-white py-2 px-3 rounded-lg flex gap-x-2"><Plus />Añadir otro</button>
+                    </div>
+                    <div className="space-y-2">
+                        <h3 className="text-2xl font-semibold text-mystic-950">Educación</h3>
+                        <div className="flex flex-col gap-y-2">
+                            <label htmlFor="" className="font-semibold text-mystic-700">Lugar de Estudios</label>
+                            <input type="text" placeholder="Ciudad Del Este" className="p-2 bg-mystic-100 rounded-lg"/>
+                            <label htmlFor="" className="font-semibold text-mystic-700">Desde</label>
+                            <input type="date" className="p-2 bg-mystic-100 rounded-lg" />
+                            <label htmlFor="" className="font-semibold text-mystic-700">Hasta</label>
+                            <input type="date" className="p-2 bg-mystic-100 rounded-lg" />
+                        </div>
+                        <button className="bg-mystic-600 hover:bg-mystic-500 text-white py-2 px-3 rounded-lg flex gap-x-2"><Plus />Añadir otro</button>
+                    </div>                
                 </form>
             </nav>
         </aside>
