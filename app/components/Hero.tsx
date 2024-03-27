@@ -1,5 +1,6 @@
 import Link from "next/link"
 import Container from "./ui/Container"
+import Image from "next/image"
 
 export const Hero = () => {
     return (
@@ -10,6 +11,9 @@ export const Hero = () => {
                 <Link href="/create" className="bg-mystic-800 px-6 py-4 rounded-lg">
                     <p className="font-semibold text-white">CREATE CV</p>
                 </Link>
+            </div>
+            <div className="flex justify-center pt-10 w-full h-auto">
+                <Image src="/cv-screen.webp" width={768} height={994} alt="cv-example"/>
             </div>
         </Container>
     )

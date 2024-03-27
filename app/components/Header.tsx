@@ -7,7 +7,7 @@ export const Header = () => {
             <header className="flex justify-between p-4 items-center border-b border-mystic-200">
                 <div>
                     <Link href="/"> 
-                        <p className="text-2xl font-bold text-mystic-950">JustASimpleCV</p>
+                        <p className="text-xl font-bold text-mystic-950">JustASimpleCV</p>
                     </Link>
                 </div>
                 <div>
