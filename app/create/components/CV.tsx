@@ -1,16 +1,45 @@
 import { MapPin } from "lucide-react"
 import Image from "next/image"
+import React from "react"
 
-export const CVComponent = () => {
+interface CVProps {
+    formDataToCV: {
+        name: string,
+        lastName: string,
+        location: string,
+        aboutYou: string,
+        educationPlace: string,
+        educationInitDate: string,
+        educationEndDate: string,
+        experiencePlace: string,
+        experienceInitDate: string,
+        experienceEndDate: string
+    }
+}
+
+export const CVComponent: React.FC<CVProps> = ({
+    formDataToCV: {
+        name,
+        lastName,
+        aboutYou,
+        educationEndDate,
+        educationInitDate,
+        educationPlace,
+        experienceEndDate,
+        experienceInitDate,
+        experiencePlace,
+        location
+    }
+}) => {
     return (
         <section className="p-10 border border-mystic-200 rounded-lg w-full bg-white shadow-md flex-col max-w-3xl">
             <div className="flex justify-between border-b border-mystic-200 pb-4 items-center">
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
-                    <h3 className="text-3xl font-semibold">Freddy Sanabria</h3>
+                        <h3 className="text-3xl font-semibold">{name} {lastName}</h3>
                     <p className="text-balance text-gray-700">Desarrollador web Frontend y Diseñador Gráfico, enfocado en crear aplicaciones webs que atraigan clientes y diseños cautivadores.</p>
                     <p className="text-sm font-semibold text-mystic-800 flex gap-x-1 items-center">
                         <MapPin size={20}/>
-                        Ciudad Del Este, Paraguay
+                        {location}
                     </p>
                 </div>
                 <div className="">
@@ -20,8 +49,7 @@ export const CVComponent = () => {
             <div className="py-4 border-b border-mystic-200">
                 <h4 className="text-xl font-semibold pb-4">Sobre mí</h4>
                 <p className="text-pretty text-mystic-700">
-                    Experimentado diseñador gráfico con más de 4 años de experiencia, especializado en el uso de Photoshop e Illustrator.
-                    Apasionado por crear diseños visualmente impactantes y funcionales. Además, poseo conocimientos actuales como desarrollador frontend y backend, con experiencia en frameworks como Svelte, Angular, Next.js, Astro y otros lenguajes. Capaz de trabajar de manera colaborativa en equipo y gestionar proyectos de principio a fin.
+                    {aboutYou}
                 </p>
             </div>
             <div className="py-4 border-b border-mystic-200 space-y-4">
@@ -29,12 +57,12 @@ export const CVComponent = () => {
                 <div className="flex justify-between">
                     <div>
                         <p className="font-semibold text-mystic-950">
-                            Universidad Privada Del Este
+                            {educationPlace}
                         </p>
                         <span className="text-sm text-mystic-700">Ingenería Eléctromecanica</span>
                     </div>
                     <div>
-                        <p className="font-semibold text-mystic-950">2019 - Actualmente</p>
+                        <p className="font-semibold text-mystic-950">{educationInitDate} - {educationEndDate}</p>
                     </div>
                 </div>
                 <div className="flex justify-between">
@@ -54,12 +82,12 @@ export const CVComponent = () => {
                 <div className="flex justify-between">
                     <div>
                         <p className="font-semibold text-mystic-950">
-                            Elimec S.R.L
+                            {experiencePlace}
                         </p>
                         <span className="text-sm text-mystic-700">Gerente Técnico</span>
                     </div>
                     <div>
-                        <p className="font-semibold text-mystic-950">2021 - Actualmente</p>
+                        <p className="font-semibold text-mystic-950">{experienceInitDate} - {experienceEndDate}</p>
                     </div>
                 </div>
                 <div className="flex justify-between">
