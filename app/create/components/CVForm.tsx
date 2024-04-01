@@ -42,7 +42,7 @@ export const CVFormComponent: React.FC<CvFormProps> = ({sendData}) => {
 
 
     return (
-        <aside className="min-w-40 max-w-lg flex-grow max-h-screen overflow-scroll">
+        <aside className="min-w-40 max-w-lg flex-grow max-h-screen overflow-y-scroll">
             <nav className="flex flex-col w-full p-4 gap-y-4">
                 <h2 className="text-3xl font-bold text-mystic-950 flex gap-x-2 items-center">
                     <FileText size={25} />
