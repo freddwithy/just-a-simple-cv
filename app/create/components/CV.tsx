@@ -32,7 +32,7 @@ export const CVComponent: React.FC<CVProps> = ({
     }
 }) => {
     return (
-        <section className="p-10 border border-mystic-200 rounded-lg w-full bg-white shadow-md flex-col max-w-3xl">
+        <section className="p-10 border border-mystic-200 rounded-lg w-full bg-white shadow-md flex-col max-w-screen-sm md:max-w-3xl">
             <div className="flex justify-between border-b border-mystic-200 pb-4 items-center">
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
                         <h3 className="text-3xl font-semibold">{name} {lastName}</h3>

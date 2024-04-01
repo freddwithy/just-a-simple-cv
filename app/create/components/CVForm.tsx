@@ -89,7 +89,7 @@ export const CVFormComponent: React.FC<CvFormProps> = ({sendData}) => {
                         </div>
                         <button className="bg-mystic-600 hover:bg-mystic-500 text-white py-2 px-3 rounded-lg flex gap-x-2"><Plus />Añadir otro</button>
                     </div>
-                    <button className="bg-mystic-600 text-white font-semibold px-1 py-2 rounded-md">Enviar</button>               
+                    <button className="bg-mystic-600 text-white font-semibold px-1 py-2 rounded-md">Imprimir</button>               
                 </form>
             </nav>
         </aside>
