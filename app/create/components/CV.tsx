@@ -5,6 +5,7 @@ import React from "react"
 interface CVProps {
     formDataToCV: {
         name: string,
+        resume: string,
         lastName: string,
         location: string,
         aboutYou: string,
@@ -21,6 +22,7 @@ export const CVComponent: React.FC<CVProps> = ({
     formDataToCV: {
         name,
         lastName,
+        resume,
         aboutYou,
         educationEndDate,
         educationInitDate,
@@ -36,7 +38,7 @@ export const CVComponent: React.FC<CVProps> = ({
             <div className="flex justify-between border-b border-mystic-200 pb-4 items-center">
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
                         <h3 className="text-3xl font-semibold">{name} {lastName}</h3>
-                    <p className="text-balance text-gray-700">Desarrollador web Frontend y Diseñador Gráfico, enfocado en crear aplicaciones webs que atraigan clientes y diseños cautivadores.</p>
+                    <p className="text-balance break-words text-gray-700">{resume}</p>
                     <p className="text-sm font-semibold text-mystic-800 flex gap-x-1 items-center">
                         <MapPin size={20}/>
                         {location}
@@ -48,7 +50,7 @@ export const CVComponent: React.FC<CVProps> = ({
             </div>
             <div className="py-4 border-b border-mystic-200">
                 <h4 className="text-xl font-semibold pb-4">Sobre mí</h4>
-                <p className="text-pretty text-mystic-700">
+                <p className="text-mystic-700 max-w-max text-pretty break-words">
                     {aboutYou}
                 </p>
             </div>
