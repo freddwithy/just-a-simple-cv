@@ -1,6 +1,6 @@
 'use client'
 import { FileText, Plus } from "lucide-react"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 interface CvFormProps {
     sendData: any
@@ -10,17 +10,21 @@ interface CvFormProps {
 
 export const CVFormComponent: React.FC<CvFormProps> = ({sendData}) => {
     const [data, setData] = useState({
-        name: '',
-        lastName: '',
-        location: '',
-        aboutYou: '',
-        educationPlace: '',
-        educationInitDate: "",
-        educationEndDate: '',
-        experiencePlace: '',
-        experienceInitDate: '',
-        experienceEndDate: ''
+        name: 'Freddy',
+        lastName: 'Sanabria',
+        location: 'Ciudad Del Este, Paraguay',
+        aboutYou: 'Experimentado diseñador gráfico con más de 4 años de experiencia, especializado en el uso de Photoshop e Illustrator. Apasionado por crear diseños visualmente impactantes y funcionales. Además, poseo conocimientos actuales como desarrollador frontend y backend, con experiencia en frameworks como Svelte, Angular, Next.js, Astro y otros lenguajes. Capaz de trabajar de manera colaborativa en equipo y gestionar proyectos de principio a fin.',
+        educationPlace: 'Universidad Privada Del Este',
+        educationInitDate: '2019',
+        educationEndDate: 'Actualmente',
+        experiencePlace: 'Elimec S.R.L',
+        experienceInitDate: '2021',
+        experienceEndDate: 'Actualmente'
     })
+
+    useEffect(() => {
+        sendData(data)
+    }, [data])
 
     const handleValues = (e: React.ChangeEvent<HTMLFormElement>) => {
         const {name, value} = e.target
@@ -28,7 +32,6 @@ export const CVFormComponent: React.FC<CvFormProps> = ({sendData}) => {
             ...data,
             [name]: value
         })
-        sendData(data)
     }
 
 
