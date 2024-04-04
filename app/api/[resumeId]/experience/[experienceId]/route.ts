@@ -3,23 +3,23 @@ import { NextResponse } from "next/server";
 
 export async function GET(
     req: Request,
-    { params }: { params: { educationId: string } }
+    { params }: { params: { experienceId: string } }
 ) {
     try {
 
-        if (!params.educationId) {
-            return new NextResponse("Resume is required", { status: 403 });
+        if (!params.experienceId) {
+            return new NextResponse("Experience is required", { status: 403 });
         }
 
-        const education = await prismadb.education.findUnique({
+        const experience = await prismadb.experience.findUnique({
             where: {
-                id: params.educationId
+                id: params.experienceId
             }
         })
 
-        return NextResponse.json(education)
+        return NextResponse.json(experience)
     } catch (err) {
-        console.log('[EDUCATION_GET]', err)
+        console.log('[EXPERIENCE_GET]', err)
         return new NextResponse('Internal error', {
             status: 500
         })
@@ -28,12 +28,12 @@ export async function GET(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { educationId: string, resumeId: string } }
+    { params }: { params: { experienceId: string, resumeId: string } }
   ) {
     try {
   
-      if (!params.educationId) {
-        return new NextResponse("Education id is required", { status: 400 });
+      if (!params.experienceId) {
+        return new NextResponse("Experience id is required", { status: 400 });
       }
   
       const resumeByUserId = await prismadb.resume.findFirst({
@@ -46,39 +46,39 @@ export async function DELETE(
         return new NextResponse("Unauthorized", { status: 405 });
       }
   
-      const education = await prismadb.education.delete({
+      const experience = await prismadb.experience.delete({
         where: {
-          id: params.educationId
+          id: params.experienceId
         },
       });
     
-      return NextResponse.json(education);
+      return NextResponse.json(experience);
     } catch (error) {
-      console.log('[EDUCATION_DELETE]', error);
+      console.log('[EXPERIENCE_DELETE]', error);
       return new NextResponse("Internal error", { status: 500 });
     }
   };
 
   export async function PATCH(
     req: Request,
-    { params }: { params: { educationId: string, resumeId: string } }
+    { params }: { params: { experienceId: string, resumeId: string } }
   ) {
     try {
 
       const body = await req.json();
   
-      const { entity, certificate, initDate, endDate } = body;
+      const { company, position, initDate, endDate } = body;
   
-      if (!params.educationId) {
-        return new NextResponse("Education id is required", { status: 400 });
+      if (!params.experienceId) {
+        return new NextResponse("Experience id is required", { status: 400 });
       }
 
-      if (!entity) {
-        return new NextResponse("Entity is required", { status: 400 });
+      if (!company) {
+        return new NextResponse("Company is required", { status: 400 });
       }
 
-      if (!certificate) {
-        return new NextResponse("certificate is required", { status: 400 });
+      if (!position) {
+        return new NextResponse("Position is required", { status: 400 });
       }
 
       if (!initDate) {
@@ -100,21 +100,21 @@ export async function DELETE(
         return new NextResponse("Unauthorized", { status: 405 });
       }
   
-      const education = await prismadb.education.update({
+      const experience = await prismadb.experience.update({
         where: {
-            id: params.educationId
+            id: params.experienceId
           },
           data: {
-            entity,
-            certificate,
+            company,
+            position,
             initDate,
             endDate
           },
       })
     
-      return NextResponse.json(education);
+      return NextResponse.json(experience);
     } catch (error) {
-      console.log('[EDUCATION_PATCH]', error);
+      console.log('[EXPERIENCE_PATCH]', error);
       return new NextResponse("Internal error", { status: 500 });
     }
   };

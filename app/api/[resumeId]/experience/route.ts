@@ -8,18 +8,18 @@ export async function POST(
     try {
         const body = await req.json()
 
-        const { entity, certificate, initDate, endDate } = body
+        const { company, position, initDate, endDate } = body
 
         if (!params.resumeId) {
             return new NextResponse("Resume id is required", { status: 400 });
         }
 
-        if (!entity) {
-            return new NextResponse("Entity is required", { status: 400 });
+        if (!position) {
+            return new NextResponse("position is required", { status: 400 });
         }
 
-        if (!certificate) {
-            return new NextResponse("certificate is required", { status: 400 });
+        if (!company) {
+            return new NextResponse("company is required", { status: 400 });
         }
 
         if (!initDate) {
@@ -31,19 +31,19 @@ export async function POST(
         }
 
 
-        const education = await prismadb.education.create({
+        const experience = await prismadb.experience.create({
             data: {
-                entity,
-                certificate,
+                company,
+                position,
                 initDate,
                 endDate,
                 resumeId: params.resumeId
             }
         })
 
-        return NextResponse.json(education)
+        return NextResponse.json(experience)
     } catch (err) {
-        console.log('[EDUCATION_POST]', err)
+        console.log('[EXPERIENCE_POST]', err)
         return new NextResponse('Internal error', {
             status: 500
         })
@@ -57,25 +57,25 @@ export async function GET(
     try {
         const body = await req.json()
 
-        const { entity, certificate, initDate, endDate } = body
+        const { company, position, initDate, endDate } = body
 
         if (!params.resumeId) {
             return new NextResponse("Resume is required", { status: 403 });
         }
 
-        const education = await prismadb.education.findMany({
+        const experience = await prismadb.experience.findMany({
             where: {
-                entity,
-                certificate,
+                company,
+                position,
                 initDate,
                 endDate,
                 resumeId: params.resumeId
             }
         })
 
-        return NextResponse.json(education)
+        return NextResponse.json(experience)
     } catch (err) {
-        console.log('[EDUCATION_GET]', err)
+        console.log('[EXPERIENCE_GET]', err)
         return new NextResponse('Internal error', {
             status: 500
         })
