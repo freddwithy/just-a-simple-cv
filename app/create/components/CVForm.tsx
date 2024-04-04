@@ -1,43 +1,47 @@
 'use client'
-import { FileText, Plus } from "lucide-react"
+import prismadb from "@/libs/prismadb"
+import { Resume } from "@prisma/client"
+import axios from "axios"
+import { FileText, Plus, Type } from "lucide-react"
+import { useParams, useRouter } from "next/navigation"
 import React, { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
+import { z } from "zod"
 
 interface CvFormProps {
-    sendData: any
+    initialData: Resume | null
 }
 
+const formSchema = z.object({
+    name: z.string().min(1),
+    lastName: z.string().min(1),
+    shortResume: z.string().min(1),
+    city: z.string().min(1),
+    aboutYou: z.string().min(1)
+})
+
+type ResumeFormValues = z.infer<typeof formSchema>
 
 
-export const CVFormComponent: React.FC<CvFormProps> = ({sendData}) => {
-    const [text, setText] = useState('')
-    const [data, setData] = useState({
-        name: 'Freddy',
-        lastName: 'Sanabria',
-        resume: 'Desarrollador web Frontend y Diseñador Gráfico, enfocado en crear aplicaciones webs que atraigan clientes y diseños cautivadores.',
-        location: 'Ciudad Del Este, Paraguay',
-        aboutYou: 'Experimentado diseñador gráfico con más de 4 años de experiencia, especializado en el uso de Photoshop e Illustrator. Apasionado por crear diseños visualmente impactantes y funcionales. Además, poseo conocimientos actuales como desarrollador frontend y backend, con experiencia en frameworks como Svelte, Angular, Next.js, Astro y otros lenguajes. Capaz de trabajar de manera colaborativa en equipo y gestionar proyectos de principio a fin.',
-        educationPlace: 'Universidad Privada Del Este',
-        educationInitDate: '2019',
-        educationEndDate: 'Actualmente',
-        experiencePlace: 'Elimec S.R.L',
-        experienceInitDate: '2021',
-        experienceEndDate: 'Actualmente'
-    })
+export const CVFormComponent: React.FC<CvFormProps> = async ({
+    initialData
+}) => {
+    const params = useParams()
+    const router = useRouter()
 
-    useEffect(() => {
-        sendData(data)
-    }, [data])
+    const [ loaging, setLoading ] = useState(false)
 
-    const handleValues = (e: React.ChangeEvent<HTMLFormElement>) => {
-        const {name, value} = e.target
-        setData({
-            ...data,
-            [name]: value
-        })
-    }
-
-    const handleText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setText(e.target.value)
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            setLoading(true)
+            const response = await axios.post(`/api/resumes`, values)
+            window.location.assign(`/${response.data.id}`)
+        } catch (err) {
+            toast.error('Ups! Algo salio mal.')
+        } finally {
+            setLoading(false)
+        }
     }
 
 
@@ -76,31 +80,7 @@ export const CVFormComponent: React.FC<CvFormProps> = ({sendData}) => {
                             <span className="text-sm text-mystic-600">{text.length}/300</span>
                         </div>
                     </div>
-                    <div className="space-y-2">
-                        <h3 className="text-2xl font-semibold text-mystic-950">Educación</h3>
-                        <div className="flex flex-col gap-y-2">
-                            <label htmlFor="" className="font-semibold text-mystic-700">Lugar de Estudios</label>
-                            <input type="text" name="educationPlace" placeholder="Colegio Salesiano Maria Auxiliadora" className="p-2 bg-mystic-100 rounded-lg"/>
-                            <label htmlFor="" className="font-semibold text-mystic-700">Desde</label>
-                            <input type="text" placeholder="2016" name="educationInitDate" className="p-2 bg-mystic-100 rounded-lg" />
-                            <label htmlFor="" className="font-semibold text-mystic-700">Hasta</label>
-                            <input type="text" placeholder="2018" name="educationEndDate" className="p-2 bg-mystic-100 rounded-lg" />
-                        </div>
-                        <button className="bg-mystic-600 hover:bg-mystic-500 text-white py-2 px-3 rounded-lg flex gap-x-2"><Plus />Añadir otro</button>
-                    </div>
-                    <div className="space-y-2">
-                        <h3 className="text-2xl font-semibold text-mystic-950">Experiencia</h3>
-                        <div className="flex flex-col gap-y-2">
-                            <label htmlFor="" className="font-semibold text-mystic-700">Empresa</label>
-                            <input type="text" name="experiencePlace" placeholder="Elimec S.R.L" className="p-2 bg-mystic-100 rounded-lg"/>
-                            <label htmlFor="" className="font-semibold text-mystic-700">Desde</label>
-                            <input type="date" name="experienceInitDate" className="p-2 bg-mystic-100 rounded-lg" />
-                            <label htmlFor="" className="font-semibold text-mystic-700">Hasta</label>
-                            <input type="date" name="experienceEndDate" className="p-2 bg-mystic-100 rounded-lg" />
-                        </div>
-                        <button className="bg-mystic-600 hover:bg-mystic-500 text-white py-2 px-3 rounded-lg flex gap-x-2"><Plus />Añadir otro</button>
-                    </div>
-                    <button className="bg-mystic-600 text-white font-semibold px-1 py-2 rounded-md">Imprimir</button>               
+                    <button className="bg-mystic-600 text-white font-semibold px-1 py-2 rounded-md">Enviar</button>               
                 </form>
             </nav>
         </aside>

@@ -1,4 +1,4 @@
-import prismadb from "@/lib/prismadb";
+import prismadb from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(
@@ -7,7 +7,7 @@ export async function POST(
     try {
         const body = await req.json()
 
-        const { name, lastName, userId, shortResume, aboutMe, education, experience, skill } = body
+        const { name, image, city, lastName, userId, shortResume, aboutMe, education, experience, skill } = body
 
         if (!name) {
             return new NextResponse("Name is required", { status: 400 });
@@ -50,7 +50,9 @@ export async function POST(
                 aboutMe,
                 education,
                 experience,
-                skill
+                skill,
+                city,
+                image
             }
         })
 

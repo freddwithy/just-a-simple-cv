@@ -17,13 +17,27 @@ datasource db {
 model Resume {
   id String @id @default(uuid())
   userId String
+  user User[] @relation("ResumeToUser")
   name String
   lastName String
+  city String
   shortResume String
   aboutMe String
   education Education[] @relation("ResumeToEducation")
   experience Experience[] @relation("ResumeToExperience")
   skill Skills[] @relation("ResumeToSkills")
+  image Image[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id String @id @default(uuid())
+  resumeId String
+  resume Resume[] @relation("ResumeToUser")
+  username String @unique
+  email String @unique
+  password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -53,6 +67,15 @@ model Skills {
   resume Resume[] @relation("ResumeToSkills")
   resumeId String
   name String
+}
+
+model Image {
+  id String @id @default(uuid())
+  resumeId String
+  resume Resume[]
+  url String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 
