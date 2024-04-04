@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Resume {
+  id String @id @default(uuid())
+  userId String
+  name String
+  lastName String
+  shortResume String
+  aboutMe String
+  education Education[] @relation("ResumeToEducation")
+  experience Experience[] @relation("ResumeToExperience")
+  skill Skills[] @relation("ResumeToSkills")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Education {
+  id String @id @default(uuid())
+  resume Resume[] @relation("ResumeToEducation")
+  resumeId String
+  entity String 
+  certificate String
+  initDate String
+  endDate String
+}
+
+model Experience {
+  id String @id @default(uuid())
+  resume Resume[] @relation("ResumeToExperience")
+  resumeId String
+  company String 
+  position String
+  initDate String
+  endDate String
+}
+
+model Skills {
+  id String @id @default(uuid())
+  resume Resume[] @relation("ResumeToSkills")
+  resumeId String
+  name String
+}
+
+
+
