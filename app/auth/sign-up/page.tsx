@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import toast from "react-hot-toast"
 import { z } from "zod"
 
 const formSchema = z.object({
@@ -45,22 +46,27 @@ export default function SignInPage() {
 
     const onSignUp: SubmitHandler<SignInInputs> = async (data) => {
         if (data.password !== data.confirmPassword) {
-            return alert("Las contraseñas no coinciden")
+            toast.error('Las contraseñas no coinciden.')
         }
 
-        const res = await fetch('/api/auth/sign-up', {
-            method: 'POST',
-            body: JSON.stringify({
-                username: data.username,
-                email: data.email,
-                password: data.password
-            }),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        if (res.ok) {
-            router.push("/auth/log-in");
+        try {
+            const res = await fetch('/api/auth/sign-up', {
+                method: 'POST',
+                body: JSON.stringify({
+                    username: data.username,
+                    email: data.email,
+                    password: data.password
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            if (res.ok) {
+                toast.success('Te haz registrado correctamente')
+                router.push("/auth/log-in");
+            } 
+        } catch(error: any) {
+            toast.error('Algo salio mal.')
         }
     }
 
