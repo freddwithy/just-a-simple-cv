@@ -33,7 +33,6 @@ model Resume {
 
 model User {
   id String @id @default(uuid())
-  resumeId String
   resume Resume[] @relation("ResumeToUser")
   username String @unique
   email String @unique
