@@ -22,8 +22,6 @@ import { NextAuthOptions } from "next-auth";
 
                 if (!dbUser) throw new Error('User not found')
 
-                console.log(dbUser)
-
                 const matchPassword = await bcrypt.compare(credentials.password, dbUser.password)
 
                 if (!matchPassword) throw new Error('Wrong password')

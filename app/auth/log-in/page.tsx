@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import toast from "react-hot-toast"
-import { useState } from "react"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -44,8 +43,6 @@ export default function LoginPage() {
             router.push('/create')
             toast.success('Haz iniciado sesion')
         }
-
-        console.log(res?.error)
     }
 
     return (
