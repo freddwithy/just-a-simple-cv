@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import toast from "react-hot-toast"
+import { useState } from "react"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -22,7 +23,6 @@ type LogInInputs = {
 }
 
 export default function LoginPage() {
-
     const router = useRouter()
 
     const { register, handleSubmit, formState: { errors } } = useForm<LogInInputs>({
@@ -39,14 +39,15 @@ export default function LoginPage() {
         })
 
         if(res?.error) {
-            toast.error("No se pudo ingresar")
+            return toast.error(res.error)
         } else {
             router.push('/create')
-            toast.success("Haz iniciado sesión!")
+            toast.success('Haz iniciado sesion')
         }
+
+        console.log(res?.error)
     }
 
-    console.log(errors)
     return (
         <div className="flex items-center justify-center h-[calc(100vh-7rem)]">
             <form onSubmit={handleSubmit(onLogIn)} className="w-[600px] flex flex-col p-10 bg-mystic-200 rounded-md shadow-lg border border-mystic-300">
