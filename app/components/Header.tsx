@@ -13,10 +13,9 @@ interface NavLinksProps {
 
 interface HeaderProps {
     navLinks: NavLinksProps[]
-    session: Session | null
 }
 
-export const Header = ({ navLinks, session }: HeaderProps) => {
+export const Header = ({ navLinks }: HeaderProps) => {
     return (
         <Container>
             <header className="flex justify-between p-4 items-center border-b border-mystic-200">
@@ -33,12 +32,9 @@ export const Header = ({ navLinks, session }: HeaderProps) => {
                         </Link>                        
                     )) 
                 }
-                {
-                    session && 
-                        <button onClick={() => signOut()}>
-                            <p className="text-base text-white p-2 bg-mystic-500 borde rounded-lg font-semibold">Sign Out</p>
-                        </button>  
-                }
+                <button onClick={() => signOut()}>
+                    <p className="text-base text-white p-2 bg-mystic-500 borde rounded-lg font-semibold">Sign Out</p>
+                </button>  
                 </div>
             </header>
         </Container>

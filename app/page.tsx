@@ -1,7 +1,5 @@
-import { getSession } from "next-auth/react";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const navLinks = [
   {
@@ -14,12 +12,10 @@ const navLinks = [
   },
 ]
 
-export default async function Home(req: NextApiRequest, res: NextApiResponse) {
-  const currentSesion = await getSession({req})
-  console.log(currentSesion)
+export default async function Home() {
   return (
     <>
-    <Header navLinks={navLinks} session={currentSesion} />
+    <Header navLinks={navLinks} />
       <main className="flex flex-col items-center justify-between pt-24">
         <Hero />
       </main>

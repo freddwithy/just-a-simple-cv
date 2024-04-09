@@ -1,9 +1,6 @@
 import Container from "@/app/components/ui/Container"
 import { CVFormComponent } from "./components/CVForm"
 import { Header } from "../components/Header"
-import { NextApiRequest, NextApiResponse } from "next"
-import { authConfig } from "@/libs/auth"
-import { getSession } from "next-auth/react"
 
 const navLinks = [
     {
@@ -13,13 +10,10 @@ const navLinks = [
 ]
 
 
-export default async function CreatePage (req: NextApiRequest) {
-    const currentSesion = await getSession({req})
-
-    console.log(currentSesion)
+export default async function CreatePage () {
     return (
         <>
-            <Header navLinks={navLinks} session={currentSesion} />
+            <Header navLinks={navLinks} />
             <Container>
                 <div className="flex flex-col md:flex-row">
                     <CVFormComponent  />
