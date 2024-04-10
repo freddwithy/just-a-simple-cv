@@ -1,5 +1,8 @@
+import BentoGrid from "./components/BentoGrid";
+import Features from "./components/Features";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
+import SecondHero from "./components/SecondHero";
 
 const navLinks = [
   {
@@ -15,9 +18,12 @@ const navLinks = [
 export default async function Home() {
   return (
     <>
-    <Header navLinks={navLinks} />
+      <Header navLinks={navLinks} />
       <main className="flex flex-col items-center justify-between pt-24">
         <Hero />
+        <BentoGrid />
+        <Features />
+        <SecondHero />
       </main>
     </>
   );

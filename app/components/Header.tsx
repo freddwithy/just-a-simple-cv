@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import Container from "./ui/Container"
-import { signOut } from "next-auth/react"
+import { getSession, signOut } from "next-auth/react"
+import { useEffect, useState } from "react"
 import { Session } from "next-auth"
+import { usePathname } from "next/navigation"
 
 interface NavLinksProps {
     linkTo: string
-    name: string
+    name?: string
     signOutButton?: boolean
 }
 
@@ -16,27 +17,57 @@ interface HeaderProps {
 }
 
 export const Header = ({ navLinks }: HeaderProps) => {
+    const [session, setSession] = useState<Session | null>(null);
+    const pathname = usePathname()
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // Esperar 1000 ms (1 segundo) antes de llamar a getSession
+
+            const fetchedSession = await getSession();
+            if (fetchedSession) {
+                setSession(fetchedSession);
+            } else {
+                // Manejar el caso de sesión nula si es necesario
+            }
+        };
+    
+        fetchData();
+    }, []);
+    
+    
+
     return (
-        <Container>
-            <header className="flex justify-between p-4 items-center border-b border-mystic-200">
-                <div>
-                    <Link href="/"> 
-                        <p className="text-xl font-bold text-mystic-950">JustASimpleCV</p>
-                    </Link>
-                </div>
-                <div className="flex gap-x-4">
+        <header className="flex justify-between p-4 items-center border-b border-mystic-200">
+            <div>
+                <Link href="/"> 
+                    <p className="text-xl font-bold text-black">JustASimpleCV</p>
+                </Link>
+            </div>
+            <div className="flex gap-x-2">
+
                 {
-                    navLinks.map((link) => (
+                    session === null && navLinks.map((link) => (
                         <Link key={link.name} href={link.linkTo}>
                             <p className="text-base text-white p-2 bg-mystic-500 borde rounded-lg font-semibold">{link.name}</p>
-                        </Link>                        
-                    )) 
+                        </Link>
+                    ))
                 }
-                <button onClick={() => signOut()}>
-                    <p className="text-base text-white p-2 bg-mystic-500 borde rounded-lg font-semibold">Sign Out</p>
-                </button>  
-                </div>
-            </header>
-        </Container>
+
+                { 
+                    session !== null && 
+                    <button onClick={() => signOut()}>
+                        <p className="text-base text-white p-2 bg-red-500 borde rounded-lg font-semibold">Sign Out</p>
+                    </button> 
+                    
+                }
+                { 
+                    session !== null && pathname === "/create" &&
+                    <button onClick={() => signOut()}>
+                        <p className="text-base text-white p-2 bg-green-500 borde rounded-lg font-semibold">Save</p>
+                    </button>  
+                }                
+            </div>
+        </header>
     )
 }

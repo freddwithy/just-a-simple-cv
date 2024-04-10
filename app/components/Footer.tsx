@@ -2,7 +2,7 @@ import { Github, Linkedin } from "lucide-react"
 
 export const Footer = () => {
     return (
-        <footer className="h-24 border-t border-mystic-200 p-4 flex justify-between items-center">
+        <footer className="h-20 border-t border-mystic-200 p-4 flex justify-between items-center">
             <div>
                 <span className="font-semibold text-mystic-700">Created by <a className="hover:underline text-mystic-950" href="https://freddsana.art/en" target="_blank">Freddy Sanabria</a></span>  
             </div>
