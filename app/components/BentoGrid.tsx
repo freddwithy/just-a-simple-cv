@@ -1,23 +1,38 @@
+import Card from "./ui/Card"
 import Container from "./ui/Container"
+
+const Datas = [
+    {
+        id: 1,
+        title: "1.",
+        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        colRow: "col-span-2 row-span-3"
+    },
+    {
+        id: 2,
+        title: "2.",
+        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+        colRow: "col-span-3 row-span-3"
+    },
+    {
+        id: 3,
+        title: "3.",
+        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam corrupti ratione commodi. Eaque sunt vero id neque totam eos minus aut pariatur asperiores magni error quisquam delectus velit, iusto dolore!  ",
+        colRow: "col-span-5 row-span-3"
+    }
+]
 
 const BentoGrid = () => {
     return (
         <Container className="max-w-xl w-full">
             <div className="grid grid-rows-5 grid-cols-5 gap-4 w-full mx-auto">
-                <div className="col-span-2 row-span-3 bg-gradient-to-tl from-mystic-700 to-mystic-500 border border-mystic-700 h-auto w-full rounded-lg p-4">
-                    <span className="text-white font-bold text-xl">1.</span>
-                    <p className="text-white text-pretty">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <div className="col-span-3 row-span-3 bg-gradient-to-tl from-mystic-700 to-mystic-500 border border-mystic-700 h-auto w-full rounded-lg p-4">
-                    <span className="text-white font-bold text-xl">2.</span>
-                    <p className="text-white text-pretty">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <div className="col-span-5 row-span-3 bg-gradient-to-tl from-mystic-700 to-mystic-500 border border-mystic-700 h-auto w-full rounded-lg p-4">
-                <span className="text-white font-bold text-xl">3.</span>
-                    <p className="text-white text-pretty">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi fugiat ipsum commodi quas harum nam numquam, repudiandae ut eaque assumenda explicabo debitis cum eum eveniet quisquam quod reprehenderit aut nisi.</p>
-                </div>
+                {
+                    Datas.map(({ title, text, colRow, id }) => (
+                        <Card key={id} className={colRow} title={title} content={text}/>
+                    )) 
+                }  
             </div>
-        </Container>       
+        </Container>     
     )
 }
 

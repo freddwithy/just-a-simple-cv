@@ -1,4 +1,3 @@
-import Container from "@/app/components/ui/Container"
 import { CVFormComponent } from "./components/CVForm"
 import { Header } from "../components/Header"
 

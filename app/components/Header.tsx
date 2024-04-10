@@ -5,6 +5,7 @@ import { getSession, signOut } from "next-auth/react"
 import { useEffect, useState } from "react"
 import { Session } from "next-auth"
 import { usePathname } from "next/navigation"
+import LogoLink from "./ui/LogoLink"
 
 interface NavLinksProps {
     linkTo: string
@@ -40,9 +41,7 @@ export const Header = ({ navLinks }: HeaderProps) => {
     return (
         <header className="flex justify-between p-4 items-center border-b border-gray-200">
             <div>
-                <Link href="/"> 
-                    <p className="text-xl font-bold text-black">JustASimpleCV</p>
-                </Link>
+                <LogoLink />
             </div>
             <div className="flex gap-x-2">
 
