@@ -12,7 +12,7 @@ const features = [
 
 const Features = () => {
     return (
-        <Container className="w-full max-w-xl py-10 flex justify-center ">
+        <Container className="w-full max-w-xl flex justify-center ">
             <div className="grid grid-cols-3 grid-rows-2 w-full justify-center items-center gap-2">
                 {
                     features.map((feat) => (

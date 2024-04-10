@@ -38,7 +38,7 @@ export const Header = ({ navLinks }: HeaderProps) => {
     
 
     return (
-        <header className="flex justify-between p-4 items-center border-b border-mystic-200">
+        <header className="flex justify-between p-4 items-center border-b border-gray-200">
             <div>
                 <Link href="/"> 
                     <p className="text-xl font-bold text-black">JustASimpleCV</p>
