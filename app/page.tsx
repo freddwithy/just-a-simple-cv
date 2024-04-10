@@ -6,7 +6,7 @@ import SecondHero from "./components/SecondHero";
 export default async function Home() {
   return (
     <>
-      <main className="flex flex-col items-center justify-between">
+      <main className="flex flex-col items-center justify-between animate-fade-up">
         <Hero />
         <BentoGrid />
         <Features />
