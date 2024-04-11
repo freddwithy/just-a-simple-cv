@@ -51,7 +51,7 @@ export default function LoginPage() {
                 return toast.error(res.error)
             } else {
                 router.push('/create')
-                toast.success('¡Bienvenido! 😊')
+                toast.success('Welcome! :)')
             }
         } catch(err) {
             toast.error("Something wrong happened.")
