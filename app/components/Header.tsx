@@ -56,14 +56,14 @@ export const Header = ({ navLinks }: HeaderProps) => {
                 { 
                     session !== null && 
                     <button onClick={() => signOut()}>
-                        <p className="text-base text-white p-2 bg-red-500 borde rounded-lg font-semibold">Sign Out</p>
+                        <p className="text-base text-red-600 p-2 bg-white border border-red-600 rounded-lg font-semibold">Sign Out</p>
                     </button> 
                     
                 }
                 { 
                     session !== null && pathname === "/create" &&
                     <button onClick={() => signOut()}>
-                        <p className="text-base text-white p-2 bg-green-500 borde rounded-lg font-semibold">Save</p>
+                        <p className="text-base text-white p-2 bg-mystic-700 borde rounded-lg font-semibold">Save</p>
                     </button>  
                 }                
             </div>

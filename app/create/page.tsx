@@ -16,7 +16,7 @@ export default async function CreatePage () {
 
                 <div className="flex flex-col md:flex-row">
                     <CVFormComponent  />
-                    <main className="border-l py-10 border-mystic-200 flex items-center bg-mystic-200 flex-col gap-y-8 flex-grow max-h-screen overflow-y-scroll">
+                    <main className="border-l py-10 border-mystic-200 flex items-center bg-gray-200 flex-col gap-y-8 flex-grow max-h-screen overflow-y-scroll">
                     </main>
                 </div> 
         </>
