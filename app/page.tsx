@@ -1,5 +1,6 @@
 import BentoGrid from "./components/BentoGrid";
 import Features from "./components/Features";
+import { Footer } from "./components/Footer";
 import { Hero } from "./components/Hero";
 import SecondHero from "./components/SecondHero";
 
@@ -12,6 +13,7 @@ export default async function Home() {
         <Features />
         <SecondHero />
       </main>
+      <Footer className="max-w-3xl" />
     </>
   );
 }

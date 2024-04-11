@@ -10,9 +10,9 @@ const Card: React.FC<CardSpotlightProps> = ({
     className
 }) => {
   return (
-    <div className={`${className} bg-gradient-to-tl from-mystic-700 to-mystic-500 border border-mystic-700 h-auto w-full rounded-lg p-4`}>
-        <span className="text-white font-bold text-xl">{title}</span>
-        <p className="text-white text-pretty">{content}</p>
+    <div className={`${className} bg-mystic-300 border-mystic-700 border h-auto w-full rounded-lg p-4`}>
+        <span className="text-mystic-950 font-bold text-xl">{title}</span>
+        <p className="text-mystic-950 text-pretty">{content}</p>
     </div>
   );
 };

@@ -8,8 +8,8 @@ export const Hero = () => {
             <LogoLink />
             <div className="flex justify-center items-center flex-col gap-y-4 text-center mt-10">
                 <div className="flex justify-center flex-col gap-y-4 items-center">
-                    <h1 className="text-6xl font-bold text-balance text-black">Create your CV faster than ever</h1>
-                    <p className="text-pretty text-xl text-mystic-700"><span className="text-orange-500 font-medium">Stop wasting time</span> with complitaced templates, make your CV the <span className="text-orange-700 font-medium">faster and easies</span> way possible for free.</p>
+                    <h1 className="text-6xl font-bold text-balance text-black">Craft Your CV Faster Than Ever</h1>
+                    <p className="text-pretty text-xl text-gray-600"><span className="text-orange-500 font-semibold">Stop wasting time</span> with complicated templates, make your resume the fastest and easiest way possible <span className="text-mystic-700 font-semibold">for free.</span></p>
                     <ActionButton link="/create" title="Create your Resume - It's Free!" />
                 </div>
             </div>

@@ -2,12 +2,12 @@ import Container from "./ui/Container"
 import { Check } from "lucide-react"
 
 const features = [
-    "Easy to use",
-    "Save it for later",
+    "User-Frendly",
+    "Save for Later",
     "Customizable",
-    "Totally free",
-    "Fast Edit",
-    "Simple and Pretty"
+    "Completely free",
+    "Quick Editing",
+    "Clean and Elegant"
 ]
 
 const Features = () => {
