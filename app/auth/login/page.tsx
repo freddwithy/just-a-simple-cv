@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { getSession, signIn } from "next-auth/react"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -130,7 +130,7 @@ export default function LoginPage() {
                             Sign In With Google
                             <Image src="/google.svg" width={15} height={30} alt="google logo" />
                         </a>
-                        <p className="mt-4" >If you don't have an account, please <a href="/auth/signup" className="text-blue-600 font-medium hover:underline">Sign Up</a></p>
+                        <p className="mt-4" >If you don&apos;t have an account, please <a href="/auth/signup" className="text-blue-600 font-medium hover:underline">Sign Up</a></p>
                     </div>                 
                 </form>
             </div>
