@@ -1,29 +1,31 @@
 'use client'
 
-import { Header } from "@/app/components/Header"
+import LogoLink from "@/app/components/ui/LogoLink"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { LoaderCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { z } from "zod"
 
 const formSchema = z.object({
     username: z.string().min(3, {
-        message: 'El nombre de usuario debe tener al menos 3 caracteres'
+        message: 'The username must have at least 3 characters'
     }).max(200, {
         message: ''
     }),
     email: z.string().email({
-        message: "El correo debe ser un correo válido"
+        message: "The email must be a valid email address"
     }),
     password: z.string().min(6, {
-        message: "La contraseña debe tener al menos 6 caracteres"
+        message: "The password must have at least 6 characters"
     }),
     confirmPassword: z.string().min(6, {
-        message: "La contraseña debe tener al menos 6 caracteres"
+        message: "The password must have at least 6 characters"
     })
 }).refine(data => data.password === data.confirmPassword, {
-    message: "Las contraseñas deben ser iguales",
+    message: "The passwords must match",
     path: ["confirmPassword"]
 })
 
@@ -34,18 +36,8 @@ type SignInInputs = {
     confirmPassword: string
 }
 
-const navLinks = [
-    {
-        linkTo: "/auth/login",
-        name: "Log in",
-    },
-    {
-        linkTo: "/auth/signup",
-        name: "Sign Up",
-    },
-]
-
 export default function SignInPage() {
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const router = useRouter()
 
@@ -53,14 +45,13 @@ export default function SignInPage() {
         resolver: zodResolver(formSchema)
     })
 
-    console.log(errors)
-
     const onSignUp: SubmitHandler<SignInInputs> = async (data) => {
         if (data.password !== data.confirmPassword) {
-            toast.error('Las contraseñas no coinciden.')
+            toast.error('The passwords do not match')
         }
 
         try {
+            setIsLoading(true)
             const res = await fetch('/api/auth/sign-up', {
                 method: 'POST',
                 body: JSON.stringify({
@@ -73,23 +64,31 @@ export default function SignInPage() {
                 }
             })
             if (res.ok) {
-                toast.success('Te haz registrado correctamente')
+                setIsLoading(false);
+                toast.success('You have registered successfully');
                 router.push("/auth/login");
-            } 
-        } catch(error: any) {
-            toast.error('Algo salio mal.')
+            } else {
+                // Manejar errores de la API aquí
+                const errorData = await res.json();
+                toast.error(errorData.message);
+            }
+        } catch(err) {
+            setIsLoading(false)
+            toast.error('Something went wrong')
+        } finally {
+            setIsLoading(false)
         }
     }
 
     return (
         <>
-            <Header navLinks={navLinks} />
-            <div className="flex items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
-                <form onSubmit={handleSubmit(onSignUp)} className="w-[600px] flex flex-col p-10 bg-mystic-200 rounded-md shadow-lg border border-mystic-300">
-                    <h1 className="font-bold text-3xl text-mystic-950 mb-4">Nuevo Usuario</h1>
-                    <label className="mb-2 text-mystic-700 font-medium" htmlFor="username">Nombre de Usuario</label>
+            <div className="flex flex-col items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
+                <LogoLink className="mb-10"/>
+                <form onSubmit={handleSubmit(onSignUp)} className="w-[600px] flex flex-col p-10 bg-white rounded-lg shadow-lg border border-gray-300 ">
+                    <h1 className="font-bold text-3xl text-black mb-4">Create your account</h1>
+                    <label className="mb-2 text-gray-600 font-medium" htmlFor="username">Username</label>
                     <input type="text" id="username" 
-                        className="rounded-md text-black font-semibold h-10 mb-2 bg-white border border-mystic-300"
+                        className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
                         {...register("username")}
                     />
                     {
@@ -97,9 +96,9 @@ export default function SignInPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.username.message}</span>
                         )
                     }
-                    <label className="mb-2 text-mystic-700 font-medium" htmlFor="email">Correo Electrónico</label>
+                    <label className="mb-2 text-gray-600 font-medium" htmlFor="email">Email</label>
                     <input type="email" id="email"
-                        className="rounded-md text-black font-semibold h-10 mb-2 bg-white border border-mystic-300"
+                        className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
                         {...register("email")}
                     />
                     {
@@ -107,9 +106,9 @@ export default function SignInPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.email.message}</span>
                         )
                     }
-                    <label className="mb-2 text-mystic-700 font-medium" htmlFor="password">Contraseña</label>
+                    <label className="mb-2 text-gray-600 font-medium" htmlFor="password">Contraseña</label>
                     <input type="password" id="password"
-                        className="rounded-md text-black font-semibold h-10 mb-2 bg-white border border-mystic-300" 
+                        className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300" 
                         {...register("password")}
                     />
                     {
@@ -117,9 +116,9 @@ export default function SignInPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.password.message}</span>
                         )
                     }
-                    <label className="mb-2 text-mystic-700 font-medium" htmlFor="confirmPassword">Confirma tu contraseña</label>
+                    <label className="mb-2 text-gray-600 font-medium" htmlFor="confirmPassword">Confirma tu contraseña</label>
                     <input type="password" id="confirmPassword"
-                        className="rounded-md text-black font-semibold h-10 mb-2 bg-white border border-mystic-300"
+                        className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
                         {...register("confirmPassword")}
                     />
                     {
@@ -132,7 +131,17 @@ export default function SignInPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.root.message}</span>
                         )
                     }
-                    <button className="bg-mystic-700 rounded-md text-white font-semibold h-10 mt-2 hover:bg-mystic-600 transition">Registrarse</button>
+                    <button disabled={isLoading} className={`bg-mystic-700 rounded-lg text-white font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
+                        isLoading ? "opacity-50 cursor-wait hover:bg-mystic-700" :""
+                    }`}>
+                        {isLoading && (
+                            <LoaderCircle className="animate-spin size-4"/>
+                        )}
+                        Sign Up
+                    </button>
+                    <div className="flex justify-center items-center">
+                        <p className="mt-4" >If you already have an account, please <a href="/auth/login" className="text-blue-600 font-medium hover:underline">Log In</a></p>
+                    </div>                 
                 </form>
             </div>
         </>

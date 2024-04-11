@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     if (usernameFound) {
       return NextResponse.json(
         {
-          message: "username already exists",
+          message: "Username already exists",
         },
         {
           status: 400,

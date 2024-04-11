@@ -6,17 +6,17 @@ import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import toast from "react-hot-toast"
-import { Header } from "@/app/components/Header"
-import { cache, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
+import LogoLink from "@/app/components/ui/LogoLink"
 
 const formSchema = z.object({
     email: z.string().email({
-        message: "El correo debe ser un correo válido"
+        message: "Must be a valid email"
     }),
     password: z.string().min(6, {
-        message: "La contraseña debe tener al menos 6 caracteres"
+        message: "Password must have at least 6 characters"
     })
 })
 
@@ -25,16 +25,6 @@ type LogInInputs = {
     password: string,
 }
 
-const navLinks = [
-    {
-        linkTo: "/auth/login",
-        name: "Log in",
-    },
-    {
-        linkTo: "/auth/signup",
-        name: "Sign Up",
-    },
-]
 
 export default function LoginPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -61,7 +51,7 @@ export default function LoginPage() {
                 return toast.error(res.error)
             } else {
                 router.push('/create')
-                toast.success('Haz iniciado sesion')
+                toast.success('¡Bienvenido! 😊')
             }
         } catch(err) {
             toast.error("Something wrong happened.")
@@ -96,8 +86,8 @@ export default function LoginPage() {
 
     return (
         <>
-            <Header navLinks={navLinks} />
-            <div className="flex items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
+            <div className="flex flex-col gap-y-4 items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
+                <LogoLink className="mb-10"/>
                 <form onSubmit={handleSubmit(onLogIn)} className="w-[600px] flex flex-col p-10 bg-white rounded-lg shadow-lg border border-gray-300">
                     <h1 className="font-bold text-3xl text-black mb-4">Log in with your account</h1>
                     <label className="mb-2 text-gray-600 font-medium" htmlFor="email">Email</label>
@@ -120,7 +110,7 @@ export default function LoginPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.password.message}</span>
                         )
                     }
-                    <button disabled={isLoading} className={`bg-mystic-700 rounded-lg text-white font-semibold h-10 mt-2 hover:bg-mystic-600 transition flex items-center justify-center gap-x-2 ${
+                    <button disabled={isLoading} className={`bg-mystic-700 rounded-lg text-white font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
                         isLoading ? "opacity-50 cursor-wait hover:bg-mystic-700" :""
                     }`}>
                         {isLoading && (
@@ -140,6 +130,7 @@ export default function LoginPage() {
                             Sign In With Google
                             <Image src="/google.svg" width={15} height={30} alt="google logo" />
                         </a>
+                        <p className="mt-4" >If you don't have an account, please <a href="/auth/signup" className="text-blue-600 font-medium hover:underline">Sign Up</a></p>
                     </div>                 
                 </form>
             </div>
