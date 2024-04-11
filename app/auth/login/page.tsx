@@ -102,7 +102,7 @@ export default function LoginPage() {
                     <h1 className="font-bold text-3xl text-black mb-4">Log in with your account</h1>
                     <label className="mb-2 text-gray-600 font-medium" htmlFor="email">Email</label>
                     <input type="email" id="email"
-                        className="rounded-md text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
+                        className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
                         {...register("email")}
                     />
                     {
@@ -112,7 +112,7 @@ export default function LoginPage() {
                     }
                     <label className="mb-2 text-gray-600 font-medium" htmlFor="password">Password</label>
                     <input type="password" id="password"
-                        className="rounded-md text-black font-semibold h-10 mb-2 bg-white border border-gray-300" 
+                        className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300" 
                         {...register("password")}
                     />
                     {
@@ -120,7 +120,7 @@ export default function LoginPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.password.message}</span>
                         )
                     }
-                    <button disabled={isLoading} className={`bg-mystic-700 rounded-md text-white font-semibold h-10 mt-2 hover:bg-mystic-600 transition flex items-center justify-center gap-x-2 ${
+                    <button disabled={isLoading} className={`bg-mystic-700 rounded-lg text-white font-semibold h-10 mt-2 hover:bg-mystic-600 transition flex items-center justify-center gap-x-2 ${
                         isLoading ? "opacity-50 cursor-wait hover:bg-mystic-700" :""
                     }`}>
                         {isLoading && (
@@ -133,7 +133,7 @@ export default function LoginPage() {
                             <hr className="w-64 h-px my-8 bg-gray-400 border-0"/>
                             <span className="absolute px-3 font-semibold text-gray-600 -translate-x-1/2 bg-white left-1/2">or</span>
                         </div>
-                        <a onClick={loginWithGoogle} className={`bg-white rounded-md text-orange-600 font-semibold h-10 hover:bg-orange-600 hover:text-white transition border border-orange-600 flex items-center justify-center cursor-pointer w-full gap-x-2 ${isLoadingG ? "opacity-50 hover:bg-white hover:text-orange-600 cursor-wait" : ""}`}>
+                        <a onClick={loginWithGoogle} className={`bg-white rounded-lg text-orange-600 font-semibold h-10 hover:bg-orange-600 hover:text-white transition border border-orange-600 flex items-center justify-center cursor-pointer w-full gap-x-2 ${isLoadingG ? "opacity-50 hover:bg-white hover:text-orange-600 cursor-wait" : ""}`}>
                             {isLoadingG && (
                                 <LoaderCircle className="animate-spin size-4"/>
                             )}
