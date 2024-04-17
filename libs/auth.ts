@@ -4,6 +4,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt"
 import { NextAuthOptions } from "next-auth";
 
+type SessionProps = {
+    session: any;
+    token: any;
+};
+
  export const authConfig: NextAuthOptions = {
     providers: [
         CredentialsProvider({
@@ -40,5 +45,14 @@ import { NextAuthOptions } from "next-auth";
     ],
     pages: {
         signIn: "/auth/login"
-    }
+    },
+    callbacks: {
+        session: async ({ session, token }: SessionProps) => {
+          if (session?.user) {
+            session.user.id = token.sub;
+            delete session.user.email; // sanitize data for security
+          }
+          return session;
+        },
+    },
 }

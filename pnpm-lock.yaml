@@ -8,6 +8,9 @@ dependencies:
   '@hookform/resolvers':
     specifier: ^3.3.4
     version: 3.3.4(react-hook-form@7.51.2)
+  '@next-auth/prisma-adapter':
+    specifier: 0.4.4-canary.81
+    version: 0.4.4-canary.81(@prisma/client@5.12.1)(next-auth@4.24.7)
   '@prisma/client':
     specifier: 5.12.1
     version: 5.12.1(prisma@5.12.1)
@@ -214,6 +217,16 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /@next-auth/prisma-adapter@0.4.4-canary.81(@prisma/client@5.12.1)(next-auth@4.24.7):
+    resolution: {integrity: sha512-RXdjrRkK4A3ksMdGXIyDmYBcgdpmbVqSGDoaH2X7P/MLBngh3/GO8TFGpiLwiUt1o4+Py81KICZYvBgatRP+Ew==}
+    peerDependencies:
+      '@prisma/client': '>=2.16.0'
+      next-auth: '>=3.19.2'
+    dependencies:
+      '@prisma/client': 5.12.1(prisma@5.12.1)
+      next-auth: 4.24.7(next@14.1.4)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@next/env@14.1.4:
