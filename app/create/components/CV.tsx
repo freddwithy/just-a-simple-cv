@@ -1,47 +1,34 @@
+'use client'
+import prismadb from "@/libs/prismadb"
 import { MapPin } from "lucide-react"
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import React from "react"
 
-interface CVProps {
-    formDataToCV: {
-        name: string,
-        resume: string,
-        lastName: string,
-        location: string,
-        aboutYou: string,
-        educationPlace: string,
-        educationInitDate: string,
-        educationEndDate: string,
-        experiencePlace: string,
-        experienceInitDate: string,
-        experienceEndDate: string
-    }
+type ResumeData = {
+    name: string
+    lastName: string;
+    city: string;
+    shortResume: string;
+    aboutMe: string;
 }
 
-export const CVComponent: React.FC<CVProps> = ({
-    formDataToCV: {
-        name,
-        lastName,
-        resume,
-        aboutYou,
-        educationEndDate,
-        educationInitDate,
-        educationPlace,
-        experienceEndDate,
-        experienceInitDate,
-        experiencePlace,
-        location
-    }
+export const CVComponent: React.FC<ResumeData> = async ({
+    name,
+    lastName,
+    city,
+    shortResume,
+    aboutMe
 }) => {
     return (
         <section className="p-10 border border-mystic-200 rounded-lg w-full bg-white shadow-md flex-col max-w-screen-sm md:max-w-3xl">
             <div className="flex justify-between border-b border-mystic-200 pb-4 items-center">
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
                         <h3 className="text-3xl font-semibold">{name} {lastName}</h3>
-                    <p className="text-balance break-words text-gray-700">{resume}</p>
+                    <p className="text-balance break-words text-gray-700">{shortResume}</p>
                     <p className="text-sm font-semibold text-mystic-800 flex gap-x-1 items-center">
                         <MapPin size={20}/>
-                        {location}
+                        {city}
                     </p>
                 </div>
                 <div className="">
@@ -51,7 +38,7 @@ export const CVComponent: React.FC<CVProps> = ({
             <div className="py-4 border-b border-mystic-200">
                 <h4 className="text-xl font-semibold pb-4">Sobre mí</h4>
                 <p className="text-mystic-700 max-w-max text-pretty break-words">
-                    {aboutYou}
+                    {aboutMe}
                 </p>
             </div>
             <div className="py-4 border-b border-mystic-200 space-y-4">
@@ -59,12 +46,12 @@ export const CVComponent: React.FC<CVProps> = ({
                 <div className="flex justify-between">
                     <div>
                         <p className="font-semibold text-mystic-950">
-                            {educationPlace}
+                            {}
                         </p>
                         <span className="text-sm text-mystic-700">Ingenería Eléctromecanica</span>
                     </div>
                     <div>
-                        <p className="font-semibold text-mystic-950">{educationInitDate} - {educationEndDate}</p>
+                        <p className="font-semibold text-mystic-950">{} - {}</p>
                     </div>
                 </div>
                 <div className="flex justify-between">
@@ -84,12 +71,12 @@ export const CVComponent: React.FC<CVProps> = ({
                 <div className="flex justify-between">
                     <div>
                         <p className="font-semibold text-mystic-950">
-                            {experiencePlace}
+                            {}
                         </p>
                         <span className="text-sm text-mystic-700">Gerente Técnico</span>
                     </div>
                     <div>
-                        <p className="font-semibold text-mystic-950">{experienceInitDate} - {experienceEndDate}</p>
+                        <p className="font-semibold text-mystic-950">{} - {}</p>
                     </div>
                 </div>
                 <div className="flex justify-between">
