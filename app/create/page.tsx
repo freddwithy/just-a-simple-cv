@@ -5,7 +5,6 @@ import { authConfig } from "@/libs/auth"
 import { redirect } from "next/navigation"
 import prismadb from "@/libs/prismadb"
 import { CVComponent } from "./components/CV"
-import toast from "react-hot-toast"
 
 const navLinks = [
     {
@@ -23,21 +22,19 @@ export default async function CreatePage ({
     const session = await getServerSession(authConfig)
     const userId = session?.user?.id
 
-    if (!session) {
-        redirect('/auth/login')
-    }
-
-    const resume = await prismadb.resume.findMany({
+    const resume = await prismadb.resume.findFirst({
         where: {
             userId: userId
         }
     })
 
-    if(!resume) {
-        console.log("Theres no resume yet")
+    if(!session) {
+        redirect('/auth/login')
     }
 
-    const resumeData = resume[0]
+    if(!resume) {
+        redirect('/create/loading')
+    }
 
     return (
         <>
@@ -49,11 +46,11 @@ export default async function CreatePage ({
                     />
                     <main className="border-l py-10 border-gray-200 flex items-center bg-gray-200 flex-col gap-y-8 flex-grow max-h-screen overflow-y-scroll">
                     <CVComponent 
-                        name={resumeData.name}
-                        lastName={resumeData.lastName}
-                        city={resumeData.city}
-                        shortResume={resumeData.shortResume}
-                        aboutMe={resumeData.aboutMe}
+                        name={resume.name}
+                        lastName={resume.lastName}
+                        city={resume.city}
+                        shortResume={resume.shortResume}
+                        aboutMe={resume.aboutMe}
                     />
                     </main>
                 </div> 

@@ -5,7 +5,7 @@ import InputField from "./ui/InputField"
 import TextAreaField from "./ui/TextAreaField"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import { string, z } from "zod"
 import { useState } from "react"
 import toast from "react-hot-toast"
 import { useParams, useRouter } from "next/navigation"
@@ -34,7 +34,7 @@ type ResumeInputs = {
 }
 
 interface ResumeProps {
-    initialData: Resume[]
+    initialData: Resume
 }
 
 
@@ -46,9 +46,6 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
     const { register, handleSubmit, formState: { errors } } = useForm<ResumeInputs>({
         resolver: zodResolver(formSchema)
     })
-
-    const params = useParams()
-    const router = useRouter()
 
     const onSubmit: SubmitHandler<ResumeInputs> = async (data) => {
         try {

@@ -26,10 +26,6 @@ export async function POST(
             return new NextResponse("Last Name is required", { status: 400 });
         }
 
-        if (!userId) {
-            return new NextResponse("User Id is required", { status: 400 });
-        }
-
         if (!shortResume) {
             return new NextResponse("Short resume is required", { status: 400 });
         }

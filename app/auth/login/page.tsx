@@ -36,8 +36,6 @@ export default function LoginPage() {
         resolver: zodResolver(formSchema)
     })
 
-    console.log(errors)
-
     const onLogIn: SubmitHandler<LogInInputs> = async (data) => {
         try {
             setIsLoading(true)

@@ -1,8 +1,10 @@
 'use client'
 
 import LogoLink from "@/app/components/ui/LogoLink"
+import prismadb from "@/libs/prismadb"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { LoaderCircle } from "lucide-react"
+import { signIn, useSession } from "next-auth/react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
@@ -29,7 +31,7 @@ const formSchema = z.object({
     path: ["confirmPassword"]
 })
 
-type SignInInputs = {
+type SignUpInputs = {
     username: string,
     email: string,
     password: string,
@@ -41,11 +43,12 @@ export default function SignInPage() {
 
     const router = useRouter()
 
-    const { register, handleSubmit, formState: { errors } } = useForm<SignInInputs>({
+    const { register, handleSubmit, formState: { errors } } = useForm<SignUpInputs>({
         resolver: zodResolver(formSchema)
     })
 
-    const onSignUp: SubmitHandler<SignInInputs> = async (data) => {
+
+    const onSignUp: SubmitHandler<SignUpInputs> = async (data) => {
         if (data.password !== data.confirmPassword) {
             toast.error('The passwords do not match')
         }
@@ -63,10 +66,30 @@ export default function SignInPage() {
                     'Content-Type': 'application/json'
                 }
             })
+
             if (res.ok) {
                 setIsLoading(false);
                 toast.success('You have registered successfully');
-                router.push("/auth/login");
+
+                try {
+                    setIsLoading(true)
+                    const res = await signIn('credentials', {
+                        email: data.email,
+                        password: data.password,
+                        redirect: false
+                    })
+
+                    if(res?.error) {
+                        return toast.error(res.error)
+                    } else {
+                        router.push('/create/loading')
+                    }
+                } catch(err) {
+                    toast.error("Something wrong happened.")
+                    setIsLoading(false)
+                } finally {
+                    setIsLoading(false)
+                } 
             } else {
                 // Manejar errores de la API aquí
                 const errorData = await res.json();
@@ -79,6 +102,7 @@ export default function SignInPage() {
             setIsLoading(false)
         }
     }
+
 
     return (
         <>
