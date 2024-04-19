@@ -5,11 +5,12 @@ import InputField from "./ui/InputField"
 import TextAreaField from "./ui/TextAreaField"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { string, z } from "zod"
+import { z } from "zod"
 import { useState } from "react"
 import toast from "react-hot-toast"
-import { useParams, useRouter } from "next/navigation"
 import { Resume } from "@prisma/client"
+import EducationForm from "./EducationForm"
+import ExperienceForm from "./ExperienceForm"
 
 const formSchema = z.object({
     name: z.string().min(3, {
@@ -150,9 +151,17 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             maxLength={500}
                         />
                     </div>
+                    <div className="space-y-2">
+                        <h3 className="text-xl font-semibold text-gray-950">Education</h3>
+                        <EducationForm />
+                    </div>
+                    <div className="space-y-2">
+                        <h3 className="text-xl font-semibold text-gray-950">Experience</h3>
+                        <ExperienceForm />
+                    </div> 
                     <Button 
                         text="Save"
-                    />             
+                    />     
                 </form>
             </div>
         </aside>
