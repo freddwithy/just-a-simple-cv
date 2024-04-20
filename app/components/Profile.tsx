@@ -33,7 +33,7 @@ const Profile = () => {
                     <div className='border-t border-gray-200 pt-2'>
                         <Button 
                             onSumbit={signOut}
-                            className='bg-red-500 w-full'>    
+                            className='bg-red-500 w-full text-white border-white'>    
                             Sign Out
                         </Button>
                     </div>

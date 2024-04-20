@@ -97,7 +97,7 @@ export default function LoginPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.password.message}</span>
                         )
                     }
-                    <button disabled={isLoading} className={`bg-mystic-700 rounded-lg text-white font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
+                    <button disabled={isLoading} className={`bg-mystic-300 rounded-lg text-mystic-950 font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
                         isLoading ? "opacity-50 cursor-wait hover:bg-mystic-700" :""
                     }`}>
                         {isLoading && (
@@ -106,7 +106,7 @@ export default function LoginPage() {
                         Sign In
                     </button>
                     <div className="border-t border-gray-300  flex flex-col justify-center items-center">
-                        <div className="inline-flex items-center justify-center w-full">
+                        {/* <div className="inline-flex items-center justify-center w-full">
                             <hr className="w-64 h-px my-8 bg-gray-400 border-0"/>
                             <span className="absolute px-3 font-semibold text-gray-600 -translate-x-1/2 bg-white left-1/2">or</span>
                         </div>
@@ -116,7 +116,7 @@ export default function LoginPage() {
                             )}
                             Sign In With Google
                             <Image src="/google.svg" width={15} height={30} alt="google logo" />
-                        </a>
+                        </a> */}
                         <p className="mt-4" >If you don&apos;t have an account, please <a href="/auth/signup" className="text-blue-600 font-medium hover:underline">Sign Up</a></p>
                     </div>                 
                 </form>

@@ -101,10 +101,10 @@ const EducationForm: React.FC<EducationFormProps> = ({
                 )
             }
             <Button 
-                className="flex items-center justify-center bg-gray-700 px-4 h-10 w-full"
+                className="flex items-center justify-center bg-mystic-300 px-4 h-10 w-full text-gray-900"
                 onSumbit={openModal}
             >
-                <Plus />
+                <Plus className="size-5"/>
                 Add
             </Button>
             <Modal

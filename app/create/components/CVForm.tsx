@@ -164,13 +164,13 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                         />
                         {errors.aboutMe && <p className="text-red-500">{errors.aboutMe.message}</p>}
                     </div>            
-                    <Button className={`flex items-center justify-center gap-x-2 ${isLoading && "opacity-80 cursor-wait"}`}>
+                    <Button className={`flex items-center justify-center px-4 h-10 w-full  ${isLoading && "opacity-80 cursor-wait"}`}>
                         {
                             isLoading && <LoaderCircle 
                                 className="animate-spin animate-infinite"
                             />
                         }
-                        Save    
+                        {initialData ? "Update" : "Send"}  
                     </Button>   
                 </form>
                 <div className="space-y-2">

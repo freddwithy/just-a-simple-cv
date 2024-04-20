@@ -24,7 +24,7 @@ const UserModal: React.FC<ModalProps> = ({
 
     if(!isMounted) return null
     return (
-        <div onClick={(e) => e.stopPropagation()} className={`absolute bg-white shadow-md p-6 rounded-lg transition-all top-16 right-2 justify-center flex flex-col ${open ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"} ${className}`}>
+        <div onClick={(e) => e.stopPropagation()} className={`absolute bg-white shadow-md p-6 rounded-lg transition-all top-16 right-2 justify-center flex flex-col ${open ? "translate-y-0 opacity-100 visible" : "-translate-y-2 opacity-0 invisible"} ${className}`}>
             {children}
             <div className='flex items-center justify-center mt-4'>
                 <button onClick={onClose} className='flex items-center justify-center bg-gray-200 rounded-full p-2 hover:opacity-80'>
