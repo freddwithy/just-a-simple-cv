@@ -90,16 +90,18 @@ const EducationForm: React.FC<EducationFormProps> = ({
         <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? educationData.map((edu) => (
-                    <div key={edu.id} className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col">
+                    <div key={edu.id} className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
                         <p className="font-semibold text-base">{edu.entity}</p>
-                        <span className="text-sm">{edu.initDate} - {edu.endDate}</span>
+                        <span className="text-sm">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</span>
                     </div>
                 )) : (
-                    <p className="w-full text-sm text-gray-500">No data available</p>
+                    <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
+                        <p className="font-semibold text-base">No education added yet</p>
+                    </div>
                 )
             }
             <Button 
-                className="flex items-center justify-center bg-gray-500 px-4 h-10"
+                className="flex items-center justify-center bg-gray-700 px-4 h-10 w-full"
                 onSumbit={openModal}
             >
                 <Plus />

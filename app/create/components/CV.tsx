@@ -64,7 +64,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                                 <span className="text-sm text-gray-700">{edu.entity}</span>
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-950">{edu.initDate} - {edu.endDate}</p>
+                                <p className="font-semibold text-gray-950">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</p>
                             </div>
                         </div>
                     ))
