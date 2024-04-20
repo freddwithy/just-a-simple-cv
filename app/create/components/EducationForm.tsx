@@ -3,13 +3,15 @@
 import Button from "@/app/components/ui/Button"
 import Modal from "@/app/components/ui/Modal"
 import useModal from "@/hooks/useModal"
-import { Plus } from "lucide-react"
+import { LoaderCircle, Plus } from "lucide-react"
 import InputField from "./ui/InputField"
 import { Education } from "@prisma/client"
 import { useEffect, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
+import toast from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
     entity: z.string().min(3, {
@@ -21,25 +23,34 @@ const formSchema = z.object({
     endDate: z.string().min(3, {
         message: "End date is required"
     }),
+    certificate: z.string().min(3, {
+        message: "Certificate is required"
+    })
 })
 
 interface EducationFormProps {
     educationData: Education[]
+    resumeId: string
 }
 
 type ResumeInputs = {
+    certificate: string
     entity: string
     initDate: string
     endDate: string
 }
 
 const EducationForm: React.FC<EducationFormProps> = ({
-    educationData
+    educationData,
+    resumeId
 }) => {
     const { open, openModal, closeModal } = useModal()
     const [isMounted, setIsMounted] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const { register, handleSubmit } = useForm<ResumeInputs>({
+    const router = useRouter()
+
+    const { register, handleSubmit, formState: { errors } } = useForm<ResumeInputs>({
         resolver: zodResolver(formSchema)
     })
 
@@ -53,17 +64,33 @@ const EducationForm: React.FC<EducationFormProps> = ({
 
     const onSubmit: SubmitHandler<ResumeInputs> = async (data) => {
         try {
-            
+            setIsLoading(true)
+            const res = await fetch(`/api/${resumeId}/education`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            if(res.ok) {
+                setIsLoading(false)
+                toast.success('Education added successfully')
+                router.refresh()
+                closeModal()
+            } else {
+                toast.error('Something went wrong')
+            }
         } catch(err) {
             console.log(err)
         }
     }
 
     return (
-        <div className="flex gap-2 items-center w-full">
+        <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? educationData.map((edu) => (
-                    <div key={edu.id} className="space-y-2 bg-gray-200 rounded-lg p-2 w-full">
+                    <div key={edu.id} className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col">
                         <p className="font-semibold text-base">{edu.entity}</p>
                         <span className="text-sm">{edu.initDate} - {edu.endDate}</span>
                     </div>
@@ -84,31 +111,41 @@ const EducationForm: React.FC<EducationFormProps> = ({
             >
                 <div className="px-2 py-2 flex-col flex min-w-96">
                     <p className="text-xl font-semibold mb-2">Add New Education</p>
-                    <form action="" className="space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <InputField 
+                            formHook={register("entity")}
                             label="School"
                             nameInput="school"
                             typeInput="text"
                         />
+                        {errors.entity && <p className="text-red-500">{errors.entity.message}</p>}
                         <InputField 
+                            formHook={register("certificate")}
                             label="Career"
                             nameInput="career"
                             typeInput="text"
                         />
-                        <InputField 
+                        {errors.certificate && <p className="text-red-500">{errors.certificate.message}</p>}
+                        <InputField
+                            formHook={register("initDate")}
                             label="From"
                             nameInput="initDate"
                             typeInput="date"
                         />
+                        {errors.initDate && <p className="text-red-500">{errors.initDate.message}</p>}
                         <InputField 
+                            formHook={register("endDate")}
                             label="To"
                             nameInput="endDate"
                             typeInput="date"
                         />
-                        <Button 
-                            text="Add new"
-                            className="w-full"
-                        />
+                        {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
+                        <Button className={`w-full flex justify-center items-center gap-x-2 ${isLoading && "opacity-80 cursor-wait"}`}>
+                            {
+                                isLoading && <LoaderCircle className="animate-spin"/>
+                            }
+                            Add
+                        </Button>
                     </form>
                 </div>
             </Modal>

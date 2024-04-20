@@ -177,6 +177,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                     <h3 className="text-xl font-semibold text-gray-950">Education</h3>
                         <EducationForm 
                             educationData={educationData}
+                            resumeId={initialData.id}
                         />
                 </div>
                 <div className="space-y-2">

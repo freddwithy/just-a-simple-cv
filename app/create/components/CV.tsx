@@ -1,5 +1,6 @@
 'use client'
 
+import { Education } from "@prisma/client"
 import { MapPin } from "lucide-react"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
@@ -10,14 +11,17 @@ type ResumeData = {
     city: string;
     shortResume: string;
     aboutMe: string;
+    education: Education[]
 }
+
 
 export const CVComponent: React.FC<ResumeData> = ({
     name,
     lastName,
     city,
     shortResume,
-    aboutMe
+    aboutMe,
+    education
 }) => {
     const [isMounted, setIsMounted] = useState(false)
 
@@ -43,35 +47,28 @@ export const CVComponent: React.FC<ResumeData> = ({
                 </div>
             </div>
             <div className="py-4 border-b border-gray-200">
-                <h4 className="text-xl font-semibold pb-4">Sobre mí</h4>
+                <h4 className="text-xl font-semibold pb-4">About me</h4>
                 <p className="text-gray-700 max-w-max text-pretty break-words">
                     {aboutMe}
                 </p>
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Educación</h4>
-                <div className="flex justify-between">
-                    <div>
-                        <p className="font-semibold text-gray-950">
-                            {}
-                        </p>
-                        <span className="text-sm text-gray-700">Ingenería Eléctromecanica</span>
-                    </div>
-                    <div>
-                        <p className="font-semibold text-gray-950">{} - {}</p>
-                    </div>
-                </div>
-                <div className="flex justify-between">
-                    <div>
-                        <p className="font-semibold text-gray-950">
-                            Colegio Técnico Salesiano María Auxiliadora
-                        </p>
-                        <span className="text-sm text-gray-700">Técnico en Electrotécnia</span>
-                    </div>
-                    <div>
-                        <p className="font-semibold text-gray-950">2016 - 2018</p>
-                    </div>
-                </div>
+                <h4 className="text-xl font-semibold">Education</h4>
+                {
+                    education.map((edu) => (
+                        <div key={edu.id} className="flex justify-between">
+                            <div>
+                                <p className="font-semibold text-gray-950">
+                                    {edu.certificate}
+                                </p>
+                                <span className="text-sm text-gray-700">{edu.entity}</span>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-950">{edu.initDate} - {edu.endDate}</p>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
                 <h4 className="text-xl font-semibold">Experiencia</h4>

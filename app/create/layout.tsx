@@ -5,14 +5,6 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { Header } from "../components/Header";
 
-const navLinks = [
-    {
-        linkTo: "/Save",
-        name: "Save",
-    },
-]
-
-
 export default async function ResumeLayout({
     children
 } : {

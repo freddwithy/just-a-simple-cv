@@ -39,6 +39,7 @@ export default async function ResumePage ({
                 <CVFormComponent initialData={resume} educationData={education} />
                 <main className="border-l py-10 border-gray-200 flex items-center bg-gray-200 flex-col gap-y-8 flex-grow max-h-screen overflow-y-scroll">
                     <CVComponent
+                        education={education}
                         name={resume.name}
                         lastName={resume.lastName}
                         city={resume.city}
