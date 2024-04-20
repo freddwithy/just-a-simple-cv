@@ -9,6 +9,7 @@ export async function POST(
         const body = await req.json()
 
         const { entity, certificate, initDate, endDate } = body
+        
 
         if (!params.resumeId) {
             return new NextResponse("Resume id is required", { status: 400 });

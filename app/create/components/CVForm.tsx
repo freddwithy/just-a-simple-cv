@@ -6,24 +6,20 @@ import TextAreaField from "./ui/TextAreaField"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { Resume } from "@prisma/client"
+import { Education, Resume } from "@prisma/client"
 import EducationForm from "./EducationForm"
 import ExperienceForm from "./ExperienceForm"
+import { LoaderCircle } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
-    name: z.string().min(3, {
-        message: 'The name must have at least 3 characters'
-    }).max(200, {
-        message: ''
-    }),
-    lastName: z.string().min(3).max(150),
-    city: z.string().min(3).max(150),
-    shortResume: z.string().min(6, {
-        message: "Short resume must be at least 6 characters"
-    }).max(200),
-    aboutMe: z.string().min(6)
+    name: z.string().min(2, { message: "Name is required" }).max(150, { message: "Name must be less than 150 characters" }),
+    lastName: z.string().min(2, { message: "Last name is required" }).max(150, { message: "Last name must be less than 150 characters" }),
+    city: z.string().min(3, { message: "City is required" }).max(150, { message: "City must be less than 150 characters" }),
+    shortResume: z.string().min(3, { message: "Short resume is required" }).max(500, { message: "Short resume must be less than 500 characters" }),
+    aboutMe: z.string().min(10, { message: "About me is required" }).max(500, { message: "About me must be less than 500 characters" }),
 })
 
 type ResumeInputs = {
@@ -36,17 +32,28 @@ type ResumeInputs = {
 
 interface ResumeProps {
     initialData: Resume
+    educationData: Education[]
 }
 
 
 export const CVFormComponent: React.FC<ResumeProps> = ({
     initialData,
+    educationData
 }) => {
     const [isLoading, setIsLoading] = useState(false)
+    const [isMounted, setIsMounted] = useState(false)
+
+    const router = useRouter()
 
     const { register, handleSubmit, formState: { errors } } = useForm<ResumeInputs>({
         resolver: zodResolver(formSchema)
     })
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if(!isMounted) return null
 
     const onSubmit: SubmitHandler<ResumeInputs> = async (data) => {
         try {
@@ -69,6 +76,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                 if (res.ok) {
                     setIsLoading(false);
                     toast.success('You have updated the resume');
+                    router.refresh()
                 } else {
                     // Manejar errores de la API aquí
                     const errorData = await res.json();
@@ -120,6 +128,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             placeholder="Fredd"
                             label="First Name"
                         />
+                        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                         <InputField
                             formHook={{...register("lastName")}}
                             typeInput="text"
@@ -127,12 +136,14 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             placeholder="Sanabria"
                             label="Last Name"
                         />
+                        {errors.lastName && <p className="text-red-500">{errors.lastName.message}</p>}
                         <TextAreaField 
                             formHook={{...register("shortResume")}}
                             nameInput="resume"
                             placeholder="Frontend web developer and Graphic Designer..."
                             label="About you"
                         />
+                        {errors.shortResume && <p className="text-red-500">{errors.shortResume.message}</p>}
                         <InputField 
                             formHook={{...register("city")}}
                             typeInput="text"
@@ -140,6 +151,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             placeholder="Ciudad del Este"
                             label="City"
                         />
+                        {errors.city && <p className="text-red-500">{errors.city.message}</p>}
                     </div>
                     <div className="space-y-2">
                         <h3 className="text-xl font-semibold text-gray-950">About me</h3>
@@ -150,19 +162,27 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             label="Talk about you"
                             maxLength={500}
                         />
-                    </div>
-                    <div className="space-y-2">
-                        <h3 className="text-xl font-semibold text-gray-950">Education</h3>
-                        <EducationForm />
-                    </div>
-                    <div className="space-y-2">
-                        <h3 className="text-xl font-semibold text-gray-950">Experience</h3>
-                        <ExperienceForm />
-                    </div> 
-                    <Button 
-                        text="Save"
-                    />     
+                        {errors.aboutMe && <p className="text-red-500">{errors.aboutMe.message}</p>}
+                    </div>            
+                    <Button className={`flex items-center justify-center gap-x-2 ${isLoading && "opacity-80 cursor-wait"}`}>
+                        {
+                            isLoading && <LoaderCircle 
+                                className="animate-spin animate-infinite"
+                            />
+                        }
+                        Save    
+                    </Button>   
                 </form>
+                <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-gray-950">Education</h3>
+                        <EducationForm 
+                            educationData={educationData}
+                        />
+                </div>
+                <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-gray-950">Experience</h3>
+                        <ExperienceForm />
+                </div> 
             </div>
         </aside>
     )

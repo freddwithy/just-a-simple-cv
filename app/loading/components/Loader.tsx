@@ -73,7 +73,7 @@ const Loader: React.FC<LoaderProps> = ({
                     <div className="p-10 border border-gray-200 shadow-lg flex gap-x-8 items-center rounded-lg">
                         <p className="text-2xl text-center font-medium text-pretty">Your resume is ready!</p>
                         <ActionButton 
-                            link="/create"
+                            link={`/${resume?.id}`}
                             title="Go to the creator"
                         />
                     </div>

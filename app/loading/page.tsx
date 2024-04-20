@@ -1,4 +1,3 @@
-
 import { getServerSession } from "next-auth"
 import Loader from "./components/Loader"
 import { authConfig } from "@/libs/auth"
@@ -21,7 +20,7 @@ const LoadingPage = async () => {
     }
 
     if(resume) {
-        redirect('/create')
+        redirect(`/create/${resume.id}`)
     }
 
     return (

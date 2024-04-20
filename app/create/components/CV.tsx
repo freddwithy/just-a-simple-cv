@@ -1,9 +1,8 @@
 'use client'
-import prismadb from "@/libs/prismadb"
+
 import { MapPin } from "lucide-react"
-import { useSession } from "next-auth/react"
 import Image from "next/image"
-import React from "react"
+import React, { useEffect, useState } from "react"
 
 type ResumeData = {
     name: string
@@ -13,13 +12,21 @@ type ResumeData = {
     aboutMe: string;
 }
 
-export const CVComponent: React.FC<ResumeData> = async ({
+export const CVComponent: React.FC<ResumeData> = ({
     name,
     lastName,
     city,
     shortResume,
     aboutMe
 }) => {
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if(!isMounted) return null
+
     return (
         <section className="p-10 border border-gray-200 rounded-lg w-full bg-white shadow-md flex-col max-w-screen-sm md:max-w-3xl">
             <div className="flex justify-between border-b border-gray-200 pb-4 items-center">

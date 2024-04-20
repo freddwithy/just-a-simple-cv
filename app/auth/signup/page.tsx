@@ -82,7 +82,7 @@ export default function SignInPage() {
                     if(res?.error) {
                         return toast.error(res.error)
                     } else {
-                        router.push('/create/loading')
+                        router.push('/loading')
                     }
                 } catch(err) {
                     toast.error("Something wrong happened.")

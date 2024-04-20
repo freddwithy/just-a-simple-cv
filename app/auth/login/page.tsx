@@ -1,12 +1,12 @@
 "use client"
 
-import { getSession, signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRouter } from "next/navigation"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { z } from "zod"
 import toast from "react-hot-toast"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import LogoLink from "@/app/components/ui/LogoLink"
@@ -48,7 +48,7 @@ export default function LoginPage() {
             if(res?.error) {
                 return toast.error(res.error)
             } else {
-                router.push('/create')
+                router.refresh()
                 toast.success('Welcome! :)')
             }
         } catch(err) {
@@ -70,17 +70,6 @@ export default function LoginPage() {
             setIsLoadingG(false)
         }
     }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const session = await getSession()
-            if (session) {
-                return { redirect: { destination: "/" } }
-            }
-        } 
-
-        fetchData()
-    })
 
     return (
         <>

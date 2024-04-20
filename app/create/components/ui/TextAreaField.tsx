@@ -17,7 +17,7 @@ const TextAreaField: React.FC<TextAreaFieldProps> = ({
   return (
     <div className="flex flex-col gap-y-2">
         <label htmlFor="" className="font-medium text-gray-700 text-sm">{label}</label>
-        <textarea name={nameInput} placeholder={placeholder} className={`p-2 bg-gray-100 rounded-lg resize-none h-32 ${className}`} {...formHook} />
+        <textarea name={nameInput} placeholder={placeholder} className={`p-2 bg-gray-100 rounded-lg resize-none h-32 ${className} border border-gray-300`} {...formHook} />
     </div> 
   )
 }

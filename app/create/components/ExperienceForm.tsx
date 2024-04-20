@@ -5,14 +5,23 @@ import Modal from "@/app/components/ui/Modal"
 import useModal from "@/hooks/useModal"
 import { Plus } from "lucide-react"
 import InputField from "./ui/InputField"
+import { useEffect, useState } from "react"
 
 const ExperienceForm = () => {
     const { open, openModal, closeModal } = useModal()
+    const [isMounted, setIsMounted] = useState(false)
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
+
+    if(!isMounted) return null
+
     return (
         <div className="flex gap-2 items-center w-full">
             <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full">
-                <p className="font-semibold text-base">Maria Auxiliadora</p>
-                <span className="text-sm">2016 - 2018</span>
+                <p className="font-semibold text-base">ELIMEC S.R.L</p>
+                <span className="text-sm">2021 - Now</span>
             </div>
             <Button 
                 className="flex items-center justify-center bg-gray-500 px-4 h-10"

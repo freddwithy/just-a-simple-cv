@@ -3,17 +3,8 @@ import prismadb from "@/libs/prismadb";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
-import { Header } from "../components/Header";
 
-const navLinks = [
-    {
-        linkTo: "/Save",
-        name: "Save",
-    },
-]
-
-
-export default async function ResumeLayout({
+export default async function AuthLayout({
     children
 } : {
     children: React.ReactNode
@@ -21,14 +12,23 @@ export default async function ResumeLayout({
     const session = await getServerSession(authConfig)
     const userId = session?.user?.id
 
-    if(!userId) {
-        redirect('/auth/login')
+    const resume = await prismadb.resume.findFirst({
+        where: {
+            userId: userId
+        }
+    })
+
+    if(userId) {
+        redirect('/create')
+    }
+
+    if(resume && userId) {
+        redirect(`/${resume?.id}`)
     }
 
     return (
-        <>
-            <Header />
+        <div className="flex items-center justify-center h-full">
             {children}
-        </>   
+        </div>
     )
 }
