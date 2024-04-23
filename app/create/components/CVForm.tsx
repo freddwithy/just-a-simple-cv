@@ -51,7 +51,14 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
     const router = useRouter()
 
     const { register, handleSubmit, formState: { errors } } = useForm<ResumeInputs>({
-        resolver: zodResolver(formSchema)
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            name: initialData?.name,
+            lastName: initialData?.lastName,
+            city: initialData?.city,
+            shortResume: initialData?.shortResume,
+            aboutMe: initialData?.aboutMe
+        },
     })
 
     useEffect(() => {
