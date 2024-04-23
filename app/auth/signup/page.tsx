@@ -155,8 +155,8 @@ export default function SignInPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.root.message}</span>
                         )
                     }
-                    <button disabled={isLoading} className={`bg-mystic-700 rounded-lg text-white font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
-                        isLoading ? "opacity-50 cursor-wait hover:bg-mystic-700" :""
+                    <button disabled={isLoading} className={`bg-mystic-300 rounded-lg text-mystic-950 border border-mystic-600 font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
+                        isLoading ? "opacity-50 cursor-wait" :""
                     }`}>
                         {isLoading && (
                             <LoaderCircle className="animate-spin size-4"/>

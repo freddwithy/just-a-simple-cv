@@ -1,9 +1,11 @@
 'use client'
 
-import { Education } from "@prisma/client"
+import { Education, Experience, Skills } from "@prisma/client"
 import { MapPin } from "lucide-react"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
+import defaultData from "@/default/cv-default.json"
+import { array } from "zod"
 
 type ResumeData = {
     name: string
@@ -12,7 +14,10 @@ type ResumeData = {
     shortResume: string;
     aboutMe: string;
     education: Education[]
+    experience: Experience[]
+    skill: Skills[]
 }
+
 
 
 export const CVComponent: React.FC<ResumeData> = ({
@@ -21,7 +26,9 @@ export const CVComponent: React.FC<ResumeData> = ({
     city,
     shortResume,
     aboutMe,
-    education
+    education,
+    experience,
+    skill
 }) => {
     const [isMounted, setIsMounted] = useState(false)
 
@@ -30,6 +37,17 @@ export const CVComponent: React.FC<ResumeData> = ({
     }, [])
 
     if(!isMounted) return null
+
+    const isExperience = experience.length > 0
+    const isEducation = education.length > 0
+    const isSkill = skill.length > 0
+
+    const dfExperienceList = Array.isArray(defaultData.EXPERIENCE) ? defaultData.EXPERIENCE : [defaultData.EXPERIENCE]
+
+    const dfEducationList = Array.isArray(defaultData.EDUCATION) ? defaultData.EDUCATION : [defaultData.EDUCATION]
+
+    const dfSkillList = Array.isArray(defaultData.SKILLS) ? defaultData.SKILLS : [defaultData.SKILLS]
+
 
     return (
         <section className="p-10 border border-gray-200 rounded-lg w-full bg-white shadow-md flex-col max-w-screen-sm md:max-w-3xl">
@@ -55,7 +73,22 @@ export const CVComponent: React.FC<ResumeData> = ({
             <div className="py-4 border-b border-gray-200 space-y-4">
                 <h4 className="text-xl font-semibold">Education</h4>
                 {
-                    education.map((edu) => (
+                    !isEducation && dfEducationList.map((edu, i) => (
+                        <div key={i} className="flex justify-between">
+                            <div>
+                                <p className="font-semibold text-gray-950">
+                                    {edu.COURSE}
+                                </p>
+                                <span className="text-sm text-gray-700">{edu.INSTITUTION}</span>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-950">{edu.FROM.slice(0, 4)} - {edu.TO.slice(0, 4)}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+                {
+                    isEducation && education.map((edu) => (
                         <div key={edu.id} className="flex justify-between">
                             <div>
                                 <p className="font-semibold text-gray-950">
@@ -72,53 +105,45 @@ export const CVComponent: React.FC<ResumeData> = ({
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
                 <h4 className="text-xl font-semibold">Experiencia</h4>
-                <div className="flex justify-between">
-                    <div>
-                        <p className="font-semibold text-gray-950">
-                            {}
-                        </p>
-                        <span className="text-sm text-gray-700">Gerente Técnico</span>
-                    </div>
-                    <div>
-                        <p className="font-semibold text-gray-950">{} - {}</p>
-                    </div>
-                </div>
-                <div className="flex justify-between">
-                    <div>
-                        <p className="font-semibold text-gray-950">
-                            Intech S.R.L
-                        </p>
-                        <span className="text-sm text-gray-700">Técnico en Electrotécnia</span>
-                    </div>
-                    <div>
-                        <p className="font-semibold text-gray-950">2020 - 2021</p>
-                    </div>
-                </div>
+                {
+                    !isExperience && dfExperienceList.map((exp, i) => (
+                        <div key={i} className="flex justify-between">
+                            <div>
+                                <p className="font-semibold text-gray-950">
+                                    {exp.JOB}
+                                </p>
+                                <span className="text-sm text-gray-700">{exp.COMPANY}</span>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-950">{exp.FROM.slice(0, 4)} - {exp.TO.slice(0, 4)}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+                {
+                    isExperience && experience.map((exp, i) => (
+                        <div key={i} className="flex justify-between">
+                            <div>
+                                <p className="font-semibold text-gray-950">
+                                    {exp.position}
+                                </p>
+                                <span className="text-sm text-gray-700">{exp.company}</span>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-950">{exp.initDate.slice(0, 4)} - {exp.endDate.slice(0, 4)}</p>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
             <div className="py-4 border-gray-200 space-y-4">
                 <h4 className="text-xl font-semibold">Habilidades</h4>
                 <div className="flex gap-2 flex-wrap">
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>Adobe Photoshop</p>
-                    </div>
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>Adobe Premiere</p>
-                    </div>
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>JavaScript</p>
-                    </div>
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>CSS3</p>
-                    </div>
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>HTM5</p>
-                    </div>
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>ReactJS</p>
-                    </div>
-                    <div className="py-1 px-2 border rounded-lg border-gray-600">
-                        <p>NextJS</p>
-                    </div>
+                    {
+                        !isSkill && dfSkillList.map((skill, i) => (
+                            <p key={i} className="text-gray-700 border border-gray-500 px-3 py-1 rounded-lg">{skill.SKILL}</p>
+                        ))
+                    }                
                 </div>
             </div>
         </section>

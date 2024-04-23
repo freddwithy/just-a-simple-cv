@@ -8,11 +8,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { Education, Resume } from "@prisma/client"
+import { Education, Experience, Resume, Skills } from "@prisma/client"
 import EducationForm from "./EducationForm"
 import ExperienceForm from "./ExperienceForm"
 import { LoaderCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
+import SkillForm from "./SkillForm"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name is required" }).max(150, { message: "Name must be less than 150 characters" }),
@@ -33,12 +34,16 @@ type ResumeInputs = {
 interface ResumeProps {
     initialData: Resume
     educationData: Education[]
+    experienceData: Experience[]
+    skillData: Skills[]
 }
 
 
 export const CVFormComponent: React.FC<ResumeProps> = ({
     initialData,
-    educationData
+    educationData,
+    experienceData,
+    skillData
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
@@ -182,7 +187,17 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                 </div>
                 <div className="space-y-2">
                     <h3 className="text-xl font-semibold text-gray-950">Experience</h3>
-                        <ExperienceForm />
+                        <ExperienceForm 
+                            experienceData={experienceData}
+                            resumeId={initialData.id}
+                        />
+                </div> 
+                <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-gray-950">Skills</h3>
+                        <SkillForm 
+                            skillData={skillData}
+                            resumeId={initialData.id}
+                        />
                 </div> 
             </div>
         </aside>
