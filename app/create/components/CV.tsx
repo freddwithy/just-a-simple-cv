@@ -143,7 +143,12 @@ export const CVComponent: React.FC<ResumeData> = ({
                         !isSkill && dfSkillList.map((skill, i) => (
                             <p key={i} className="text-gray-700 border border-gray-500 px-3 py-1 rounded-lg">{skill.SKILL}</p>
                         ))
-                    }                
+                    }
+                    {
+                        isSkill && skill.map((skill, i) => (
+                            <p key={i} className="text-gray-900 font-medium border border-gray-700 px-3 py-1 rounded-lg">{skill.name}</p>
+                        ))
+                    }               
                 </div>
             </div>
         </section>

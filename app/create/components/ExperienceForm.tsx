@@ -90,9 +90,9 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
         <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? experienceData.map((edu) => (
-                    <div key={edu.id} className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
-                        <p className="font-semibold text-base">{edu.company}</p>
-                        <span className="text-sm">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</span>
+                    <div key={edu.id} className="space-y-1 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
+                        <p className="font-normal text-gray-700 text-base">{edu.company}</p>
+                        <span className="text-sm text-gray-700">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</span>
                     </div>
                 )) : (
                     <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">

@@ -79,8 +79,8 @@ const SkillForm: React.FC<SkillFormProps> = ({
         <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? skillData.map((sk) => (
-                    <div key={sk.id} className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
-                        <p className="font-semibold text-base">{sk.name}</p>
+                    <div key={sk.id} className="space-y-1 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
+                        <p className="font-normal text-gray-700 text-base">{sk.name}</p>
                     </div>
                 )) : (
                     <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">

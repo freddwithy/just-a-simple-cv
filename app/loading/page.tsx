@@ -43,7 +43,7 @@ const LoadingPage = async () => {
         redirect('/auth/login')
     }
 
-    if(isData && resumeId) {
+    if(resumeId) {
         redirect(`/create/${resumeId}`)
     }
 

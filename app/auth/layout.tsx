@@ -22,10 +22,6 @@ export default async function AuthLayout({
         redirect('/create')
     }
 
-    if(resume && userId) {
-        redirect(`/${resume?.id}`)
-    }
-
     return (
         <div className="flex items-center justify-center h-full">
             {children}
