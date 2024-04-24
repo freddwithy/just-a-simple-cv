@@ -96,7 +96,7 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
                     </div>
                 )) : (
                     <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
-                        <p className="font-semibold text-base">No experiences added yet</p>
+                        <p className="font-normal text-gray-600 text-base">No experiences added yet</p>
                     </div>
                 )
             }
