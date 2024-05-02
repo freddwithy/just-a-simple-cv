@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth"
 import { authConfig } from "@/libs/auth"
 import { redirect } from "next/navigation"
 import prismadb from "@/libs/prismadb"
-import { CVFormComponent } from "../components/CVForm"
+import { CVFormComponent } from "../components/Form"
 import { CVComponent } from "../components/CV"
 
 export default async function ResumePage ({

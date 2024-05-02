@@ -9,11 +9,11 @@ import { z } from "zod"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { Education, Experience, Resume, Skills } from "@prisma/client"
-import EducationForm from "./EducationForm"
-import ExperienceForm from "./ExperienceForm"
+import EducationForm from "./(form)/Education"
+import ExperienceForm from "./(form)/Experience"
 import { LoaderCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
-import SkillForm from "./SkillForm"
+import SkillForm from "./(form)/Skill"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name is required" }).max(150, { message: "Name must be less than 150 characters" }),
