@@ -3,7 +3,7 @@
 import Button from "@/app/components/ui/Button"
 import Modal from "@/app/components/ui/Modal"
 import useModal from "@/hooks/useModal"
-import { Delete, Edit, Plus, Trash } from "lucide-react"
+import { Construction, Delete, Edit, LoaderCircle, Plus, Trash } from "lucide-react"
 import { Education } from "@prisma/client"
 import { useEffect, useState } from "react"
 import EduForm from "./components/EduForm"
@@ -29,7 +29,10 @@ const EducationForm: React.FC<EducationFormProps> = ({
     resumeId
 }) => {
     const { open, openModal, closeModal } = useModal()
+    const deleteModal = useModal()
     const [isMounted, setIsMounted] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
+    const [selectedItemId, setSelectedItemId] = useState('')
     const [selectedData, setSelectedData] = useState<Education>({
         entity: '',
         initDate: '',
@@ -67,14 +70,30 @@ const EducationForm: React.FC<EducationFormProps> = ({
     }
 
     const onDelete = async (id: string) => {
-        const res = await fetch(`/api/${resumeId}/education/${id}`, {
-            method: 'DELETE'
-        })
+        try {
+            setIsLoading(true)
+            const res = await fetch(`/api/${resumeId}/education/${id}`, {
+                method: 'DELETE'
+            })
+    
+            if(res.ok) {
+                setSelectedItemId('')
+                setIsLoading(false)
+                toast.success('Education deleted successfully')
+                deleteModal.closeModal()
+                router.refresh()
+            }
+        } catch (error) {
+            setSelectedItemId('')
+            setIsLoading(false)
+            toast.error('Something went wrong')
+            deleteModal.closeModal()
+        }  
+    }
 
-        if(res.ok) {
-            toast.success('Education deleted successfully')
-            router.refresh()
-        }
+    const onDeleteModal = (id: string) => {
+        deleteModal.openModal()
+        setSelectedItemId(id)
     }
 
     return (
@@ -86,13 +105,18 @@ const EducationForm: React.FC<EducationFormProps> = ({
                             <p className="font-normal text-gray-700 text-base">{edu.entity}</p>
                             <span className="text-sm text-gray-700">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</span>
                         </div>
-                        <button onClick={() => onEdit(edu)} className="text-gray-500 hover:bg-gray-300 font-normal rounded-full p-2">
-                            <Edit className="size-5"/>
-                        </button>
-                        <button onClick={() => onDelete(edu.id)} className="text-red-500 hover:bg-gray-300 font-normal rounded-full p-2">
-                            <Trash className="size-5" />
-                        </button>
+                        <div>
+                            <button onClick={() => onEdit(edu)} className="text-gray-500 hover:bg-gray-300 font-normal rounded-full p-2">
+                                <Edit className="size-5"/>
+                            </button>
+                            <button onClick={() => onDeleteModal(edu.id)} className="text-red-500 hover:bg-gray-300 font-normal rounded-full p-2">
+                                {
+                                    isLoading && selectedItemId === edu.id ? <LoaderCircle className="animate-spin"/> : <Trash className="size-5"/>
+                                }
+                            </button>
+                        </div>
                     </div>
+                    
                 )) : (
                     <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
                         <p className="font-normal text-gray-600 text-base">No education added yet</p>
@@ -115,6 +139,19 @@ const EducationForm: React.FC<EducationFormProps> = ({
                     close={closeModal}
                     resumeId={resumeId}
                 />
+            </Modal>
+            <Modal
+                open={deleteModal.open}
+                onCLose={deleteModal.closeModal}
+            >
+                <div className="flex p-2 flex-col gap-y-4 items-center">
+                    <Trash className="size-10 text-red-500"/>
+                    <p className="text-xl font-semibold text-balance">Are you sure you want to delete this education?</p>
+                    <div className="flex gap-x-2 w-full">
+                        <Button className="w-full bg-red-600 border-red-600" onSumbit={() => onDelete(selectedItemId)}>Yes</Button>
+                        <Button className="w-full bg-gray-600 border-gray-600" onSumbit={deleteModal.closeModal}>No</Button>
+                    </div>
+                </div>
             </Modal>
         </div>
     )

@@ -1,5 +1,5 @@
-'use clients'
-import React, { useState } from 'react'
+'use client'
+import React, { useEffect, useState } from 'react'
 import InputField from '../../ui/InputField'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -90,15 +90,18 @@ const EduForm : React.FC<EducationFormProps> = ({
         }
     }
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ResumeInputs>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ResumeInputs>({
         resolver: zodResolver(formSchema),
-        defaultValues: {
-            initDate: initialData?.initDate,
-            endDate: initialData?.endDate,
-            entity: initialData?.entity,
-            certificate: initialData?.certificate
-        },
     })
+
+    useEffect(() => {
+        if(initialData) {
+            setValue('entity', initialData.entity)
+            setValue('certificate', initialData.certificate)
+            setValue('initDate', initialData.initDate)
+            setValue('endDate', initialData.endDate)
+        }
+    }, [initialData, setValue])
 
     const titleData = initialData.id && initialData.id !== '' ? 'Edit Education' : 'Add New Education'
 
@@ -107,28 +110,28 @@ const EduForm : React.FC<EducationFormProps> = ({
             <p className="text-xl font-semibold mb-2">{titleData}</p>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <InputField 
-                    formHook={register("initDate")}
+                    formHook={{...register("initDate")}}
                     label="From"
                     nameInput="initDate"
                     typeInput="date"
                 />
                 {errors.initDate && <p className="text-red-500">{errors.initDate.message}</p>}
                 <InputField 
-                    formHook={register("endDate")}
+                    formHook={{...register("endDate")}}
                     label="To"
                     nameInput="endDate"
                     typeInput="date"
                 />
                 {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
                 <InputField 
-                    formHook={register("entity")}
-                    label="School"
+                    formHook={{...register("entity")}}
+                    label="School/University"
                     nameInput="school"
                     typeInput="text"
                 />
                 {errors.entity && <p className="text-red-500">{errors.entity.message}</p>}
                 <InputField 
-                    formHook={register("certificate")}
+                    formHook={{...register("certificate")}}
                     label="Career"
                     nameInput="career"
                     typeInput="text"
