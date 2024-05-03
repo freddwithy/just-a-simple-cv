@@ -14,6 +14,7 @@ import ExperienceForm from "./(form)/Experience"
 import { LoaderCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import SkillForm from "./(form)/Skill"
+import { ResumeForm } from "@/types/resume"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name is required" }).max(150, { message: "Name must be less than 150 characters" }),
@@ -23,13 +24,6 @@ const formSchema = z.object({
     aboutMe: z.string().min(10, { message: "About me is required" }).max(500, { message: "About me must be less than 500 characters" }),
 })
 
-type ResumeInputs = {
-    name: string,
-    lastName: string,
-    city: string,
-    shortResume: string,
-    aboutMe: string,
-}
 
 interface ResumeProps {
     initialData: Resume
@@ -50,7 +44,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
 
     const router = useRouter()
 
-    const { register, handleSubmit, formState: { errors } } = useForm<ResumeInputs>({
+    const { register, handleSubmit, formState: { errors } } = useForm<ResumeForm>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: initialData?.name,
@@ -67,7 +61,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
 
     if(!isMounted) return null
 
-    const onSubmit: SubmitHandler<ResumeInputs> = async (data) => {
+    const onSubmit: SubmitHandler<ResumeForm> = async (data) => {
         try {
             setIsLoading(true)
             if (initialData) {

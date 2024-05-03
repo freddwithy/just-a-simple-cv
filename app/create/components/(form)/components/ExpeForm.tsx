@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useEffect, useState } from 'react'
 import InputField from '../../ui/InputField'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,8 +9,8 @@ import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 import Button from '@/app/components/ui/Button'
 import { LoaderCircle } from 'lucide-react'
-import { Education } from '@prisma/client'
-import { EducationForm } from '@/types/resume'
+import { Experience } from '@prisma/client'
+import { ExperienceForm } from '@/types/resume'
 
 const formSchema = z.object({
     initDate: z.string().min(3, {
@@ -18,21 +19,21 @@ const formSchema = z.object({
     endDate: z.string().min(3, {
         message: "End date is required"
     }),
-    entity: z.string().min(3, {
+    company: z.string().min(3, {
         message: "College is required"
     }),
-    certificate: z.string().min(3, {
+    position: z.string().min(3, {
         message: "Certificate is required"
     })
 })
 
-interface EducationFormProps {
+interface ExperienceFormProps {
     resumeId: string
     close: () => void
-    initialData: Education
+    initialData: Experience
 }
 
-const EduForm : React.FC<EducationFormProps> = ({
+const ExpeForm : React.FC<ExperienceFormProps> = ({
     resumeId,
     close,
     initialData
@@ -41,11 +42,11 @@ const EduForm : React.FC<EducationFormProps> = ({
 
     const router = useRouter()
 
-    const onSubmit: SubmitHandler<EducationForm> = async (data) => {
+    const onSubmit: SubmitHandler<ExperienceForm> = async (data) => {
         try {
             setIsLoading(true)
             if(initialData.id && initialData.id !== '') {
-                const res = await fetch(`/api/${resumeId}/education/${initialData.id}`, {
+                const res = await fetch(`/api/${resumeId}/experience/${initialData.id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
@@ -55,14 +56,14 @@ const EduForm : React.FC<EducationFormProps> = ({
 
                 if(res.ok) {
                     setIsLoading(false)
-                    toast.success('Education updated successfully')
+                    toast.success('Experience updated successfully')
                     router.refresh()
                     close()
                 } else {
                     toast.error('Something went wrong')
                 }
             } else {
-                const res = await fetch(`/api/${resumeId}/education`, {
+                const res = await fetch(`/api/${resumeId}/experience`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -72,7 +73,7 @@ const EduForm : React.FC<EducationFormProps> = ({
 
                 if(res.ok) {
                     setIsLoading(false)
-                    toast.success('Education added successfully')
+                    toast.success('Experience added successfully')
                     router.refresh()
                     close()
                 } else {
@@ -84,14 +85,14 @@ const EduForm : React.FC<EducationFormProps> = ({
         }
     }
 
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<EducationForm>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<ExperienceForm>({
         resolver: zodResolver(formSchema),
     })
 
     useEffect(() => {
         if(initialData) {
-            setValue('entity', initialData.entity)
-            setValue('certificate', initialData.certificate)
+            setValue('company', initialData.company)
+            setValue('position', initialData.position)
             setValue('initDate', initialData.initDate)
             setValue('endDate', initialData.endDate)
         }
@@ -118,19 +119,19 @@ const EduForm : React.FC<EducationFormProps> = ({
                 />
                 {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
                 <InputField 
-                    formHook={{...register("entity")}}
+                    formHook={{...register("company")}}
                     label="School/University"
                     nameInput="school"
                     typeInput="text"
                 />
-                {errors.entity && <p className="text-red-500">{errors.entity.message}</p>}
+                {errors.company && <p className="text-red-500">{errors.company.message}</p>}
                 <InputField 
-                    formHook={{...register("certificate")}}
+                    formHook={{...register("position")}}
                     label="Career"
                     nameInput="career"
                     typeInput="text"
                 />
-                {errors.certificate && <p className="text-red-500">{errors.certificate.message}</p>}
+                {errors.position && <p className="text-red-500">{errors.position.message}</p>}
                 <Button className={`w-full flex justify-center items-center gap-x-2 ${isLoading && "opacity-80 cursor-wait"}`}>
                     {
                         isLoading && <LoaderCircle className="animate-spin"/>
@@ -142,4 +143,4 @@ const EduForm : React.FC<EducationFormProps> = ({
   )
 }
 
-export default EduForm
+export default ExpeForm

@@ -3,7 +3,7 @@
 import Button from "@/app/components/ui/Button"
 import Modal from "@/app/components/ui/Modal"
 import useModal from "@/hooks/useModal"
-import { Construction, Delete, Edit, LoaderCircle, Plus, Trash } from "lucide-react"
+import { Edit, LoaderCircle, Plus, Trash } from "lucide-react"
 import { Education } from "@prisma/client"
 import { useEffect, useState } from "react"
 import EduForm from "./components/EduForm"
@@ -13,15 +13,6 @@ import { useRouter } from "next/navigation"
 interface EducationFormProps {
     educationData: Education[]
     resumeId: string
-}
-
-type ResumeInputs = {
-    id: string;
-    resumeId: string;
-    certificate: string;
-    entity: string;
-    initDate: string;
-    endDate: string;
 }
 
 const EducationForm: React.FC<EducationFormProps> = ({
@@ -52,7 +43,7 @@ const EducationForm: React.FC<EducationFormProps> = ({
 
     if(!isMounted) return null
 
-    const onEdit = (data: ResumeInputs) => {
+    const onEdit = (data: Education) => {
         openModal()
         setSelectedData(data)
     }
@@ -78,16 +69,16 @@ const EducationForm: React.FC<EducationFormProps> = ({
     
             if(res.ok) {
                 setSelectedItemId('')
+                deleteModal.closeModal()
                 setIsLoading(false)
                 toast.success('Education deleted successfully')
-                deleteModal.closeModal()
                 router.refresh()
             }
         } catch (error) {
             setSelectedItemId('')
+            deleteModal.closeModal()
             setIsLoading(false)
             toast.error('Something went wrong')
-            deleteModal.closeModal()
         }  
     }
 

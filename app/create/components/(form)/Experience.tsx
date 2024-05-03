@@ -3,56 +3,38 @@
 import Button from "@/app/components/ui/Button"
 import Modal from "@/app/components/ui/Modal"
 import useModal from "@/hooks/useModal"
-import { LoaderCircle, Plus } from "lucide-react"
-import InputField from "../ui/InputField"
+import { Edit, LoaderCircle, Plus, Trash } from "lucide-react"
 import { Education, Experience } from "@prisma/client"
 import { useEffect, useState } from "react"
-import { SubmitHandler, useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
+import EduForm from "./components/EduForm"
 import toast from "react-hot-toast"
 import { useRouter } from "next/navigation"
-
-const formSchema = z.object({
-    company: z.string().min(3, {
-        message: "Company is required"
-    }),
-    initDate: z.string().min(3, {
-        message: "Start date is required"
-    }),
-    endDate: z.string().min(3, {
-        message: "End date is required"
-    }),
-    position: z.string().min(3, {
-        message: "Position is required"
-    })
-})
+import ExpeForm from "./components/ExpeForm"
 
 interface ExperienceFormProps {
     experienceData: Experience[]
     resumeId: string
 }
 
-type ExperienceInputs = {
-    company: string,
-    position: string,
-    initDate: string,
-    endDate: string,
-}
-
-const ExperienceForm: React.FC<ExperienceFormProps> = ({
+const EducationForm: React.FC<ExperienceFormProps> = ({
     experienceData,
     resumeId
 }) => {
     const { open, openModal, closeModal } = useModal()
+    const deleteModal = useModal()
     const [isMounted, setIsMounted] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [selectedItemId, setSelectedItemId] = useState('')
+    const [selectedData, setSelectedData] = useState<Experience>({
+        company: '',
+        initDate: '',
+        endDate: '',
+        position: '',
+        id: '',
+        resumeId: ''
+    })
 
     const router = useRouter()
-
-    const { register, handleSubmit, formState: { errors } } = useForm<ExperienceInputs>({
-        resolver: zodResolver(formSchema)
-    })
 
     const isData = experienceData.length > 0
 
@@ -62,41 +44,74 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
 
     if(!isMounted) return null
 
-    const onSubmit: SubmitHandler<ExperienceInputs> = async (data) => {
+    const onEdit = (data: Experience) => {
+        openModal()
+        setSelectedData(data)
+    }
+
+    const onClose = () => {
+        closeModal()
+        setSelectedData({
+            company: '',
+            initDate: '',
+            endDate: '',
+            position: '',
+            id: '',
+            resumeId: ''
+        })
+    }
+
+    const onDelete = async (id: string) => {
         try {
             setIsLoading(true)
-            const res = await fetch(`/api/${resumeId}/experience`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+            const res = await fetch(`/api/${resumeId}/experience/${id}`, {
+                method: 'DELETE'
             })
-
+    
             if(res.ok) {
+                setSelectedItemId('')
+                deleteModal.closeModal()
                 setIsLoading(false)
-                toast.success('Experience added successfully')
+                toast.success('Education deleted successfully')
                 router.refresh()
-                closeModal()
-            } else {
-                toast.error('Something went wrong')
             }
-        } catch(err) {
-            console.log(err)
-        }
+        } catch (error) {
+            setSelectedItemId('')
+            deleteModal.closeModal()
+            setIsLoading(false)
+            toast.error('Something went wrong')
+        }  
+    }
+
+    const onDeleteModal = (id: string) => {
+        deleteModal.openModal()
+        setSelectedItemId(id)
     }
 
     return (
         <div className="flex gap-2 items-center w-full flex-col">
             {
-                isData ? experienceData.map((edu) => (
-                    <div key={edu.id} className="space-y-1 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
-                        <p className="font-normal text-gray-700 text-base">{edu.company}</p>
-                        <span className="text-sm text-gray-700">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</span>
+                isData ? experienceData.map((exp) => (
+                    <div key={exp.id} className="justify-between bg-gray-200 rounded-lg p-2 w-full flex border border-gray-300 items-center">
+                        <div className="flex flex-col">
+                            <p className="font-normal text-gray-700 text-base">{exp.company}</p>
+                            <span className="text-sm text-gray-700">{exp.initDate.slice(0, 4)} - {exp.endDate.slice(0, 4)}</span>
+                        </div>
+                        <div>
+                            <button onClick={() => onEdit(exp)} className="text-gray-500 hover:bg-gray-300 font-normal rounded-full p-2">
+                                <Edit className="size-5"/>
+                            </button>
+                            <button onClick={() => onDeleteModal(exp.id)} className="text-red-500 hover:bg-gray-300 font-normal rounded-full p-2">
+                                {
+                                    isLoading && selectedItemId === exp.id ? <LoaderCircle className="animate-spin"/> : <Trash className="size-5"/>
+                                }
+                            </button>
+                        </div>
                     </div>
+                    
                 )) : (
                     <div className="space-y-2 bg-gray-200 rounded-lg p-2 w-full flex flex-col border border-gray-300">
-                        <p className="font-normal text-gray-600 text-base">No experiences added yet</p>
+                        <p className="font-normal text-gray-600 text-base">No experience added yet</p>
                     </div>
                 )
             }
@@ -109,50 +124,29 @@ const ExperienceForm: React.FC<ExperienceFormProps> = ({
             </Button>
             <Modal
                 open={open}
-                onCLose={closeModal}
+                onCLose={onClose}
             >
-                <div className="px-2 py-2 flex-col flex min-w-96">
-                    <p className="text-xl font-semibold mb-2">Add New Experience</p>
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                        <InputField 
-                            formHook={register("company")}
-                            label="Company"
-                            nameInput="company"
-                            typeInput="text"
-                        />
-                        {errors.company && <p className="text-red-500">{errors.company.message}</p>}
-                        <InputField 
-                            formHook={register("position")}
-                            label="Position"
-                            nameInput="position"
-                            typeInput="text"
-                        />
-                        {errors.position && <p className="text-red-500">{errors.position.message}</p>}
-                        <InputField
-                            formHook={register("initDate")}
-                            label="From"
-                            nameInput="initDate"
-                            typeInput="date"
-                        />
-                        {errors.initDate && <p className="text-red-500">{errors.initDate.message}</p>}
-                        <InputField 
-                            formHook={register("endDate")}
-                            label="To"
-                            nameInput="endDate"
-                            typeInput="date"
-                        />
-                        {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
-                        <Button className={`w-full flex justify-center items-center gap-x-2 ${isLoading && "opacity-80 cursor-wait"}`}>
-                            {
-                                isLoading && <LoaderCircle className="animate-spin"/>
-                            }
-                            Add
-                        </Button>
-                    </form>
+                <ExpeForm 
+                    initialData={selectedData}
+                    close={closeModal}
+                    resumeId={resumeId}
+                /> 
+            </Modal>
+            <Modal
+                open={deleteModal.open}
+                onCLose={deleteModal.closeModal}
+            >
+                <div className="flex p-2 flex-col gap-y-4 items-center">
+                    <Trash className="size-10 text-red-500"/>
+                    <p className="text-xl font-semibold text-balance">Are you sure you want to delete this experience?</p>
+                    <div className="flex gap-x-2 w-full">
+                        <Button className="w-full bg-red-600 border-red-600" onSumbit={() => onDelete(selectedItemId)}>Yes</Button>
+                        <Button className="w-full bg-gray-600 border-gray-600" onSumbit={deleteModal.closeModal}>No</Button>
+                    </div>
                 </div>
             </Modal>
         </div>
     )
 }
 
-export default ExperienceForm
+export default EducationForm
