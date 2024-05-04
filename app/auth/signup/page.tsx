@@ -1,5 +1,6 @@
 'use client'
 
+import Button from "@/app/components/ui/Button"
 import LogoLink from "@/app/components/ui/LogoLink"
 import prismadb from "@/libs/prismadb"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -155,14 +156,12 @@ export default function SignInPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.root.message}</span>
                         )
                     }
-                    <button disabled={isLoading} className={`bg-mystic-300 rounded-lg text-mystic-950 border border-mystic-600 font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
-                        isLoading ? "opacity-50 cursor-wait" :""
-                    }`}>
+                    <Button className="mt-4 flex items-center justify-center gap-x-2">
                         {isLoading && (
-                            <LoaderCircle className="animate-spin size-4"/>
+                            <LoaderCircle className="animate-spin size-5"/>
                         )}
-                        Sign Up
-                    </button>
+                        Log In
+                    </Button>
                     <div className="flex justify-center items-center">
                         <p className="mt-4" >If you already have an account, please <a href="/auth/login" className="text-blue-600 font-medium hover:underline">Log In</a></p>
                     </div>                 

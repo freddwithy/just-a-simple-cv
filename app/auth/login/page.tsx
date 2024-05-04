@@ -10,6 +10,7 @@ import { useState } from "react"
 import { LoaderCircle } from "lucide-react"
 import Image from "next/image"
 import LogoLink from "@/app/components/ui/LogoLink"
+import Button from "@/app/components/ui/Button"
 
 const formSchema = z.object({
     email: z.string().email({
@@ -97,14 +98,12 @@ export default function LoginPage() {
                             <span className="text-red-700 text-sm mb-2">{errors.password.message}</span>
                         )
                     }
-                    <button disabled={isLoading} className={`bg-mystic-300 rounded-lg text-mystic-950 border border-mystic-600 font-semibold h-10 mt-2 hover:opacity-90 transition flex items-center justify-center gap-x-2 ${
-                        isLoading ? "opacity-50 cursor-wait" :""
-                    }`}>
+                    <Button className="mt-4 flex items-center justify-center gap-x-2">
                         {isLoading && (
-                            <LoaderCircle className="animate-spin size-4"/>
+                            <LoaderCircle className="animate-spin size-5"/>
                         )}
-                        Sign In
-                    </button>
+                        Log In
+                    </Button>
                     <div className="border-t border-gray-300  flex flex-col justify-center items-center">
                         {/* <div className="inline-flex items-center justify-center w-full">
                             <hr className="w-64 h-px my-8 bg-gray-400 border-0"/>
