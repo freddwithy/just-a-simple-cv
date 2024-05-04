@@ -14,6 +14,8 @@ import { SkillFormInputs } from '@/types/resume'
 const formSchema = z.object({
     name: z.string().min(3, {
         message: "Name is required"
+    }).max(40, {
+        message: "Name must be less than 40 characters"
     }),
 })
 

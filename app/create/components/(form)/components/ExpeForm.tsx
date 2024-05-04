@@ -20,10 +20,14 @@ const formSchema = z.object({
         message: "End date is required"
     }),
     company: z.string().min(3, {
-        message: "College is required"
+        message: "Company is required"
+    }).max(40, {
+        message: "Company must be less than 40 characters"
     }),
     position: z.string().min(3, {
-        message: "Certificate is required"
+        message: "Position is required"
+    }).max(40, {
+        message: "Position must be less than 40 characters"
     })
 })
 

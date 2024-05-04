@@ -20,9 +20,13 @@ const formSchema = z.object({
     }),
     entity: z.string().min(3, {
         message: "College is required"
+    }).max(40, {
+        message: "College must be less than 40 characters"
     }),
     certificate: z.string().min(3, {
         message: "Certificate is required"
+    }).max(100, {
+        message: "Certificate must be less than 100 characters"
     })
 })
 

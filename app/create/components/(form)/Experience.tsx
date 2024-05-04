@@ -97,7 +97,7 @@ const EducationForm: React.FC<ExperienceFormProps> = ({
                             <p className="font-normal text-gray-700 text-base">{exp.company}</p>
                             <span className="text-sm text-gray-700">{exp.initDate.slice(0, 4)} - {exp.endDate.slice(0, 4)}</span>
                         </div>
-                        <div>
+                        <div className="flex gap-x-1">
                             <button onClick={() => onEdit(exp)} className="text-gray-500 hover:bg-gray-300 font-normal rounded-full p-2">
                                 <Edit className="size-5"/>
                             </button>
@@ -136,9 +136,9 @@ const EducationForm: React.FC<ExperienceFormProps> = ({
                 open={deleteModal.open}
                 onCLose={deleteModal.closeModal}
             >
-                <div className="flex p-2 flex-col gap-y-4 items-center">
+                <div className="flex p-2 flex-col gap-y-4 items-center justify-center">
                     <Trash className="size-10 text-red-500"/>
-                    <p className="text-xl font-semibold text-balance">Are you sure you want to delete this experience?</p>
+                    <p className="text-xl font-semibold text-balance w-60 text-center">Are you sure you want to delete this experience?</p>
                     <div className="flex gap-x-2 w-full">
                         <Button className="w-full bg-red-600 border-red-600" onSumbit={() => onDelete(selectedItemId)}>Yes</Button>
                         <Button className="w-full bg-gray-600 border-gray-600" onSumbit={deleteModal.closeModal}>No</Button>
