@@ -8,13 +8,14 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { Education, Experience, Resume, Skills } from "@prisma/client"
+import { Education, Experience, Image, Resume, Skills } from "@prisma/client"
 import EducationForm from "./(form)/Education"
 import ExperienceForm from "./(form)/Experience"
 import { LoaderCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import SkillForm from "./(form)/Skill"
 import { ResumeForm } from "@/types/resume"
+import ImageForm from "./(form)/Image"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name is required" }).max(150, { message: "Name must be less than 150 characters" }),
@@ -30,6 +31,7 @@ interface ResumeProps {
     educationData: Education[]
     experienceData: Experience[]
     skillData: Skills[]
+    imageData: Image | null
 }
 
 
@@ -37,7 +39,8 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
     initialData,
     educationData,
     experienceData,
-    skillData
+    skillData,
+    imageData
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
@@ -180,6 +183,13 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                     </Button>   
                 </form>
                 <div className="space-y-2">
+                    <h3 className="text-xl font-semibold text-gray-950">Image</h3>
+                        <ImageForm 
+                            imageData={imageData}
+                            resumeId={initialData.id}
+                        />
+                </div>
+                <div className="space-y-2">
                     <h3 className="text-xl font-semibold text-gray-950">Education</h3>
                         <EducationForm 
                             educationData={educationData}
@@ -199,7 +209,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             skillData={skillData}
                             resumeId={initialData.id}
                         />
-                </div> 
+                </div>
             </div>
         </aside>
     )

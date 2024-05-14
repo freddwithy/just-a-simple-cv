@@ -16,6 +16,7 @@ type ResumeData = {
     education: Education[]
     experience: Experience[]
     skill: Skills[]
+    image: string | undefined
 }
 
 
@@ -28,7 +29,8 @@ export const CVComponent: React.FC<ResumeData> = ({
     aboutMe,
     education,
     experience,
-    skill
+    skill,
+    image
 }) => {
     const [isMounted, setIsMounted] = useState(false)
 
@@ -61,7 +63,11 @@ export const CVComponent: React.FC<ResumeData> = ({
                     </p>
                 </div>
                 <div className="">
-                    <Image src="/fredd.png" width={120} height={120} alt="Photo" className="rounded-lg"/>
+                    {
+                        image && image !== '' 
+                        ? <Image src={image} width={120} height={120} alt="Photo" className="rounded-lg object-cover size-full"/> 
+                        : <Image src="/no-user.webp" width={120} height={120} alt="Photo" className="rounded-lg"/>
+                    }
                 </div>
             </div>
             <div className="py-4 border-b border-gray-200">
