@@ -56,9 +56,12 @@ const UploadImage: React.FC<UploadImageProps> = ({
           uploadPreset="r6ocwhjn" 
         >
           {({ open }) => {
+            const onClick = () => {
+              open()
+            }
             return (
               <button
-                onClick={() => open?.()}
+                onClick={onClick}
                 disabled={disabled}
                 className="w-full flex items-center justify-center h-1/2 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 px-4 rounded-md"
               >

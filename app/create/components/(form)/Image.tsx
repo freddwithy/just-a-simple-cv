@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import toast from "react-hot-toast"
 import Button from "@/app/components/ui/Button"
+import { LoaderCircle } from "lucide-react"
 
 const formSchema = z.object({
     url: z.string().min(3, {
@@ -115,8 +116,9 @@ const ImageForm: React.FC<ImageFormProps> = ({
                 />
                 {form.formState.errors.url && <p className="text-red-500">{form.formState.errors.url.message}</p>}
                 <Button
-                    className="w-full"
+                    className={`w-full gap-x-2 flex items-center justify-center ${loading ? 'opacity-50 cursor-wait' : 'opacity-100'}`}
                 >
+                    {loading && <LoaderCircle className="animate-spin"/>}
                     {imageData?.id && imageData?.id !== '' ? 'Update image' : 'Add image'}
                 </Button>
             </form>
