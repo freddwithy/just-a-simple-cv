@@ -6,12 +6,12 @@ import TextAreaField from "./ui/TextAreaField"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import toast from "react-hot-toast"
 import { Education, Experience, Image, Resume, Skills } from "@prisma/client"
 import EducationForm from "./(form)/Education"
 import ExperienceForm from "./(form)/Experience"
-import { LoaderCircle } from "lucide-react"
+import { LoaderCircle, Printer } from "lucide-react"
 import { useRouter } from "next/navigation"
 import SkillForm from "./(form)/Skill"
 import { ResumeForm } from "@/types/resume"
@@ -46,6 +46,8 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
     const [isMounted, setIsMounted] = useState(false)
 
     const router = useRouter()
+
+    const componentRef = useRef(null)
 
     const { register, handleSubmit, formState: { errors } } = useForm<ResumeForm>({
         resolver: zodResolver(formSchema),

@@ -62,17 +62,17 @@ export default async function ResumePage ({
                     imageData={image}
                 />
                 <main className="border-l py-10 border-gray-200 flex items-center bg-gray-200 flex-col gap-y-8 flex-grow max-h-screen overflow-y-scroll">
-                    <CVComponent
-                        skill={skills}
-                        experience={experience}
-                        education={education}
-                        name={resume.name}
-                        lastName={resume.lastName}
-                        city={resume.city}
-                        shortResume={resume.shortResume}
-                        aboutMe={resume.aboutMe}
-                        image={image?.url}
-                    />
+                        <CVComponent
+                            skill={skills}
+                            experience={experience}
+                            education={education}
+                            name={resume.name}
+                            lastName={resume.lastName}
+                            city={resume.city}
+                            shortResume={resume.shortResume}
+                            aboutMe={resume.aboutMe}
+                            image={image?.url}
+                        />
                 </main>
             </div>
         </>

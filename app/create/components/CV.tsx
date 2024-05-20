@@ -1,11 +1,12 @@
 'use client'
 
 import { Education, Experience, Skills } from "@prisma/client"
-import { MapPin } from "lucide-react"
+import { LoaderCircle, MapPin, Printer } from "lucide-react"
 import Image from "next/image"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import defaultData from "@/default/cv-default.json"
-import { array } from "zod"
+import ReactToPrint from "react-to-print"
+import toast from "react-hot-toast"
 
 type ResumeData = {
     name: string
@@ -19,8 +20,6 @@ type ResumeData = {
     image: string | undefined
 }
 
-
-
 export const CVComponent: React.FC<ResumeData> = ({
     name,
     lastName,
@@ -30,9 +29,12 @@ export const CVComponent: React.FC<ResumeData> = ({
     education,
     experience,
     skill,
-    image
+    image,
 }) => {
     const [isMounted, setIsMounted] = useState(false)
+    const [isPrinting, setIsPrinting] = useState(false)
+
+    const componentRef = useRef(null)
 
     useEffect(() => {
         setIsMounted(true)
@@ -50,9 +52,32 @@ export const CVComponent: React.FC<ResumeData> = ({
 
     const dfSkillList = Array.isArray(defaultData.SKILLS) ? defaultData.SKILLS : [defaultData.SKILLS]
 
-
     return (
-        <section className="p-10 border border-gray-200 rounded-lg w-full bg-white shadow-md flex-col max-w-screen-sm md:max-w-3xl">
+        <>
+            <div className="flex flex-col gap-y-2 justify-center items-center w-full">
+                <ReactToPrint 
+                    trigger={() => <button className="flex items-center justify-center gap-x-2 bg-orange-600 border-orange-600 p-2 rounded-lg text-white hover:bg-opacity-90 transition-all font-semibold">
+                        {
+                            isPrinting ? <LoaderCircle className="animate-spin"/> : <Printer className="size-5"/>
+                        } 
+                        Print
+                    </button>}  
+                    content={() => componentRef.current}
+                    documentTitle="Just a Simple CV"
+                    onAfterPrint={() => {
+                        toast.success('Your resume has been printed')
+                    }}
+                    onBeforeGetContent={() => {
+                        setIsPrinting(true)
+                    }}
+                    onBeforePrint={() => {
+                        setIsPrinting(false)
+                        toast.success('Your resume is ready to print')
+                    }}
+                />
+                <p className="text-sm text-gray-600 font-semibold">Use A4 paper size and vertical orientation and 0 margins for best results.</p>
+            </div>
+            <section className="p-10 rounded-lg w-full bg-white flex-col max-w-screen-sm md:max-w-3xl" ref={componentRef}>
             <div className="flex justify-between border-b border-gray-200 pb-4 items-center">
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
                         <h3 className="text-3xl font-semibold">{name} {lastName}</h3>
@@ -157,6 +182,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                     }               
                 </div>
             </div>
-        </section>
+            </section>
+        </> 
     )
 }
