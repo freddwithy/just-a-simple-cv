@@ -86,17 +86,17 @@ const EducationForm: React.FC<SkillFormProps> = ({
         <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? skillData.map((sk) => (
-                    <div key={sk.id} className="justify-between bg-gray-200 rounded-lg p-2 w-full flex border border-gray-300 items-center">
+                    <div key={sk.id} className="justify-between bg-gray-100 rounded-lg p-2 w-full flex items-center">
                         <div className="flex flex-col">
-                            <p className="font-normal text-gray-700 text-base">{sk.name}</p>
+                            <p className="font-semibold text-gray-700 text-sm">{sk.name}</p>
                         </div>
                         <div className="flex gap-x-1">
-                            <button onClick={() => onEdit(sk)} className="text-gray-500 hover:bg-gray-300 font-normal rounded-full p-2">
-                                <Edit className="size-5"/>
+                            <button onClick={() => onEdit(sk)} className="text-gray-500 font-normal rounded-full p-2 group flex items-center gap-x-2 text-sm hover:bg-gray-300 transition-all">
+                                <Edit className="size-5 text-gray-400 group-hover:text-gray-600"/>
                             </button>
-                            <button onClick={() => onDeleteModal(sk.id)} className="text-red-500 hover:bg-gray-300 font-normal rounded-full p-2">
+                            <button onClick={() => onDeleteModal(sk.id)} className="text-red-500 hover:bg-gray-300 font-normal rounded-full p-2 group transition-all">
                                 {
-                                    isLoading && selectedItemId === sk.id ? <LoaderCircle className="animate-spin"/> : <Trash className="size-5"/>
+                                    isLoading && selectedItemId === sk.id ? <LoaderCircle className="animate-spin"/> : <Trash className="size-5 group-hover:text-red-600"/>
                                 }
                             </button>
                         </div>

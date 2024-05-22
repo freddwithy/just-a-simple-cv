@@ -131,7 +131,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
             <div className="flex flex-col w-full p-4 gap-y-4">
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6">
                     <div className="space-y-2">
-                        <h3 className="text-xl font-semibold text-gray-950">Main</h3>
+                        <h3 className="text-lg font-medium text-gray-950">Main</h3>
                         <InputField
                             formHook={{...register("name")}}
                             typeInput="text"
@@ -165,7 +165,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                         {errors.city && <p className="text-red-500">{errors.city.message}</p>}
                     </div>
                     <div className="space-y-2">
-                        <h3 className="text-xl font-semibold text-gray-950">About me</h3>
+                        <h3 className="text-lg font-medium text-gray-950">About me</h3>
                         <TextAreaField 
                             formHook={{...register("aboutMe")}}
                             nameInput="aboutme"
@@ -185,28 +185,32 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                     </Button>   
                 </form>
                 <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-gray-950">Image</h3>
+                    <h3 className="text-lg font-medium text-gray-950">Image</h3>
+                    
                         <ImageForm 
                             imageData={imageData}
                             resumeId={initialData.id}
                         />
                 </div>
                 <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-gray-950">Education</h3>
+                    <h3 className="text-lg font-medium text-gray-950">Education</h3>
+                    
                         <EducationForm 
                             educationData={educationData}
                             resumeId={initialData.id}
                         />
                 </div>
                 <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-gray-950">Experience</h3>
+                    <h3 className="text-lg font-medium text-gray-950">Experience</h3>
+                    
                         <ExperienceForm 
                             experienceData={experienceData}
                             resumeId={initialData.id}
                         />
                 </div> 
                 <div className="space-y-2">
-                    <h3 className="text-xl font-semibold text-gray-950">Skills</h3>
+                    <h3 className="text-lg font-medium text-gray-950">Skills</h3>
+                    
                         <SkillForm 
                             skillData={skillData}
                             resumeId={initialData.id}

@@ -75,7 +75,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                         toast.success('Your resume is ready to print')
                     }}
                 />
-                <p className="text-sm text-gray-600 font-semibold">Use A4 paper size and vertical orientation and 0 margins for best results.</p>
+                <p className="text-sm text-gray-600 font-semibold">Use A4 paper size, vertical orientation and 0 margins for best results.</p>
             </div>
             <section className="p-10 rounded-lg w-full bg-white flex-col max-w-screen-sm md:max-w-3xl" ref={componentRef}>
             <div className="flex justify-between border-b border-gray-200 pb-4 items-center">

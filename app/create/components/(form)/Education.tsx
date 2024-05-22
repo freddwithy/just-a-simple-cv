@@ -91,9 +91,9 @@ const EducationForm: React.FC<EducationFormProps> = ({
         <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? educationData.map((edu) => (
-                    <div key={edu.id} className="justify-between bg-gray-200 rounded-lg p-2 w-full flex border border-gray-300 items-center">
+                    <div key={edu.id} className="justify-between bg-gray-100 rounded-lg p-2 w-full flex items-center">
                         <div className="flex flex-col">
-                            <p className="font-normal text-gray-700 text-base">{edu.entity}</p>
+                            <p className="font-semibold text-gray-700 text-sm">{edu.entity}</p>
                             <span className="text-sm text-gray-700">{edu.initDate.slice(0, 4)} - {edu.endDate.slice(0, 4)}</span>
                         </div>
                         <div className="flex gap-x-1">

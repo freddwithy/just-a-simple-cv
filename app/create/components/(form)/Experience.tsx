@@ -92,9 +92,9 @@ const EducationForm: React.FC<ExperienceFormProps> = ({
         <div className="flex gap-2 items-center w-full flex-col">
             {
                 isData ? experienceData.map((exp) => (
-                    <div key={exp.id} className="justify-between bg-gray-200 rounded-lg p-2 w-full flex border border-gray-300 items-center">
+                    <div key={exp.id} className="justify-between bg-gray-100 rounded-lg p-2 w-full flex items-center">
                         <div className="flex flex-col">
-                            <p className="font-normal text-gray-700 text-base">{exp.company}</p>
+                            <p className="font-semibold text-gray-700 text-sm">{exp.company}</p>
                             <span className="text-sm text-gray-700">{exp.initDate.slice(0, 4)} - {exp.endDate.slice(0, 4)}</span>
                         </div>
                         <div className="flex gap-x-1">
