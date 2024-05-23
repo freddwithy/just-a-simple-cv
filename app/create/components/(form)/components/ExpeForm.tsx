@@ -124,15 +124,15 @@ const ExpeForm : React.FC<ExperienceFormProps> = ({
                 {errors.endDate && <p className="text-red-500">{errors.endDate.message}</p>}
                 <InputField 
                     formHook={{...register("company")}}
-                    label="School/University"
-                    nameInput="school"
+                    label="Company"
+                    nameInput="company"
                     typeInput="text"
                 />
                 {errors.company && <p className="text-red-500">{errors.company.message}</p>}
                 <InputField 
                     formHook={{...register("position")}}
-                    label="Career"
-                    nameInput="career"
+                    label="Position"
+                    nameInput="position"
                     typeInput="text"
                 />
                 {errors.position && <p className="text-red-500">{errors.position.message}</p>}

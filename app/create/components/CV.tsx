@@ -56,9 +56,9 @@ export const CVComponent: React.FC<ResumeData> = ({
         <>
             <div className="flex flex-col gap-y-2 justify-center items-center w-full">
                 <ReactToPrint 
-                    trigger={() => <button className="flex items-center justify-center gap-x-2 bg-orange-600 border-orange-600 p-2 rounded-lg text-white hover:bg-opacity-90 transition-all font-semibold">
+                    trigger={() => <button className="flex items-center justify-center gap-x-2 bg-orange-600 border-orange-600 p-2 rounded-lg text-white hover:bg-opacity-90 transition-all font-semibold text-sm">
                         {
-                            isPrinting ? <LoaderCircle className="animate-spin"/> : <Printer className="size-5"/>
+                            isPrinting ? <LoaderCircle className="animate-spin size-4"/> : <Printer className="size-4"/>
                         } 
                         Print
                     </button>}  

@@ -91,10 +91,10 @@ const EducationForm: React.FC<SkillFormProps> = ({
                             <p className="font-semibold text-gray-700 text-sm">{sk.name}</p>
                         </div>
                         <div className="flex gap-x-1">
-                            <button onClick={() => onEdit(sk)} className="text-gray-500 font-normal rounded-full p-2 group flex items-center gap-x-2 text-sm hover:bg-gray-300 transition-all">
+                            <button onClick={() => onEdit(sk)} className="text-gray-500 font-normal rounded-full p-2 group flex items-center gap-x-2 text-sm hover:scale-105 transition-all">
                                 <Edit className="size-5 text-gray-400 group-hover:text-gray-600"/>
                             </button>
-                            <button onClick={() => onDeleteModal(sk.id)} className="text-red-500 hover:bg-gray-300 font-normal rounded-full p-2 group transition-all">
+                            <button onClick={() => onDeleteModal(sk.id)} className="text-red-500 font-normal rounded-full p-2 group transition-all hover:scale-105">
                                 {
                                     isLoading && selectedItemId === sk.id ? <LoaderCircle className="animate-spin"/> : <Trash className="size-5 group-hover:text-red-600"/>
                                 }
@@ -130,11 +130,11 @@ const EducationForm: React.FC<SkillFormProps> = ({
                 onCLose={deleteModal.closeModal}
             >
                 <div className="flex p-2 flex-col gap-y-4 items-center justify-center">
-                    <Trash className="size-10 text-red-500"/>
-                    <p className="text-xl font-semibold text-balance w-60 text-center">Are you sure you want to delete this skill?</p>
+                    <Trash className="size-8 text-red-500"/>
+                    <p className="text-lg font-medium text-balance w-60 text-center">Are you sure you want to delete this skill?</p>
                     <div className="flex gap-x-2 w-full">
-                        <Button className="w-full bg-red-600 border-red-600" onSumbit={() => onDelete(selectedItemId)}>Yes</Button>
-                        <Button className="w-full bg-gray-600 border-gray-600" onSumbit={deleteModal.closeModal}>No</Button>
+                        <button className="w-full hover:bg-red-600 bg-red-500 text-white rounded-md px-4 py-2 transition-all" onClick={() => onDelete(selectedItemId)}>Yes</button>
+                        <button className="w-full hover:bg-gray-200 bg-white text-gray-950 rounded-md px-4 py-2 transition-all" onClick={deleteModal.closeModal}>No</button>
                     </div>
                 </div>
             </Modal>

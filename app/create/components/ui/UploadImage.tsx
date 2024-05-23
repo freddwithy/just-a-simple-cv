@@ -37,16 +37,16 @@ const UploadImage: React.FC<UploadImageProps> = ({
             <div className="z-10 top-2 right-2 absolute">
               {
                 value && value !== '' && 
-                <button onClick={() => onRemove(value)}>
-                  <Trash className="size-6 bg-white text-red-500 p-1 rounded-full"/>
+                <button onClick={() => onRemove(value)} className='bg-white text-red-500 p-1 rounded-full hover:scale-110 hover:text-red-600 transition-all'>
+                  <Trash className="size-4"/>
                 </button>
               }
             </div>
             <Image 
               src={value ? value : '/no-user.webp'}
               alt="image"
-              width={100}
-              height={100}
+              width={130}
+              height={130}
               className="w-full h-full object-cover"
             />
           </div>
@@ -63,9 +63,9 @@ const UploadImage: React.FC<UploadImageProps> = ({
               <button
                 onClick={onClick}
                 disabled={disabled}
-                className="w-full flex items-center justify-center h-1/2 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 px-4 rounded-md"
+                className="w-full flex items-center justify-center h-1/2 bg-gray-100 hover:bg-gray-200 text-gray-600 font-medium py-2 px-4 rounded-md text-sm"
               >
-                <ImagePlusIcon className="size-6 mr-2"/>
+                <ImagePlusIcon className="size-5 mr-2"/>
                 Select image
               </button>
             )

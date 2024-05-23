@@ -3,7 +3,7 @@ import Profile from "./Profile"
 
 export const Header = () => {
     return (
-        <header className="flex justify-between p-4 items-center border-b border-gray-200">
+        <header className="flex justify-between p-2 items-center border-b border-gray-200">
             <div>
                 <LogoLink />
             </div>
