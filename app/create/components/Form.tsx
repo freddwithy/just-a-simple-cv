@@ -127,7 +127,7 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
     }
 
     return (
-        <aside className="min-w-40 max-w-md flex-grow max-h-screen overflow-y-scroll">
+        <aside className="min-w-40 max-w-md flex-grow md:max-h-screen md:overflow-y-scroll">
             <div className="flex flex-col w-full p-4 gap-y-4">
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-6">
                     <div className="space-y-2">
