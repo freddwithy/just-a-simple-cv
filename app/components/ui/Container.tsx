@@ -9,7 +9,7 @@ interface ContainerProps {
 
 const Container: React.FC<ContainerProps> = ({ children, className }) => {
   // Agrega las clases de Tailwind al contenedor
-  const containerClasses = `py-10 mx-auto max-w-md md:max-w-lg ${className || ''}`;
+  const containerClasses = `py-10 mx-auto max-w-sm md:max-w-lg ${className || ''}`;
 
   return (
     <div className={containerClasses}>{children}</div>

@@ -107,10 +107,10 @@ export default function SignInPage() {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
-                <LogoLink className="mb-10"/>
-                <form onSubmit={handleSubmit(onSignUp)} className="w-[600px] flex flex-col p-10 bg-white rounded-lg shadow-lg border border-gray-300 ">
-                    <h1 className="font-bold text-3xl text-black mb-4">Create your account</h1>
+            <div className="flex flex-col gap-y-4 items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
+                <LogoLink className="md:mb-10"/>
+                <form onSubmit={handleSubmit(onSignUp)} className="md:max-w-2xl max-w-xs sm:max-w-sm flex flex-col p-8 md:p-10 bg-white rounded-lg shadow-lg border border-gray-300 ">
+                    <h1 className="font-bold text-xl md:text-3xl text-black mb-4">Create your account</h1>
                     <label className="mb-2 text-gray-600 font-medium" htmlFor="username">Username</label>
                     <input type="text" id="username" 
                         className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
@@ -160,7 +160,7 @@ export default function SignInPage() {
                         {isLoading && (
                             <LoaderCircle className="animate-spin size-5"/>
                         )}
-                        Log In
+                        Sign Up
                     </Button>
                     <div className="flex justify-center items-center">
                         <p className="mt-4" >If you already have an account, please <a href="/auth/login" className="text-blue-600 font-medium hover:underline">Log In</a></p>

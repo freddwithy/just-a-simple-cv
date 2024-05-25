@@ -75,9 +75,9 @@ export default function LoginPage() {
     return (
         <>
             <div className="flex flex-col gap-y-4 items-center justify-center h-[calc(100vh-7rem)] animate-fade-up">
-                <LogoLink className="mb-10"/>
-                <form onSubmit={handleSubmit(onLogIn)} className="w-[600px] flex flex-col p-10 bg-white rounded-lg shadow-lg border border-gray-300">
-                    <h1 className="font-bold text-3xl text-black mb-4">Log in with your account</h1>
+                <LogoLink className="md:mb-10"/>
+                <form onSubmit={handleSubmit(onLogIn)} className="md:max-w-2xl max-w-xs sm:max-w-sm  flex flex-col p-8 md:p-10 bg-white rounded-lg shadow-lg border border-gray-300">
+                    <h1 className="font-bold text-xl md:text-3xl text-black mb-4">Log in with your account</h1>
                     <label className="mb-2 text-gray-600 font-medium" htmlFor="email">Email</label>
                     <input type="email" id="email"
                         className="rounded-lg text-black font-semibold h-10 mb-2 bg-white border border-gray-300"
