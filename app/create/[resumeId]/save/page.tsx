@@ -1,18 +1,51 @@
-'use client'
-import { PDFViewer } from "@react-pdf/renderer"
-import PdfToPrint from "../../components/PdfToPrint"
-import { Resume } from "@prisma/client"
+import prismadb from "@/libs/prismadb";
+import PdfLoader from "../../components/PdfLoader";
 
-interface SavePDFProps {
-    resumeData: Resume
-}
+const SavePDF = async ({
+    params
+} : {
+    params: { resumeId: string }
+}) => {
+    const resumeData = await prismadb.resume.findUnique({
+        where: {
+            id: params.resumeId
+        }
+    })
 
-const SavePDF: React.FC<SavePDFProps> = ({ resumeData }) => {
-  return (
-    <PDFViewer style={{ height: '100vh', width: '100vw' }}>
-        <PdfToPrint resumeData={resumeData} />
-    </PDFViewer>
-  )
+    const experience = await prismadb.experience.findMany({
+        where: {
+            resumeId: params.resumeId
+        }
+    })
+
+    const education = await prismadb.education.findMany({
+        where: {
+            resumeId: params.resumeId
+        }
+    })
+
+    const skill = await prismadb.skills.findMany({
+        where: {
+            resumeId: params.resumeId
+        }
+    })
+
+    if(!resumeData) {
+        return (
+            <div>
+                <p>Resume not found</p>
+            </div>
+        )
+    }
+
+    return (
+        <PdfLoader 
+            resumeData={resumeData}
+            experience={experience}
+            education={education}
+            skill={skill}
+        />
+    )
 }
 
 export default SavePDF
