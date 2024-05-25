@@ -75,16 +75,16 @@ export const CVComponent: React.FC<ResumeData> = ({
                         toast.success('Your resume is ready to print')
                     }}
                     pageStyle={`@page {
-                        size: letter;
-                        margin-top: 1in;
-                        margin-bottom: 1in;
-                        margin-left: 1in;
-                        margin-right: 1in;
-                    }
+                        size: A4;
+                        height: 297mm;
+                        width: 210mm;
+                        margin-left: 0mm;
+                        margin-right: 0mm;
+                        margin-top: 0mm;
+                        margin-bottom: 0mm;
+                    }, 
                     body {
                         font-family: sans-serif;
-                        margin: 0;
-                        padding: 0;
                     }`}
                 />
                 <p className="text-sm text-gray-600 font-semibold">Use A4 paper size, vertical orientation and 0 margins for best results.</p>
