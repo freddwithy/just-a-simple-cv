@@ -9,6 +9,7 @@ interface PdfLoaderProps {
     experience: Experience[]
     education: Education[]
     skill: Skills[]
+    image?: string
 }
 
 const PDFViewer = dynamic(
@@ -23,7 +24,8 @@ const PdfLoader: React.FC<PdfLoaderProps> = ({
     resumeData,
     experience,
     education,
-    skill
+    skill,
+    image
 }) => {
   return (
     <PDFViewer style={{ height: '100vh', width: '100vw' }}>
@@ -32,6 +34,7 @@ const PdfLoader: React.FC<PdfLoaderProps> = ({
             experience={experience}
             education={education}
             skill={skill}
+            image={image}
         />
     </PDFViewer>
   )

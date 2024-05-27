@@ -17,9 +17,49 @@ export default async function ResumeLayout({
         redirect('/auth/login')
     }
 
+    const resume = await prismadb.resume.findFirst({
+        where: {
+            userId
+        }
+    })
+
+    const education = await prismadb.education.findMany({
+        where: {
+            resumeId: resume?.id
+        }
+    })
+
+    const experience = await prismadb.experience.findMany({
+        where: {
+            resumeId: resume?.id
+        }
+    })
+
+    const skill = await prismadb.skills.findMany({
+        where: {
+            resumeId: resume?.id
+        }
+    })
+
+    const image = await prismadb.image.findFirst({
+        where: {
+            resumeId: resume?.id
+        }
+    })
+
+    if (!resume || !education || !experience || !skill || !image) {
+        redirect('/loading')
+    }
+
     return (
         <>
-            <Header />
+            <Header 
+                resume={resume} 
+                experience={experience} 
+                education={education} 
+                skill={skill} 
+                image={image?.url}
+            />
             {children}
         </>   
     )

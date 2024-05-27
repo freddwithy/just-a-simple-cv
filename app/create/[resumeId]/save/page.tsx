@@ -30,6 +30,12 @@ const SavePDF = async ({
         }
     })
 
+    const image = await prismadb.image.findFirst({
+        where: {
+            resumeId: params.resumeId
+        }
+    })
+
     if(!resumeData) {
         return (
             <div>
@@ -44,6 +50,7 @@ const SavePDF = async ({
             experience={experience}
             education={education}
             skill={skill}
+            image={image?.url}
         />
     )
 }

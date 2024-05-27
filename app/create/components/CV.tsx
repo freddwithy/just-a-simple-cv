@@ -54,41 +54,6 @@ export const CVComponent: React.FC<ResumeData> = ({
 
     return (
         <>
-            <div className="flex flex-col gap-y-2 justify-center items-center w-full">
-                <ReactToPrint 
-                    trigger={() => <button className="flex items-center justify-center gap-x-2 bg-orange-600 border-orange-600 p-2 rounded-lg text-white hover:bg-opacity-90 transition-all font-semibold text-sm">
-                        {
-                            isPrinting ? <LoaderCircle className="animate-spin size-4"/> : <Printer className="size-4"/>
-                        } 
-                        Print
-                    </button>}  
-                    content={() => componentRef.current}
-                    documentTitle="Just a Simple CV"
-                    onAfterPrint={() => {
-                        toast.success('Your resume has been printed')
-                    }}
-                    onBeforeGetContent={() => {
-                        setIsPrinting(true)
-                    }}
-                    onBeforePrint={() => {
-                        setIsPrinting(false)
-                        toast.success('Your resume is ready to print')
-                    }}
-                    pageStyle={`@page {
-                        size: A4;
-                        height: 297mm;
-                        width: 210mm;
-                        margin-left: 0mm;
-                        margin-right: 0mm;
-                        margin-top: 0mm;
-                        margin-bottom: 0mm;
-                    }, 
-                    body {
-                        font-family: sans-serif;
-                    }`}
-                />
-                <p className="text-sm text-gray-600 font-semibold">Use A4 paper size, vertical orientation and 0 margins for best results.</p>
-            </div>
             <section className="p-10 rounded-lg w-full bg-white flex-col max-w-screen-sm md:max-w-3xl" ref={componentRef}>
             <div className="flex justify-between border-b border-gray-200 pb-4 items-center">
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
@@ -112,6 +77,39 @@ export const CVComponent: React.FC<ResumeData> = ({
                 <p className="text-gray-700 max-w-max text-pretty break-words">
                     {aboutMe}
                 </p>
+            </div>
+            <div className="py-4 border-b border-gray-200 space-y-4">
+                <h4 className="text-xl font-semibold">Experience</h4>
+                {
+                    !isExperience && dfExperienceList.map((exp, i) => (
+                        <div key={i} className="flex justify-between">
+                            <div>
+                                <p className="font-semibold text-gray-950">
+                                    {exp.JOB}
+                                </p>
+                                <span className="text-sm text-gray-700">{exp.COMPANY}</span>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-950">{exp.FROM.slice(0, 4)} - {exp.TO.slice(0, 4)}</p>
+                            </div>
+                        </div>
+                    ))
+                }
+                {
+                    isExperience && experience.map((exp, i) => (
+                        <div key={i} className="flex justify-between">
+                            <div>
+                                <p className="font-semibold text-gray-950">
+                                    {exp.position}
+                                </p>
+                                <span className="text-sm text-gray-700">{exp.company}</span>
+                            </div>
+                            <div>
+                                <p className="font-semibold text-gray-950">{exp.initDate.slice(0, 4)} - {exp.endDate.slice(0, 4)}</p>
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
                 <h4 className="text-xl font-semibold">Education</h4>
@@ -146,41 +144,8 @@ export const CVComponent: React.FC<ResumeData> = ({
                     ))
                 }
             </div>
-            <div className="py-4 border-b border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Experiencia</h4>
-                {
-                    !isExperience && dfExperienceList.map((exp, i) => (
-                        <div key={i} className="flex justify-between">
-                            <div>
-                                <p className="font-semibold text-gray-950">
-                                    {exp.JOB}
-                                </p>
-                                <span className="text-sm text-gray-700">{exp.COMPANY}</span>
-                            </div>
-                            <div>
-                                <p className="font-semibold text-gray-950">{exp.FROM.slice(0, 4)} - {exp.TO.slice(0, 4)}</p>
-                            </div>
-                        </div>
-                    ))
-                }
-                {
-                    isExperience && experience.map((exp, i) => (
-                        <div key={i} className="flex justify-between">
-                            <div>
-                                <p className="font-semibold text-gray-950">
-                                    {exp.position}
-                                </p>
-                                <span className="text-sm text-gray-700">{exp.company}</span>
-                            </div>
-                            <div>
-                                <p className="font-semibold text-gray-950">{exp.initDate.slice(0, 4)} - {exp.endDate.slice(0, 4)}</p>
-                            </div>
-                        </div>
-                    ))
-                }
-            </div>
             <div className="py-4 border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Habilidades</h4>
+                <h4 className="text-xl font-semibold">Skills</h4>
                 <div className="flex gap-2 flex-wrap">
                     {
                         !isSkill && dfSkillList.map((skill, i) => (
