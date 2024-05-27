@@ -1,12 +1,10 @@
 'use client'
 
 import { Education, Experience, Skills } from "@prisma/client"
-import { LoaderCircle, MapPin, Printer } from "lucide-react"
+import { MapPin } from "lucide-react"
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
 import defaultData from "@/default/cv-default.json"
-import ReactToPrint from "react-to-print"
-import toast from "react-hot-toast"
 
 type ResumeData = {
     name: string
@@ -32,7 +30,6 @@ export const CVComponent: React.FC<ResumeData> = ({
     image,
 }) => {
     const [isMounted, setIsMounted] = useState(false)
-    const [isPrinting, setIsPrinting] = useState(false)
 
     const componentRef = useRef(null)
 
