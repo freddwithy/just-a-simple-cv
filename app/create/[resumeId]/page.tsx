@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import prismadb from "@/libs/prismadb"
 import { CVFormComponent } from "../components/Form"
 import { CVComponent } from "../components/CV"
+import PreviewButton from "../components/PreviewButton"
 
 export default async function ResumePage ({
     params 
@@ -73,6 +74,7 @@ export default async function ResumePage ({
                             aboutMe={resume.aboutMe}
                             image={image?.url}
                         />
+                        <PreviewButton />
                 </main>
             </div>
         </>

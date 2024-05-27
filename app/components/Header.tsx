@@ -4,7 +4,6 @@ import Profile from "./Profile"
 import PdfToPrint from "../create/components/PdfToPrint"
 import { Education, Experience, Image, Resume, Skills } from "@prisma/client"
 import dynamic from "next/dynamic"
-import ActionButton from "./ui/ActionButton"
 import { Download, LoaderCircle } from "lucide-react"
 
 interface HeaderProps {
@@ -51,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                     <button className='flex items-center gap-x-1 justify-center bg-orange-200 p-2 rounded-lg border border-orange-500 text-sm font-semibold hover:border-orange-400 transition-colors'>
                         <Download  className="size-4"/>
-                        Download PDF
+                        <p className="flex gap-x-1"><p className="hidden md:block">Download</p>PDF</p>
                     </button>
                 </PDFDownloadLink>
                 <Profile />
