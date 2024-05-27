@@ -40,7 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <LogoLink />
             </div>
             <div className="flex gap-x-2">
-                <button onClick={() => modal.openModal()} className='flex items-center gap-x-1 justify-center bg-green-200 p-2 rounded-lg border border-green-500 text-sm font-semibold hover:border-green-400 transition-colors text-green-950'>
+                <button onClick={() => modal.openModal()} className='flex items-center gap-x-1 justify-center bg-orange-200 p-2 rounded-lg border border-orange-500 text-sm font-semibold hover:border-orange-400 transition-colors text-orange-950'>
                     <Download  className="size-4"/>
                     <div className="flex gap-x-1"><p className="hidden md:block">Save</p>PDF</div>
                 </button>   
