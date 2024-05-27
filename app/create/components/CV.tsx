@@ -15,7 +15,7 @@ type ResumeData = {
     education: Education[]
     experience: Experience[]
     skill: Skills[]
-    image: string | undefined
+    image?: string
 }
 
 export const CVComponent: React.FC<ResumeData> = ({
@@ -64,8 +64,8 @@ export const CVComponent: React.FC<ResumeData> = ({
                 <div className="">
                     {
                         image && image !== '' 
-                        ? <Image src={image} width={120} height={120} alt="Photo" className="rounded-lg object-cover size-full"/> 
-                        : <Image src="/no-user.webp" width={120} height={120} alt="Photo" className="rounded-lg"/>
+                        ? <Image src={image} width={110} height={110} alt="Photo" className="rounded-lg object-cover"/> 
+                        : <Image src="/no-user.webp" width={110} height={110} alt="no-user" className="rounded-lg"/>
                     }
                 </div>
             </div>

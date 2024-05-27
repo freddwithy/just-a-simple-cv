@@ -47,9 +47,9 @@ export default async function ResumeLayout({
         }
     })
 
-    if (!resume || !education || !experience || !skill || !image) {
+    if (!resume || !education || !experience || !skill) {
         redirect('/loading')
-    }
+    }  
 
     return (
         <>

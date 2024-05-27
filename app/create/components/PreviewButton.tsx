@@ -40,7 +40,7 @@ const PreviewButton = () => {
         return () => {
         window.removeEventListener('scroll', handleScroll)
         }
-    }, [])
+    }, [isBottom])
 
     return (
         <div className="fixed right-5 bottom-5 z-10 md:hidden items-center justify-center flex">

@@ -14,7 +14,7 @@ export default async function ResumePage ({
     const session = await getServerSession(authConfig)
 
     if (!session?.user?.id) {
-        redirect('/loading')
+        redirect('/auth/login')
     }
 
     const resume = await prismadb.resume.findFirst({
