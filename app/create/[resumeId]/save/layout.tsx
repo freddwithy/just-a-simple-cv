@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation"
 
-const SaveLayout = ({
+const SaveLayout = async ({
     children,
     params
 } : {
