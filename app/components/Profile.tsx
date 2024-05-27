@@ -15,7 +15,6 @@ const Profile = () => {
 
     if(!userId) return null
 
-
     return (
         <div className='relative'>
             <button onClick={open ? closeModal : openModal} className='flex items-center gap-x-1 justify-center bg-gray-200 p-2 rounded-lg border text-sm font-medium hover:border-gray-400 transition-colors'>

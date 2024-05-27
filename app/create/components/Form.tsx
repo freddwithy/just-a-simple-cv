@@ -47,8 +47,6 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
 
     const router = useRouter()
 
-    const componentRef = useRef(null)
-
     const { register, handleSubmit, formState: { errors } } = useForm<ResumeForm>({
         resolver: zodResolver(formSchema),
         defaultValues: {

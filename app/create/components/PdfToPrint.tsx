@@ -207,7 +207,6 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
     skill,
     image
 }) => {
-    console.log(image)
     return (
         <Document>
             <Page size="LETTER" style={styles.page}>
