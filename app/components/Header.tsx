@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({
                 >
                     <button className='flex items-center gap-x-1 justify-center bg-orange-200 p-2 rounded-lg border border-orange-500 text-sm font-semibold hover:border-orange-400 transition-colors'>
                         <Download  className="size-4"/>
-                        <p className="flex gap-x-1"><p className="hidden md:block">Download</p>PDF</p>
+                        <div className="flex gap-x-1"><p className="hidden md:block">Download</p>PDF</div>
                     </button>
                 </PDFDownloadLink>
                 <Profile />

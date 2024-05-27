@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     aboutMe: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 500,
     },
     aboutMeText: {
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     experienceTitle: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 500,
     },
     experienceItem: {
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         gap: 10
     },
     educationTitle: {
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: 500,
     },
     educationItem: {
@@ -180,8 +180,7 @@ const styles = StyleSheet.create({
     },
     skillTitle: {
         fontSize: 16,
-        fontWeight: 'bold',
-        color: 'rgb(31 41 55)',
+        fontWeight: 500,
     },
     skillItem: {
         fontSize: 12,
