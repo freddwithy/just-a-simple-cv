@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({ open, onCLose, children }) => {
     if(!isMounted) return null
     return (
         <div onClick={onCLose} className={
-            `fixed inset-0 flex justify-center items-center transition-colors
+            `fixed inset-0 z-20 flex justify-center items-center transition-colors
             ${open ? "visible bg-black/20" : "invisible"}`
         }>
             <div 

@@ -3,8 +3,6 @@ import Loader from "./components/Loader"
 import { authConfig } from "@/libs/auth"
 import prismadb from "@/libs/prismadb"
 import { redirect } from "next/navigation"
-import defaultData from "@/default/cv-default.json"
-import { NextResponse } from "next/server"
 
 const LoadingPage = async () => {
     const session = await getServerSession(authConfig)
