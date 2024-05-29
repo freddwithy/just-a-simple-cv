@@ -4,6 +4,7 @@ import React from 'react'
 import PdfToPrint from './PdfToPrint'
 import dynamic from 'next/dynamic'
 import { LoaderCircle } from 'lucide-react'
+import Loading from '@/app/components/ui/Loading'
 
 interface PdfLoaderProps {
     resumeData: Resume
@@ -17,12 +18,7 @@ const PDFViewer = dynamic(
     () => import("@react-pdf/renderer").then((mod) => mod.PDFViewer),
     {
       ssr: false,
-      loading: () => <div className='flex flex-col items-center justify-center h-screen gap-2'>
-      <LoaderCircle className='animate-spin size-10'/>
-      <p className='text-xl text-center font-medium text-pretty'>
-        Please wait, we&apos;re loading your cv...
-      </p>
-  </div>,
+      loading: () => <Loading />
     },
   );
 

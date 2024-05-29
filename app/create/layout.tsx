@@ -2,8 +2,9 @@ import { authConfig } from "@/libs/auth";
 import prismadb from "@/libs/prismadb";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import { Header } from "../components/Header";
+import Loading from "../components/ui/Loading";
 
 export default async function ResumeLayout({
     children
@@ -60,7 +61,9 @@ export default async function ResumeLayout({
                 skill={skill} 
                 image={image?.url}
             />
-            {children}
+            <Suspense fallback={<Loading />}>
+                {children}
+            </Suspense>
         </>   
     )
 }

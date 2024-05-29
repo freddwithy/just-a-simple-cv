@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 import { authConfig } from '@/libs/auth'
 import prismadb from '@/libs/prismadb'
 import { LoaderCircle } from 'lucide-react'
+import Loading from '../components/ui/Loading'
 
 const CreatePage = async () => {
 
@@ -24,10 +25,7 @@ const CreatePage = async () => {
 
     return (
       <div className='flex flex-col items-center justify-center h-screen gap-2'>
-          <LoaderCircle className='animate-spin size-10'/>
-          <p className='text-xl text-center font-medium text-pretty'>
-            Please wait, we&apos;re loading your cv...
-          </p>
+          <Loading />
       </div>
     )
 }
