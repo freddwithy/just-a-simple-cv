@@ -74,9 +74,6 @@ const Loader: React.FC<LoaderProps> = ({ resumeId, name }) => {
           <Button text="Create" onSumbit={createResume} className="w-80" />
         </div>
       )}
-      {
-
-      }
     </>
   );
 };

@@ -2,8 +2,7 @@ import Unauthorized from '@/app/components/ui/Unauthorized'
 import { authConfig } from '@/libs/auth'
 import prismadb from '@/libs/prismadb'
 import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 const CreateLayout = async ({
     children,
@@ -29,7 +28,9 @@ const CreateLayout = async ({
 
     return (
         <>
-        {children}
+            <Suspense fallback={<div>Loading...</div>}>     
+                {children}
+            </Suspense>
         </>
     )
 }

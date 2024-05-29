@@ -61,11 +61,11 @@ export const CVComponent: React.FC<ResumeData> = ({
                         {city}
                     </p>
                 </div>
-                <div className="">
+                <div className="size-32 object-cover overflow-hidden rounded-lg">
                     {
                         image && image !== '' 
-                        ? <Image src={image} width={110} height={110} alt="Photo" className="rounded-lg object-cover"/> 
-                        : <Image src="/no-user.webp" width={110} height={110} alt="no-user" className="rounded-lg"/>
+                        ? <Image src={image} width={130} height={130} alt="Photo" className="rounded-lg object-cover"/>
+                        : <Image src="/no-user.webp" width={130} height={130} alt="no-user" className="rounded-lg"/>
                     }
                 </div>
             </div>
