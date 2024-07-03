@@ -12,7 +12,7 @@ export async function POST(
 
         const body = await req.json()
 
-        const { name, image, city, lastName, shortResume, aboutMe, education, experience, skill } = body
+        const { name, city, lastName, shortResume, aboutMe,  email, phone, language } = body
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
@@ -36,16 +36,15 @@ export async function POST(
 
         const resume = await prismadb.resume.create({
             data: {
+                language,
                 name,
+                shortResume,
                 lastName,
                 userId,
-                shortResume,
                 aboutMe,
-                education,
-                experience,
-                skill,
                 city,
-                image
+                email,
+                phone,
             }
         })
 
@@ -66,7 +65,7 @@ export async function PATCH (
         const userId = session?.user?.id
         const body = await req.json()
 
-        const { name, lastName, shortResume, aboutMe, city } = body
+        const { name, lastName, shortResume, aboutMe, city, email, phone } = body
         
         const resume = await prismadb.resume.updateMany({
             where: {
@@ -77,7 +76,9 @@ export async function PATCH (
                 lastName,
                 shortResume,
                 city,
-                aboutMe
+                aboutMe,
+                email,
+                phone
             }
         })
         

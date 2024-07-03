@@ -12,7 +12,6 @@ import defaultData from "@/default/cv-default.json"
 interface LoaderProps {
     resumeId: string | undefined | null
     name: string | undefined | null
-    isData: boolean
 }
 
 
@@ -32,6 +31,9 @@ const Loader: React.FC<LoaderProps> = ({ resumeId, name }) => {
         city: defaultData.MAIN.CITY,
         shortResume: defaultData.MAIN.SHORT_RESUME,
         aboutMe: defaultData.MAIN.ABOUT_ME,
+        email: defaultData.MAIN.EMAIL,
+        phone: defaultData.MAIN.PHONE,
+        language: defaultData.LANGUAGE,
       }),
       headers: { "Content-Type": "application/json" },
     });

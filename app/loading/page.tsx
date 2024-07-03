@@ -15,26 +15,6 @@ const LoadingPage = async () => {
         }
     })
 
-    const education = await prismadb.education.findMany({
-        where: {
-            resumeId: resume?.id
-        }
-    })
-
-    const experience = await prismadb.experience.findMany({
-        where: {
-            resumeId: resume?.id
-        }
-    })
-
-    const skills = await prismadb.skills.findMany({
-        where: {
-            resumeId: resume?.id
-        }
-    })
-
-    const isData = education.length > 0 || experience.length > 0 || skills.length > 0
-
     const resumeId = resume?.id
 
     if(!userId) {
@@ -50,7 +30,6 @@ const LoadingPage = async () => {
             <Loader 
                 name={name} 
                 resumeId={resumeId}
-                isData={isData}
             />
         </main>
     )

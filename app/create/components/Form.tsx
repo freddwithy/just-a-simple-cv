@@ -6,9 +6,9 @@ import TextAreaField from "./ui/TextAreaField"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
-import { Education, Experience, Image, Resume, Skills } from "@prisma/client"
+import { Education, Experience, Image, Language, Resume, Skills } from "@prisma/client"
 import EducationForm from "./(form)/Education"
 import ExperienceForm from "./(form)/Experience"
 import { LoaderCircle, Printer } from "lucide-react"
@@ -16,11 +16,14 @@ import { useRouter } from "next/navigation"
 import SkillForm from "./(form)/Skill"
 import { ResumeForm } from "@/types/resume"
 import ImageForm from "./(form)/Image"
+import LanguageItem from "./(form)/Language"
 
 const formSchema = z.object({
     name: z.string().min(2, { message: "Name is required" }).max(150, { message: "Name must be less than 150 characters" }),
     lastName: z.string().min(2, { message: "Last name is required" }).max(150, { message: "Last name must be less than 150 characters" }),
     city: z.string().min(3, { message: "City is required" }).max(150, { message: "City must be less than 150 characters" }),
+    email: z.string().email({ message: "Email is required" }).max(150, { message: "Email must be less than 150 characters" }),
+    phone: z.string().min(10, { message: "Phone number is required" }).max(20, { message: "Phone number must be less than 20 characters" }),
     shortResume: z.string().min(3, { message: "Short resume is required" }).max(500, { message: "Short resume must be less than 500 characters" }),
     aboutMe: z.string().min(10, { message: "About me is required" }).max(500, { message: "About me must be less than 500 characters" }),
 })
@@ -31,6 +34,7 @@ interface ResumeProps {
     educationData: Education[]
     experienceData: Experience[]
     skillData: Skills[]
+    languageData: Language[]
     imageData: Image | null
 }
 
@@ -40,7 +44,8 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
     educationData,
     experienceData,
     skillData,
-    imageData
+    imageData,
+    languageData
 }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [isMounted, setIsMounted] = useState(false)
@@ -54,7 +59,9 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
             lastName: initialData?.lastName,
             city: initialData?.city,
             shortResume: initialData?.shortResume,
-            aboutMe: initialData?.aboutMe
+            aboutMe: initialData?.aboutMe,
+            email: initialData?.email,
+            phone: initialData?.phone
         },
     })
 
@@ -75,7 +82,9 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                         lastName: data.lastName,
                         city: data.city,
                         shortResume: data.shortResume,
-                        aboutMe: data.aboutMe
+                        aboutMe: data.aboutMe,
+                        email: data.email,
+                        phone: data.phone
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -99,7 +108,9 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                         lastName: data.lastName,
                         city: data.city,
                         shortResume: data.shortResume,
-                        aboutMe: data.aboutMe
+                        aboutMe: data.aboutMe,
+                        email: data.email,
+                        phone: data.phone
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -161,6 +172,22 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             label="City"
                         />
                         {errors.city && <p className="text-red-500">{errors.city.message}</p>}
+                        <InputField 
+                            formHook={{...register("email")}}
+                            typeInput="email"
+                            nameInput="email"
+                            placeholder="veronica@me.com"
+                            label="Email"
+                        />
+                        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                        <InputField 
+                            formHook={{...register("phone")}}
+                            typeInput="text"
+                            nameInput="phone"
+                            placeholder="+34 123 456 789"
+                            label="Phone"
+                        />
+                        {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
                     </div>
                     <div className="space-y-2">
                         <h3 className="text-lg font-medium text-gray-950">About me</h3>
@@ -211,6 +238,14 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                     
                         <SkillForm 
                             skillData={skillData}
+                            resumeId={initialData.id}
+                        />
+                </div>
+                <div className="space-y-2">
+                    <h3 className="text-lg font-medium text-gray-950">Languages</h3>
+                    
+                        <LanguageItem
+                            languageData={languageData}
                             resumeId={initialData.id}
                         />
                 </div>

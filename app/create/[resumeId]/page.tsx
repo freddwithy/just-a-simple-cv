@@ -24,6 +24,13 @@ export default async function ResumePage ({
         where: {
             id: params.resumeId,
             userId: userId
+        },
+        include: {
+            education: true,
+            experience: true,
+            skill: true,
+            image: true,
+            languageSkill: true, 
         }
     })
 
@@ -31,6 +38,7 @@ export default async function ResumePage ({
         redirect('/loading')
     }
 
+    // Find all education, experience, skills and image associated with the resume
     const education = await prismadb.education.findMany({
         where: {
             resumeId: params.resumeId
@@ -55,6 +63,12 @@ export default async function ResumePage ({
         }
     })
 
+    const languageSkill = await prismadb.language.findMany({
+        where: {
+            resumeId: params.resumeId
+        }
+    })
+
     return (
         <>
             <div className="flex flex-col md:flex-row">
@@ -64,6 +78,7 @@ export default async function ResumePage ({
                         experienceData={experience}
                         skillData={skills}
                         imageData={image}
+                        languageData={languageSkill}
                     />
                     <main className="border-l py-10 border-gray-200 flex items-center bg-gray-200 flex-col gap-y-8 flex-grow h-screen md:overflow-y-scroll">
                             <CVComponent
@@ -76,6 +91,9 @@ export default async function ResumePage ({
                                 shortResume={resume.shortResume}
                                 aboutMe={resume.aboutMe}
                                 image={image?.url}
+                                email={resume.email}
+                                phone={resume.phone}
+                                languageSkill={languageSkill}
                             />        
                         <PreviewButton />
                     </main>        

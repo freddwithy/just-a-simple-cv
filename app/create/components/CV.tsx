@@ -1,7 +1,7 @@
 'use client'
 
-import { Education, Experience, Skills } from "@prisma/client"
-import { MapPin } from "lucide-react"
+import { Education, Experience, Language, Skills } from "@prisma/client"
+import { MailIcon, MapPin, Phone, PhoneIcon } from "lucide-react"
 import Image from "next/image"
 import React, { useEffect, useRef, useState } from "react"
 import defaultData from "@/default/cv-default.json"
@@ -10,11 +10,14 @@ type ResumeData = {
     name: string
     lastName: string;
     city: string;
+    email: string;
+    phone: string;
     shortResume: string;
     aboutMe: string;
     education: Education[]
     experience: Experience[]
     skill: Skills[]
+    languageSkill: Language[]	
     image?: string
 }
 
@@ -28,6 +31,9 @@ export const CVComponent: React.FC<ResumeData> = ({
     experience,
     skill,
     image,
+    email,
+    phone,
+    languageSkill
 }) => {
     const [isMounted, setIsMounted] = useState(false)
 
@@ -42,12 +48,15 @@ export const CVComponent: React.FC<ResumeData> = ({
     const isExperience = experience.length > 0
     const isEducation = education.length > 0
     const isSkill = skill.length > 0
+    const isLanguage = languageSkill.length > 0
 
     const dfExperienceList = Array.isArray(defaultData.EXPERIENCE) ? defaultData.EXPERIENCE : [defaultData.EXPERIENCE]
 
     const dfEducationList = Array.isArray(defaultData.EDUCATION) ? defaultData.EDUCATION : [defaultData.EDUCATION]
 
     const dfSkillList = Array.isArray(defaultData.SKILLS) ? defaultData.SKILLS : [defaultData.SKILLS]
+
+    const dfLanguageList = Array.isArray(defaultData.LANGUAGES) ? defaultData.LANGUAGES : [defaultData.LANGUAGES]
 
     return (
         <>
@@ -56,10 +65,18 @@ export const CVComponent: React.FC<ResumeData> = ({
                 <div className="flex gap-y-2 flex-col max-w-md w-full">
                         <h3 className="text-3xl font-semibold">{name} {lastName}</h3>
                     <p className="text-balance break-words text-gray-700">{shortResume}</p>
-                    <p className="text-sm font-semibold text-gray-800 flex gap-x-1 items-center">
+                    <span className="text-sm font-semibold text-gray-800 flex gap-x-2 items-center">
+                        <PhoneIcon size={20}/>
+                        {phone}
+                    </span>
+                    <span className="text-sm font-semibold text-gray-800 flex gap-x-2 items-center">
+                        <MailIcon size={20}/>
+                        {email}
+                    </span>
+                    <span className="text-sm font-semibold text-gray-800 flex gap-x-2 items-center">
                         <MapPin size={20}/>
                         {city}
-                    </p>
+                    </span>
                 </div>
                 <div className="size-32 object-cover overflow-hidden rounded-lg">
                     {
@@ -154,6 +171,27 @@ export const CVComponent: React.FC<ResumeData> = ({
                             <p key={i} className="text-gray-900 font-medium border border-gray-700 px-3 py-1 rounded-lg">{skill.name}</p>
                         ))
                     }               
+                </div>
+            </div>
+            <div className="py-4 border-gray-200 space-y-4">
+                <h4 className="text-xl font-semibold">Languages</h4>
+                <div className="flex flex-col gap-y-2">
+                    {
+                        !isLanguage && dfLanguageList.map((language, i) => (
+                            <div key={i}>
+                                <p className="text-gray-950 font-semibold">{language.LANGUAGE}</p>
+                                <span className="text-sm text-gray-700">{language.LEVEL}</span>
+                            </div>            
+                        ))
+                    }
+                    {
+                        isLanguage && languageSkill.map((language, i) => (
+                            <div key={i}>
+                                <p className="text-gray-950 font-semibold">{language.name}</p>
+                                <span className="text-sm text-gray-700">{language.level}</span>
+                            </div>            
+                        ))
+                    }             
                 </div>
             </div>
             </section>

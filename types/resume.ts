@@ -15,10 +15,17 @@ export type ExperienceForm = {
 export type SkillFormInputs = {
     name: string
 }
+
+export type LanguageForm = {
+    name: string
+    level: string
+}
 export type ResumeForm = {
     name: string
     lastName: string
     city: string
     shortResume: string
     aboutMe: string
+    email: string
+    phone: string
 }
