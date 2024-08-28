@@ -35,7 +35,7 @@ export const defaultTemplate = StyleSheet.create({
     },
     city: {
         fontSize: 12,
-        fontWeight: 500,
+        fontWeight: 300,
         color: 'rgb(31 41 55)'
     },
     icon: {

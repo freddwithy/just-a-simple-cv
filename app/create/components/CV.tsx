@@ -87,13 +87,13 @@ export const CVComponent: React.FC<ResumeData> = ({
                 </div>
             </div>
             <div className="py-4 border-b border-gray-200">
-                <h4 className="text-xl font-semibold pb-4">About me</h4>
+                <h4 className="text-xl font-semibold pb-4">Acerca de mí</h4>
                 <p className="text-gray-700 max-w-max text-pretty break-words">
                     {aboutMe}
                 </p>
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Experience</h4>
+                <h4 className="text-xl font-semibold">Experiencia</h4>
                 {
                     !isExperience && dfExperienceList.map((exp, i) => (
                         <div key={i} className="flex justify-between">
@@ -126,7 +126,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                 }
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Education</h4>
+                <h4 className="text-xl font-semibold">Educación</h4>
                 {
                     !isEducation && dfEducationList.map((edu, i) => (
                         <div key={i} className="flex justify-between">
@@ -159,7 +159,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                 }
             </div>
             <div className="py-4 border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Skills</h4>
+                <h4 className="text-xl font-semibold">Habilidades</h4>
                 <div className="flex gap-2 flex-wrap">
                     {
                         !isSkill && dfSkillList.map((skill, i) => (
@@ -174,7 +174,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                 </div>
             </div>
             <div className="py-4 border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Languages</h4>
+                <h4 className="text-xl font-semibold">Idiomas</h4>
                 <div className="flex flex-col gap-y-2">
                     {
                         !isLanguage && dfLanguageList.map((language, i) => (

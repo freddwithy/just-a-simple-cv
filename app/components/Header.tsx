@@ -2,7 +2,7 @@
 import LogoLink from "./ui/LogoLink"
 import Profile from "./Profile"
 import PdfToPrint from "../create/components/PdfToPrint"
-import { Education, Experience, Image, Resume, Skills } from "@prisma/client"
+import { Education, Experience, Image, Language, Resume, Skills } from "@prisma/client"
 import dynamic from "next/dynamic"
 import { Download, LoaderCircle } from "lucide-react"
 import useModal from "@/hooks/useModal"
@@ -14,6 +14,7 @@ interface HeaderProps {
     education: Education[]
     skill: Skills[]
     image?: string
+    languages?: Language[]
 }
 
 const PDFDownloadLink = dynamic(
@@ -31,7 +32,8 @@ export const Header: React.FC<HeaderProps> = ({
     experience,
     education,
     skill,
-    image
+    image,
+    languages
  }) => {
     const modal = useModal()
     return (
@@ -57,6 +59,7 @@ export const Header: React.FC<HeaderProps> = ({
                                 education={education}
                                 skill={skill}
                                 image={image}
+                                languages={languages}
                             />
                         }
                             fileName={`${resume.name} ${resume.lastName} CV - ${new Date().toLocaleDateString()}.pdf`}

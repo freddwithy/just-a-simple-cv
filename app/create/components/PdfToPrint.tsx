@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client'
-import { Education, Experience, Resume, Skills } from '@prisma/client'
-import { Document, Font, Image, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
+import { Education, Experience, Language, Resume, Skills } from '@prisma/client'
+import { Document, Font, Image, Page, Text, View } from '@react-pdf/renderer'
 import { defaultTemplate } from './Templates'
 
 Font.register({ 
@@ -40,6 +40,7 @@ interface PdfToPrintProps {
     education: Education[]
     skill: Skills[]
     image?: string
+    languages?: Language[]
 }
 
 const styles = defaultTemplate
@@ -49,7 +50,8 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
     experience,
     education,
     skill,
-    image
+    image,
+    languages
 }) => {
     return (
         <Document>
@@ -58,17 +60,29 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                     <View  style={styles.mainInfo}>
                         <Text style={styles.mainName}>{resumeData.name} {resumeData.lastName}</Text>
                         <Text style={styles.shortResume}>{resumeData.shortResume}</Text>
-                        <View style={styles.cityContainer}>
-                            <Image src='/map-pin.png' style={styles.icon}  />
-                            <Text style={styles.city}>{resumeData.city}</Text>
-                        </View>
+                        <View style={{ gap: 4 }}>
+                            <View style={styles.cityContainer}>
+                                <Image src='/map-pin.png' style={styles.icon}  />
+                                <Text style={styles.city}>{resumeData.city}</Text>
+                            </View>
+                            <View style={styles.cityContainer}>
+                                <Image src='/mail.png' style={styles.icon}  />
+                                <Text style={styles.city}>{resumeData.email}</Text>
+                            </View>
+                            <View style={styles.cityContainer}>
+                                <Image src='/phone.png' style={styles.icon}  />
+                                <Text style={styles.city}>{resumeData.phone}</Text>
+                            </View>
+                            </View>                      
                     </View>
-                    <Image src={image} style={styles.image} />
+                    {image && (
+                        <Image src={image} style={styles.image} />
+                    )}         
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.aboutMeContainer}>
                     <Text style={styles.aboutMe}>
-                        About Me
+                        Acerca de mí
                     </Text>
                     <Text style={styles.aboutMeText}>
                         {resumeData.aboutMe}
@@ -76,7 +90,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.experienceContainer}>
-                    <Text style={styles.experienceTitle}>Experience</Text>
+                    <Text style={styles.experienceTitle}>Experiencia</Text>
                     {experience.map((exp) => (
                         <View key={exp.id} style={styles.experienceItem}>
                             <View style={styles.experienceCompany}>
@@ -106,7 +120,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.skillContainer}>
-                    <Text style={styles.skillTitle}>Skills</Text>
+                    <Text style={styles.skillTitle}>Habilidades</Text>
                     <View style={styles.skillBox}>
                         {skill.map((skill) => (
                             <View key={skill.id} style={styles.skillItem}>
@@ -114,6 +128,17 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                             </View>
                         ))}
                     </View>
+                </View>
+                <View style={styles.educationContainer}>
+                    <Text style={styles.educationTitle}>Idiomas</Text>
+                    {languages?.map((lang) => (
+                        <View key={lang.id} style={styles.educationItem}>
+                            <View style={styles.educationCompany}>
+                                <Text>{lang.name}</Text>
+                                <Text style={styles.educationPosition}>{lang.level}</Text>
+                            </View>
+                        </View>
+                    ))}
                 </View>
             </Page>
         </Document>

@@ -36,6 +36,20 @@ const SavePDF = async ({
         }
     })
 
+    const languages = await prismadb.language.findMany({
+        where: {
+            resumeId: params.resumeId
+        }
+    })
+
+    if(!experience || !education || !skill || !languages) {
+        return (
+            <div>
+                <p>Any data not found</p>
+            </div>
+        )
+    }
+
     if(!resumeData) {
         return (
             <div>
@@ -51,6 +65,7 @@ const SavePDF = async ({
             education={education}
             skill={skill}
             image={image?.url}
+            languages={languages}
         />
     )
 }

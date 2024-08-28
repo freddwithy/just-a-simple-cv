@@ -1,9 +1,8 @@
 'use client'
-import { Education, Experience, Resume, Skills } from '@prisma/client'
+import { Education, Experience, Language, Resume, Skills } from '@prisma/client'
 import React from 'react'
 import PdfToPrint from './PdfToPrint'
 import dynamic from 'next/dynamic'
-import { LoaderCircle } from 'lucide-react'
 import Loading from '@/app/components/ui/Loading'
 
 interface PdfLoaderProps {
@@ -12,6 +11,7 @@ interface PdfLoaderProps {
     education: Education[]
     skill: Skills[]
     image?: string
+    languages?: Language[]
 }
 
 const PDFViewer = dynamic(
@@ -27,7 +27,8 @@ const PdfLoader: React.FC<PdfLoaderProps> = ({
     experience,
     education,
     skill,
-    image
+    image,
+    languages
 }) => {
   return (
     <PDFViewer style={{ height: '100vh', width: '100vw' }}>
@@ -37,6 +38,7 @@ const PdfLoader: React.FC<PdfLoaderProps> = ({
             education={education}
             skill={skill}
             image={image}
+            languages={languages}
         />
     </PDFViewer>
   )

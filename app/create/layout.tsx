@@ -48,7 +48,13 @@ export default async function ResumeLayout({
         }
     })
 
-    if (!resume || !education || !experience || !skill) {
+    const languages = await prismadb.language.findMany({
+        where: {
+            resumeId: resume?.id
+        }
+    })
+
+    if (!resume || !education || !experience || !skill || !languages) {
         redirect('/loading')
     }  
 
@@ -60,6 +66,7 @@ export default async function ResumeLayout({
                 education={education} 
                 skill={skill} 
                 image={image?.url}
+                languages={languages}
             />
             <Suspense fallback={<Loading />}>
                 {children}
