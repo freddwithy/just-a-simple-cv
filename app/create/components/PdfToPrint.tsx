@@ -129,16 +129,17 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                         ))}
                     </View>
                 </View>
+                <View style={styles.separator} />
                 <View style={styles.educationContainer}>
                     <Text style={styles.educationTitle}>Idiomas</Text>
-                    {languages?.map((lang) => (
-                        <View key={lang.id} style={styles.educationItem}>
-                            <View style={styles.educationCompany}>
+                    <View  style={{ gap: 30, flexDirection: 'row', flexWrap: 'wrap', display: 'flex'}}>
+                        {languages?.map((lang) => (
+                            <View key={lang.id} style={styles.educationCompany}>
                                 <Text>{lang.name}</Text>
                                 <Text style={styles.educationPosition}>{lang.level}</Text>
                             </View>
-                        </View>
-                    ))}
+                        ))}
+                    </View>                 
                 </View>
             </Page>
         </Document>

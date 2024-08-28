@@ -175,7 +175,7 @@ export const CVComponent: React.FC<ResumeData> = ({
             </div>
             <div className="py-4 border-gray-200 space-y-4">
                 <h4 className="text-xl font-semibold">Idiomas</h4>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex gap-x-10">
                     {
                         !isLanguage && dfLanguageList.map((language, i) => (
                             <div key={i}>
