@@ -105,7 +105,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.educationContainer}>
-                    <Text style={styles.educationTitle}>Education</Text>
+                    <Text style={styles.educationTitle}>Educación</Text>
                     {education.map((edu) => (
                         <View key={edu.id} style={styles.educationItem}>
                             <View style={styles.educationCompany}>
