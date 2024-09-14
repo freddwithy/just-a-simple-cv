@@ -28,4 +28,5 @@ export type ResumeForm = {
     aboutMe: string
     email: string
     phone: string
+    language: string
 }

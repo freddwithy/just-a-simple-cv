@@ -65,7 +65,7 @@ export async function PATCH (
         const userId = session?.user?.id
         const body = await req.json()
 
-        const { name, lastName, shortResume, aboutMe, city, email, phone } = body
+        const { name, lastName, shortResume, aboutMe, city, email, phone, language } = body
         
         const resume = await prismadb.resume.updateMany({
             where: {
@@ -78,7 +78,8 @@ export async function PATCH (
                 city,
                 aboutMe,
                 email,
-                phone
+                phone,
+                language
             }
         })
         

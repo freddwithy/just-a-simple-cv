@@ -14,6 +14,7 @@ type ResumeData = {
     phone: string;
     shortResume: string;
     aboutMe: string;
+    language: string
     education: Education[]
     experience: Experience[]
     skill: Skills[]
@@ -27,6 +28,7 @@ export const CVComponent: React.FC<ResumeData> = ({
     city,
     shortResume,
     aboutMe,
+    language,
     education,
     experience,
     skill,
@@ -58,6 +60,22 @@ export const CVComponent: React.FC<ResumeData> = ({
 
     const dfLanguageList = Array.isArray(defaultData.LANGUAGES) ? defaultData.LANGUAGES : [defaultData.LANGUAGES]
 
+    const titlesEn = {
+        aboutme: 'About me',
+        education: 'Education',
+        experience: 'Experience',
+        skills: 'Skills',
+        language: 'Language'
+    }
+
+    const titlesEs = {
+        aboutme: 'Acerca de mi',
+        education: 'Educación',
+        experience: 'Experiencia',
+        skills: 'Habilidades',
+        language: 'Idiomas'
+    }
+
     return (
         <>
             <section className="p-10 rounded-lg w-full bg-white flex-col max-w-screen-sm md:max-w-3xl" ref={componentRef}>
@@ -87,13 +105,13 @@ export const CVComponent: React.FC<ResumeData> = ({
                 </div>
             </div>
             <div className="py-4 border-b border-gray-200">
-                <h4 className="text-xl font-semibold pb-4">Acerca de mí</h4>
+                <h4 className="text-xl font-semibold pb-4">{language === 'es' ? titlesEs.aboutme : titlesEn.aboutme}</h4>
                 <p className="text-gray-700 max-w-max text-pretty break-words">
                     {aboutMe}
                 </p>
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Experiencia</h4>
+                <h4 className="text-xl font-semibold">{language === 'es' ? 'Experiencia' : 'Experience'}</h4>
                 {
                     !isExperience && dfExperienceList.map((exp, i) => (
                         <div key={i} className="flex justify-between">
@@ -126,7 +144,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                 }
             </div>
             <div className="py-4 border-b border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Educación</h4>
+                <h4 className="text-xl font-semibold">{language === 'es' ? 'Educación' : 'Education'}</h4>
                 {
                     !isEducation && dfEducationList.map((edu, i) => (
                         <div key={i} className="flex justify-between">
@@ -159,7 +177,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                 }
             </div>
             <div className="py-4 border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Habilidades</h4>
+                <h4 className="text-xl font-semibold">{language === 'es' ? 'Habilidades' : 'Skills'}</h4>
                 <div className="flex gap-2 flex-wrap">
                     {
                         !isSkill && dfSkillList.map((skill, i) => (
@@ -174,7 +192,7 @@ export const CVComponent: React.FC<ResumeData> = ({
                 </div>
             </div>
             <div className="py-4 border-gray-200 space-y-4">
-                <h4 className="text-xl font-semibold">Idiomas</h4>
+                <h4 className="text-xl font-semibold">{language === 'es' ? 'Idiomas' : 'Languages'}</h4>
                 <div className="flex gap-x-10">
                     {
                         !isLanguage && dfLanguageList.map((language, i) => (

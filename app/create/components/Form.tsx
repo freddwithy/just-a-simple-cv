@@ -11,7 +11,7 @@ import toast from "react-hot-toast"
 import { Education, Experience, Image, Language, Resume, Skills } from "@prisma/client"
 import EducationForm from "./(form)/Education"
 import ExperienceForm from "./(form)/Experience"
-import { LoaderCircle, Printer } from "lucide-react"
+import { LoaderCircle } from "lucide-react"
 import { useRouter } from "next/navigation"
 import SkillForm from "./(form)/Skill"
 import { ResumeForm } from "@/types/resume"
@@ -26,6 +26,7 @@ const formSchema = z.object({
     phone: z.string().min(10, { message: "Phone number is required" }).max(20, { message: "Phone number must be less than 20 characters" }),
     shortResume: z.string().min(3, { message: "Short resume is required" }).max(500, { message: "Short resume must be less than 500 characters" }),
     aboutMe: z.string().min(10, { message: "About me is required" }).max(500, { message: "About me must be less than 500 characters" }),
+    language: z.string().min(1, { message: "Language is required" }).max(3, { message: "Language must be less than 3 characters" }),
 })
 
 
@@ -61,7 +62,8 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
             shortResume: initialData?.shortResume,
             aboutMe: initialData?.aboutMe,
             email: initialData?.email,
-            phone: initialData?.phone
+            phone: initialData?.phone,
+            language: initialData?.language
         },
     })
 
@@ -84,7 +86,8 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                         shortResume: data.shortResume,
                         aboutMe: data.aboutMe,
                         email: data.email,
-                        phone: data.phone
+                        phone: data.phone,
+                        language: data.language
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -110,7 +113,8 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                         shortResume: data.shortResume,
                         aboutMe: data.aboutMe,
                         email: data.email,
-                        phone: data.phone
+                        phone: data.phone,
+                        language: data.language
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -199,7 +203,15 @@ export const CVFormComponent: React.FC<ResumeProps> = ({
                             maxLength={500}
                         />
                         {errors.aboutMe && <p className="text-red-500">{errors.aboutMe.message}</p>}
-                    </div>            
+                    </div>  
+                    <div className="space-y-2">
+                        <h3 className="text-lg font-medium text-gray-950">Language</h3>
+                        <select {...register("language")} name="language" className="w-full p-2 rounded-lg border border-gray-300 text-sm text-gray-500">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>       
+                        </select>               
+                        {errors.language && <p className="text-red-500">{errors.language.message}</p>}
+                    </div>           
                     <Button className={`flex items-center justify-center px-4 h-10 w-full  ${isLoading && "opacity-80 cursor-wait"}`}>
                         {
                             isLoading && <LoaderCircle 

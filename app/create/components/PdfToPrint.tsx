@@ -53,6 +53,23 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
     image,
     languages
 }) => {
+
+    const titlesEn = {
+        aboutme: 'About me',
+        education: 'Education',
+        experience: 'Experience',
+        skills: 'Skills',
+        language: 'Language'
+    }
+
+    const titlesEs = {
+        aboutme: 'Acerca de mi',
+        education: 'Educación',
+        experience: 'Experiencia',
+        skills: 'Habilidades',
+        language: 'Idiomas'
+    }
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
@@ -82,7 +99,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 <View style={styles.separator} />
                 <View style={styles.aboutMeContainer}>
                     <Text style={styles.aboutMe}>
-                        Acerca de mí
+                        {resumeData.language === 'en' ? titlesEn.aboutme : titlesEs.aboutme}
                     </Text>
                     <Text style={styles.aboutMeText}>
                         {resumeData.aboutMe}
@@ -90,7 +107,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.experienceContainer}>
-                    <Text style={styles.experienceTitle}>Experiencia</Text>
+                    <Text style={styles.experienceTitle}>{resumeData.language === 'en' ? titlesEn.experience : titlesEs.experience}</Text>
                     {experience.map((exp) => (
                         <View key={exp.id} style={styles.experienceItem}>
                             <View style={styles.experienceCompany}>
@@ -105,7 +122,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.educationContainer}>
-                    <Text style={styles.educationTitle}>Educación</Text>
+                    <Text style={styles.educationTitle}>{resumeData.language === 'en' ? titlesEn.education : titlesEs.education}</Text>
                     {education.map((edu) => (
                         <View key={edu.id} style={styles.educationItem}>
                             <View style={styles.educationCompany}>
@@ -120,7 +137,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.skillContainer}>
-                    <Text style={styles.skillTitle}>Habilidades</Text>
+                    <Text style={styles.skillTitle}>{resumeData.language === 'en' ? titlesEn.skills : titlesEs.skills}</Text>
                     <View style={styles.skillBox}>
                         {skill.map((skill) => (
                             <View key={skill.id} style={styles.skillItem}>
@@ -131,7 +148,7 @@ const PdfToPrint: React.FC<PdfToPrintProps> = ({
                 </View>
                 <View style={styles.separator} />
                 <View style={styles.educationContainer}>
-                    <Text style={styles.educationTitle}>Idiomas</Text>
+                    <Text style={styles.educationTitle}>{resumeData.language === 'en' ? titlesEn.language : titlesEs.language}</Text>
                     <View  style={{ gap: 30, flexDirection: 'row', flexWrap: 'wrap', display: 'flex'}}>
                         {languages?.map((lang) => (
                             <View key={lang.id} style={styles.educationCompany}>

@@ -82,6 +82,7 @@ export default async function ResumePage ({
                     />
                     <main className="border-l py-10 border-gray-200 flex items-center bg-gray-200 flex-col gap-y-8 flex-grow h-screen md:overflow-y-scroll">
                             <CVComponent
+                                language={resume.language}
                                 skill={skills}
                                 experience={experience}
                                 education={education}
