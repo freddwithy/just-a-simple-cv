@@ -52,11 +52,12 @@ const LangForm : React.FC<LanguageFormProps> = ({
                 })
 
                 if(res.ok) {
-                    setIsLoading(false)
-                    toast.success('Language updated successfully')
+                    setIsLoading(false)                 
                     router.refresh()
+                    toast.success('Language updated successfully')
                     close()
                 } else {
+                    setIsLoading(false)
                     toast.error('Something went wrong')
                 }
             } else {

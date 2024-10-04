@@ -28,11 +28,11 @@ export async function GET(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { languageSkillId: string, resumeId: string } }
+    { params }: { params: { languageId: string, resumeId: string } }
   ) {
     try {
   
-      if (!params.languageSkillId) {
+      if (!params.languageId) {
         return new NextResponse("Language id is required", { status: 400 });
       }
   
@@ -48,7 +48,7 @@ export async function DELETE(
   
       const languageSkill = await prismadb.language.delete({
         where: {
-          id: params.languageSkillId,
+          id: params.languageId,
         },
       });
     
@@ -61,7 +61,7 @@ export async function DELETE(
 
   export async function PATCH(
     req: Request,
-    { params }: { params: { languageSkillId: string, resumeId: string } }
+    { params }: { params: { languageId: string, resumeId: string } }
   ) {
     try {
 
@@ -69,8 +69,8 @@ export async function DELETE(
   
       const { name, level } = body;
   
-      if (!params.languageSkillId) {
-        return new NextResponse("Language id is required", { status: 400 });
+      if (!params.languageId) {
+        return new NextResponse("Language id is required", { status: 400 })
       }
 
       if (!name) {
@@ -93,10 +93,11 @@ export async function DELETE(
   
       const languageSkill = await prismadb.language.update({
         where: {
-            id: params.languageSkillId
+            id: params.languageId
           },
           data: {
-            name
+            name,
+            level
           },
       })
     
